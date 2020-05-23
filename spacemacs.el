@@ -570,19 +570,30 @@ before packages are loaded."
   ;; TODO: What?
   (add-hook 'text-mode-hook 'auto-fill-mode)
 
+  ;; Lisp
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+
   ;; Clojure
   ;; In clojure-mode, treat hyphenated words as a single word.
   (add-hook 'clojure-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
 
   ;; enable safe structural editing in evil (clojure layer - evil-cleverparens)
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
+
   ;; Pretty print in Clojure to use the Fast Idiomatic Pretty-Printer. This is approximately 5-10x faster than clojure.core/pprint
   (setq cider-pprint-fn 'fipp)
 
   ;; Auto-indent code automatically
   ;; https://emacsredux.com/blog/2016/02/07/auto-indent-your-code-with-aggressive-indent-mode/
   (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+
+  ;; Indentation of function forms
+  ;; https://github.com/clojure-emacs/clojure-mode#indentation-of-function-forms
+  (setq clojure-indent-style 'align-arguments)
+
+  ;; Vertically align s-expressions
+  ;; https://github.com/clojure-emacs/clojure-mode#vertical-alignment
+  (setq clojure-align-forms-automatically t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
