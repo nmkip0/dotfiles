@@ -573,7 +573,7 @@ before packages are loaded."
     "\\" 'evil-repeat-find-char-reverse)
 
   ;; Disable evil-cleverparens movements
-  ;; https://github.com/luxbock/evil-cleverparens
+  ;; https://github.com/luxbock/evil-cleverparens#Movement
   (setq evil-cleverparens-use-additional-movement-keys nil)
 
   ;; Delete backward word even when company is active
