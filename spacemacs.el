@@ -570,7 +570,9 @@ before packages are loaded."
 
   ;; Normal state
   (define-key evil-normal-state-map
-    "\\" 'evil-repeat-find-char-reverse)
+    "\\" 'evil-repeat-find-char-reverse
+    "H" 'evil-window-top
+    "L" 'evil-window-bottom)
 
   ;; Delete backward word even when company is active
   (with-eval-after-load 'company
