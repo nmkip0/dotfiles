@@ -587,9 +587,6 @@ before packages are loaded."
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 
   ;; Clojure
-  ;; In clojure-mode, treat hyphenated words as a single word.
-  (add-hook 'clojure-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
-
   ;; enable safe structural editing in evil (clojure layer - evil-cleverparens)
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
 
