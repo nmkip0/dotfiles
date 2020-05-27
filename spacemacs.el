@@ -586,10 +586,6 @@ before packages are loaded."
   ;; Lisp
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 
-  ;; Clojure
-  ;; enable safe structural editing in evil (clojure layer - evil-cleverparens)
-  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hook-clojure-mode)
-
   ;; Pretty print in Clojure to use the Fast Idiomatic Pretty-Printer. This is approximately 5-10x faster than clojure.core/pprint
   (setq cider-pprint-fn 'fipp)
 
@@ -604,15 +600,6 @@ before packages are loaded."
   ;; Vertically align s-expressions
   ;; https://github.com/clojure-emacs/clojure-mode#vertical-alignment
   (setq clojure-align-forms-automatically t)
-
-  ;; Linting with clj-kondo
-  ;; https://github.com/borkdude/clj-kondo/blob/master/doc/editor-integration.md#spacemacs
-  ;;
-  ;; Using clj-kondo by itself
-  (use-package clojure-mode
-    :ensure t
-    :config
-    (require 'flycheck-clj-kondo))
 
   ;; toggle reader macro sexp comment
   ;; toggles the #_ characters at the start of an expression
