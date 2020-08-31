@@ -561,6 +561,16 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; org
+
+  ;; Custom todo-keywords
+  (setq org-todo-keywords '((sequence "TODO(t!)" "NEXT(n!)" "DOING(d!)" "BLOCKED(b!)" "WAITING(w!)" "|" "CANCELLED(c!)" "DONE(D!)")))
+
+  ;; Change todo-keyword-faces
+  ;;(setq org-todo-keyword-faces '(("TODO" . org-warning) ("CANCELLED" . (:foreground "white" :background "#4d4d4d" :weight bold)) ("NEXT" . "red")))
+
+  ;; magit
+
   ;; Workaround for: file-missing "Setting current directory" "No such file or directory"
   ;; https://github.com/bbatsov/projectile/issues/1302
   (setq projectile-git-submodule-command nil)
@@ -584,7 +594,6 @@ before packages are loaded."
   (with-eval-after-load 'company
     (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word))
 
-  ;; TODO: What?
   (add-hook 'text-mode-hook 'auto-fill-mode)
 
   ;; Lisp
