@@ -561,6 +561,10 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; Workaround for: file-missing "Setting current directory" "No such file or directory"
+  ;; https://github.com/bbatsov/projectile/issues/1302
+  (setq projectile-git-submodule-command nil)
+
   ;; Keybindings
   ;; Evil leader
   (evil-leader/set-key
