@@ -86,7 +86,17 @@ This function should only modify configuration layer settings."
      helm
 
      html
-     javascript
+     tide
+     (node :variables node-add-modules-path t)
+     (javascript :variables
+                 javascript-backend 'tide
+                 javascript-lsp-linter nil
+                 javascript-fmt-tool 'js-beautify
+                 javascript-repl 'nodejs)
+     (typescript :variables
+                 typescript-backend 'tide)
+     react
+
      markdown
      multiple-cursors
      treemacs
