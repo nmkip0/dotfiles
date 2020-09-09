@@ -571,6 +571,9 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;;Enable rjsx-mode in .js files inside a components directory
+  (add-to-list 'auto-mode-alist '("components\\/.*\\.js" . rjsx-mode))
+
   ;; org
 
   ;; Custom todo-keywords
@@ -644,6 +647,12 @@ before packages are loaded."
 
   ;; Assign keybinding to the toggle-reader-comment-sexp function
   (define-key global-map (kbd "C-#") 'clojure-toggle-reader-comment-sexp)
+
+  ;; RJSX REACT
+  ;; TODO: Extract fn
+  (add-hook 'rjsx-mode-local-vars-hook (lambda () (setq-local create-lockfiles nil)))
+  (add-hook 'web-mode-hook (lambda () (setq-local create-lockfiles nil)))
+  (add-hook 'css-mode-hook (lambda () (setq-local create-lockfiles nil)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
