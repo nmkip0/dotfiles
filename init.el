@@ -2,11 +2,11 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; Path to this file
-(defvar emacs-org-config-path "~/Documents/org/Emacs.org")
+(defvar emacs-org-config-path "~/.dotfiles/Emacs.org")
 
 ;; You will most likely need to adjust this font size for your system!
 (defvar nmkip/default-font-size 120)
-(defvar nmkip/fixed-pitch-font-size 130)
+(defvar nmkip/fixed-pitch-font-size 120)
 (defvar nmkip/variable-pitch-font-size 150)
 
 ;; Initialize package sources
