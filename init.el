@@ -241,6 +241,11 @@
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nmkip/org-babel-tangle-config)))
 
+(use-package cider
+  :mode "\\.clj[sc]?\\'"
+  :config
+  (evil-collection-cider-setup))
+
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
@@ -284,6 +289,9 @@
 ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge)
+
+(use-package smartparens
+  :hook (prog-mode . smartparens-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
