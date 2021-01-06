@@ -512,6 +512,17 @@ npm install -g typescript-language-server typescript
 
 This will install the [[https://github.com/theia-ide/typescript-language-server][typescript-language-server]] and the TypeScript compiler package.
 
+*** Clojure
+
+#+begin_src emacs-lisp
+
+(use-package cider
+  :mode "\\.clj[sc]?\\'"
+  :config
+  (evil-collection-cider-setup))
+
+#+end_src
+
 ** Company Mode
 
 [[http://company-mode.github.io/][Company Mode]] provides a nicer in-buffer completion interface than =completion-at-point= which is more reminiscent of what you would expect from an IDE.  We add a simple configuration to make the keybindings a little more useful (=TAB= now completes the selection and initiates completion at the current location if needed).
