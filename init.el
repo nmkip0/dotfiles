@@ -104,10 +104,12 @@
 
   (nmkip/leader-keys
     "b"  '(:ignore t :which-key "buffers")
+    "g"  '(:ignore t :which-key "git")
 
     "SPC" '(counsel-M-x :which-key "M-x")
     "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
 
+    ;; Buffers
     "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
     "b2" '(buffer-to-window-2 :which-key "Move buffer to window 2")
     "b3" '(buffer-to-window-3 :which-key "Move buffer to window 3")
@@ -124,6 +126,11 @@
     "bm" '(nmkip/show-messages-buffer :which-key "Messages buffer")
     "bs" '(nmkip/show-scratch-buffer :which-key "Scratch buffer")
     "br" '(Revert buffer :which-key "Revert buffer")
+
+    ;; git
+    "gs" '(magit-status :which-key "Next buffer")
+    ;; Windows
+
     ))
 
 (use-package evil
