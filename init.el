@@ -57,6 +57,33 @@
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Cantarell" :height nmkip/variable-pitch-font-size :weight 'regular)
 
+(defun nmkip/swap-buffers-to-window (windownum follow-focus-p)
+      "Swaps visible buffers between active window and selected window.
+      follow-focus-p controls whether focus moves to new window (with buffer), or
+      stays on current"
+      (interactive)
+      (if (> windownum (length (window-list-1 nil nil t)))
+          (message "No window numbered %s" windownum)
+        (let* ((b1 (current-buffer))
+               (w1 (selected-window))
+               (w2 (winum-get-window-by-number windownum))
+               (b2 (window-buffer w2)))
+          (unless (eq w1 w2)
+            (set-window-buffer w1 b2)
+            (set-window-buffer w2 b1)
+            (unrecord-window-buffer w1 b1)
+            (unrecord-window-buffer w2 b2)))
+        (when follow-focus-p (winum-select-window-by-number windownum))))
+
+;; define and evaluate three numbered functions:
+;; buffer-to-window-1 to 9
+(dotimes (i 9)
+(let ((n (+ i 1)))
+    (eval `(defun ,(intern (format "buffer-to-window-%s" n)) (&optional arg)
+            ,(format "Move buffer to the window with number %i." n)
+            (interactive "P")
+            (nmkip/swap-buffers-to-window ,n t)))))
+
 (defun nmkip/show-messages-buffer ()
   (interactive)
   (switch-to-buffer (messages-buffer)))
@@ -81,6 +108,15 @@
     "SPC" '(counsel-M-x :which-key "M-x")
     "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
 
+    "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
+    "b2" '(buffer-to-window-2 :which-key "Move buffer to window 2")
+    "b3" '(buffer-to-window-3 :which-key "Move buffer to window 3")
+    "b4" '(buffer-to-window-4 :which-key "Move buffer to window 4")
+    "b5" '(buffer-to-window-5 :which-key "Move buffer to window 5")
+    "b6" '(buffer-to-window-6 :which-key "Move buffer to window 6")
+    "b7" '(buffer-to-window-7 :which-key "Move buffer to window 7")
+    "b8" '(buffer-to-window-8 :which-key "Move buffer to window 8")
+    "b9" '(buffer-to-window-9 :which-key "Move buffer to window 9")
     "b[" '(next-buffer :which-key "Next buffer")
     "b]" '(previous-buffer :which-key "Previous buffer")
     "bb" '(counsel-switch-buffer :which-key "Switch buffer")
