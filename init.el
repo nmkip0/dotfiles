@@ -57,6 +57,7 @@
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Cantarell" :height nmkip/variable-pitch-font-size :weight 'regular)
 
+;; Buffers
 (defun nmkip/swap-buffers-to-window (windownum follow-focus-p)
       "Swaps visible buffers between active window and selected window.
       follow-focus-p controls whether focus moves to new window (with buffer), or
@@ -92,6 +93,18 @@
   (interactive)
   (switch-to-buffer "*scratch*"))
 
+;; Windows
+(defun nmkip/maximize-window ()
+  "Maximize window"
+  (interactive)
+  (save-excursion
+      (if (and (= 1 (length (window-list)))
+               (assoc ?_ register-alist))
+          (jump-to-register ?_)
+          (progn
+              (window-configuration-to-register ?_)
+              (delete-other-windows)))))
+
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -125,6 +138,7 @@
     "b]" '(previous-buffer :which-key "Previous buffer")
     "bb" '(counsel-switch-buffer :which-key "Switch buffer")
     "bd" '(kill-this-buffer :which-key "Delete buffer")
+    "bD" '(kill-buffer-and-window :which-key "Delete buffer and window")
     "bm" '(nmkip/show-messages-buffer :which-key "Messages buffer")
     "bs" '(nmkip/show-scratch-buffer :which-key "Scratch buffer")
     "br" '(Revert buffer :which-key "Revert buffer")
@@ -140,6 +154,21 @@
     "gs" '(magit-status :which-key "Next buffer")
 
     ;; Windows
+    ;; TODO: Resize transient state Vertical: [ ] Horizontal: { } 
+    "w=" '(balance-windows :which-key "Balance windows")
+    "wd" '(delete-window :which-key "Delete window")
+    "wD" '(delete-other-windows :which-key "Delete buffer and window")
+    "wh" '(evil-window-left :which-key "Focus window left")
+    "wH" '(evil-window-move-far-left :which-key "Move far left")
+    "wj" '(evil-window-down :which-key "Focus window down")
+    "wJ" '(evil-window-move-very-bottom :which-key "Move very bottom")
+    "wk" '(evil-window-up :which-key "Focus window up")
+    "wK" '(evil-window-move-very-top :which-key "Move very top")
+    "wl" '(evil-window-right :which-key "Focus window right")
+    "wL" '(evil-window-move-far-right :which-key "Move far right")
+    "wm" '(nmkip/maximize-window :which-key "Maximize window")
+    "ws" '(split-window-below :which-key "Split horizontally")
+    "wv" '(split-window-right :which-key "Split vertically")
 
     ))
 
