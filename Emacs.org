@@ -161,6 +161,14 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
 #+end_src
 
 * UI Configuration
+** Windows
+
+#+begin_src emacs-lisp
+
+(use-package winum
+    :config (winum-mode))
+
+#+end_src
 
 ** Command Log Mode
 

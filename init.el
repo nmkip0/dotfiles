@@ -57,6 +57,14 @@
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Cantarell" :height nmkip/variable-pitch-font-size :weight 'regular)
 
+(defun nmkip/show-messages-buffer ()
+  (interactive)
+  (switch-to-buffer (messages-buffer)))
+
+(defun nmkip/show-scratch-buffer ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -68,8 +76,19 @@
     :global-prefix "C-SPC")
 
   (nmkip/leader-keys
-    "t"  '(:ignore t :which-key "toggles")
-    "tt" '(counsel-load-theme :which-key "choose theme")))
+    "b"  '(:ignore t :which-key "buffers")
+
+    "SPC" '(counsel-M-x :which-key "M-x")
+    "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
+
+    "b[" '(next-buffer :which-key "Next buffer")
+    "b]" '(previous-buffer :which-key "Previous buffer")
+    "bb" '(counsel-switch-buffer :which-key "Switch buffer")
+    "bd" '(kill-this-buffer :which-key "Delete buffer")
+    "bm" '(nmkip/show-messages-buffer :which-key "Messages buffer")
+    "bs" '(nmkip/show-scratch-buffer :which-key "Scratch buffer")
+    "br" '(Revert buffer :which-key "Revert buffer")
+    ))
 
 (use-package evil
   :init
@@ -93,6 +112,9 @@
   :after evil
   :config
   (evil-collection-init))
+
+(use-package winum
+    :config (winum-mode))
 
 (use-package command-log-mode)
 
