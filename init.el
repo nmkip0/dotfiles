@@ -75,7 +75,7 @@
             (unrecord-window-buffer w2 b2)))
         (when follow-focus-p (winum-select-window-by-number windownum))))
 
-;; define and evaluate three numbered functions:
+;; define and evaluate numbered functions:
 ;; buffer-to-window-1 to 9
 (dotimes (i 9)
 (let ((n (+ i 1)))
