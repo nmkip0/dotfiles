@@ -167,7 +167,9 @@
     "wl" '(evil-window-right :which-key "Focus window right")
     "wL" '(evil-window-move-far-right :which-key "Move far right")
     "wm" '(nmkip/maximize-window :which-key "Maximize window")
+    "wr" '(winner-redo :which-key "Winner redo")
     "ws" '(split-window-below :which-key "Split horizontally")
+    "wu" '(winner-undo :which-key "Winner undo")
     "wv" '(split-window-right :which-key "Split vertically")
 
     ))
@@ -196,6 +198,10 @@
 
 (use-package winum
     :config (winum-mode))
+
+(use-package winner
+    :ensure nil
+    :config (winner-mode 1))
 
 (use-package command-log-mode)
 
