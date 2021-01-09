@@ -146,8 +146,7 @@
 
 (use-package evil-collection
   :after evil
-  :config
-  (evil-collection-init))
+  :config (evil-collection-init))
 
 (use-package winum
     :config (winum-mode))

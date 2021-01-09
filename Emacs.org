@@ -137,6 +137,10 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
     (interactive)
     (switch-to-buffer "*scratch*"))
 
+#+end_src
+
+#+begin_src emacs-lisp
+
   ;; Make ESC quit prompts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -171,6 +175,10 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
       "br" '(Revert buffer :which-key "Revert buffer")
       ))
 
+#+end_src
+
+#+begin_src emacs-lisp
+
   (use-package evil
     :init
     (setq evil-want-integration t)
@@ -191,8 +199,7 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
 
   (use-package evil-collection
     :after evil
-    :config
-    (evil-collection-init))
+    :config (evil-collection-init))
 
 #+end_src
 
