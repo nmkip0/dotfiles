@@ -104,12 +104,14 @@
 
   (nmkip/leader-keys
     "b"  '(:ignore t :which-key "buffers")
+    "f"  '(:ignore t :which-key "files")
     "g"  '(:ignore t :which-key "git")
 
     "SPC" '(counsel-M-x :which-key "M-x")
     "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
 
     ;; Buffers
+    ;; TODO: Add transient state: move to next/prev buffer. 
     "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
     "b2" '(buffer-to-window-2 :which-key "Move buffer to window 2")
     "b3" '(buffer-to-window-3 :which-key "Move buffer to window 3")
@@ -127,8 +129,16 @@
     "bs" '(nmkip/show-scratch-buffer :which-key "Scratch buffer")
     "br" '(Revert buffer :which-key "Revert buffer")
 
+    ;; Files
+    "fs" '(save-buffer :which-key "Save file")
+    "fS" '(evil-write-all :which-key "Save all files")
+    "fr" '(counsel-recentf :which-key "Recent files")
+    "fR" '(rename-file :which-key "Rename file")
+
     ;; git
+    ;; TODO: Add transient state: move to next/prev hunk. 
     "gs" '(magit-status :which-key "Next buffer")
+
     ;; Windows
 
     ))
