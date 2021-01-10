@@ -129,7 +129,6 @@
       "/" '(swiper :which-key "swiper")
 
       ;; Buffers
-      ;; TODO: Add transient state: move to next/prev buffer. 
       "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
       "b2" '(buffer-to-window-2 :which-key "Move buffer to window 2")
       "b3" '(buffer-to-window-3 :which-key "Move buffer to window 3")
@@ -139,8 +138,9 @@
       "b7" '(buffer-to-window-7 :which-key "Move buffer to window 7")
       "b8" '(buffer-to-window-8 :which-key "Move buffer to window 8")
       "b9" '(buffer-to-window-9 :which-key "Move buffer to window 9")
-      "b[" '(next-buffer :which-key "Next buffer")
-      "b]" '(previous-buffer :which-key "Previous buffer")
+      "bn" '(next-buffer :which-key "Next buffer")
+      "bN" '(previous-buffer :which-key "Previous buffer")
+      "bp" '(previous-buffer :which-key "Previous buffer")
       "bb" '(counsel-switch-buffer :which-key "Switch buffer")
       "bd" '(kill-this-buffer :which-key "Delete buffer")
       "bD" '(kill-buffer-and-window :which-key "Delete buffer and window")
@@ -171,7 +171,6 @@
       "hv" '(counsel-describe-variable :which-key "Describe variable")
 
       ;; Windows
-      ;; TODO: Resize transient state Vertical: [ ] Horizontal: { } 
       "w=" '(balance-windows :which-key "Balance windows")
       "wd" '(delete-window :which-key "Delete window")
       "wD" '(delete-other-windows :which-key "Delete buffer and window")
@@ -192,14 +191,36 @@
       ))
 
 (defhydra hydra-buffers (:hint nil)
-    "\n[_n_]: next buffer [_p_/_N_]: previous buffer "
+    "
+Buffer Transient State
+[_n_]: next buffer [_p_/_N_]: previous buffer "
     ("n" next-buffer)
     ("N" previous-buffer)
     ("p" previous-buffer)
     ("q" nil "quit" :color blue))
 
 (nmkip/leader-keys
-    "b." '(hydra-buffers/body :which-key "Buffer transient state"))
+    "b." '(hydra-buffers/body :which-key "Buffer transient state")
+    "b," '(hydra-buffers/previous-buffer :which-key "Buffer transient state")
+)
+
+(defhydra hydra-windows (:hint nil)
+    "Window Transient State
+    "
+    ("[" shrink-window-horizontally "shrink" :column "horizontal")
+    ("]" enlarge-window-horizontally "enlarge" :column "horizontal")
+    ("{" shrink-window "shrink" :column "vertical")
+    ("}" enlarge-window "enlarge" :column "vertical")
+    ("q" nil "quit" :color blue :column nil)
+) 
+
+
+(nmkip/leader-keys
+    "w." '(hydra-windows/body :which-key "Windows transient state")
+    "w[" '(hydra-windows/shrink-window-horizontally :which-key "Shrink window horizontally")
+    "w]" '(hydra-windows/enlarge-window-horizontally :which-key "Enlarge window horizontally")
+    "w{" '(hydra-windows/shrink-window :which-key "Shrink window vertically")
+    "w}" '(hydra-windows/enlarge-window :which-key "Enlarge window vertically"))
 
 (use-package evil
   :init
