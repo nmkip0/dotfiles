@@ -57,6 +57,9 @@
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "Cantarell" :height nmkip/variable-pitch-font-size :weight 'regular)
 
+(use-package hydra
+   :ensure t)
+
 ;; Buffers
 (defun nmkip/swap-buffers-to-window (windownum follow-focus-p)
       "Swaps visible buffers between active window and selected window.
@@ -276,16 +279,15 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
-(use-package hydra)
-
 (defhydra hydra-text-scale (:timeout 4)
   "scale text"
-  ("j" text-scale-increase "in")
-  ("k" text-scale-decrease "out")
-  ("f" nil "finished" :exit t))
+  ("k" text-scale-increase "scale up")
+  ("j" text-scale-decrease "scale down")
+  ("0" text-scale-set "reset font")
+  ("q" nil "quit" :exit t))
 
 (nmkip/leader-keys
-  "ts" '(hydra-text-scale/body :which-key "scale text"))
+  "z" '(hydra-text-scale/body :which-key "scale text"))
 
 (defun nmkip/org-font-setup ()
   ;; Replace list hyphen with dot

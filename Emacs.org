@@ -98,7 +98,14 @@ I am using the [[https://github.com/tonsky/FiraCode][Fira Code]] and [[https://f
 
 * Keybinding Configuration
 
-This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil-mode]] for a Vi-like modal editing experience.  [[https://github.com/noctuid/general.el][general.el]] is used for easy keybinding configuration that integrates well with which-key.  [[https://github.com/emacs-evil/evil-collection][evil-collection]] is used to automatically configure various Emacs modes with Vi-like keybindings for evil-mode.
+This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil-mode]] for a Vi-like modal editing experience.  [[https://github.com/noctuid/general.el][general.el]] is used for easy keybinding configuration that integrates well with which-key.  [[https://github.com/emacs-evil/evil-collection][evil-collection]] is used to automatically configure various Emacs modes with Vi-like keybindings for evil-mode. [[github.com/abo-abo/hydra][hydra.el]] is used for transient state keybindings, check the [[github.com/abo-abo/hydra/wiki][wiki]] for examples.
+
+#+begin_src emacs-lisp
+
+ (use-package hydra
+    :ensure t)
+
+#+end_src
 
 #+begin_src emacs-lisp
 
@@ -390,20 +397,19 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
 
 ** Text Scaling
 
-This is an example of using [[https://github.com/abo-abo/hydra][Hydra]] to design a transient key binding for quickly adjusting the scale of the text on screen.  We define a hydra that is bound to =C-s t s= and, once activated, =j= and =k= increase and decrease the text scale.  You can press any other key (or =f= specifically) to exit the transient key map.
+This is an example of using [[https://github.com/abo-abo/hydra][Hydra]] to design a transient key binding for quickly adjusting the scale of the text on screen.  We define a hydra that is bound to =SPC z= and, once activated, =k= and =j= increase and decrease the text scale.  You can press any other key (or =q= specifically) to exit the transient key map.
 
 #+begin_src emacs-lisp
 
-  (use-package hydra)
-
   (defhydra hydra-text-scale (:timeout 4)
     "scale text"
-    ("j" text-scale-increase "in")
-    ("k" text-scale-decrease "out")
-    ("f" nil "finished" :exit t))
+    ("k" text-scale-increase "scale up")
+    ("j" text-scale-decrease "scale down")
+    ("0" text-scale-set "reset font")
+    ("q" nil "quit" :exit t))
 
   (nmkip/leader-keys
-    "ts" '(hydra-text-scale/body :which-key "scale text"))
+    "z" '(hydra-text-scale/body :which-key "scale text"))
 
 #+end_src
 
