@@ -123,6 +123,7 @@
       "f"  '(:ignore t :which-key "files")
       "g"  '(:ignore t :which-key "git")
       "h"  '(:ignore t :which-key "help")
+      "w"  '(:ignore t :which-key "windows")
 
       "SPC" '(counsel-M-x :which-key "M-x")
       "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
