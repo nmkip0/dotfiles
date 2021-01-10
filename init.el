@@ -123,6 +123,7 @@
 
     "SPC" '(counsel-M-x :which-key "M-x")
     "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
+    "/" '(swiper :which-key "swiper")
 
     ;; Buffers
     ;; TODO: Add transient state: move to next/prev buffer. 
