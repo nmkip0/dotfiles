@@ -109,87 +109,97 @@
               (delete-other-windows)))))
 
 ;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(use-package general
-  :config
-  (general-create-definer nmkip/leader-keys
-    :keymaps '(normal insert visual emacs)
-    :prefix "SPC"
-    :global-prefix "C-SPC")
+  (use-package general
+    :config
+    (general-create-definer nmkip/leader-keys
+      :keymaps '(normal insert visual emacs)
+      :prefix "SPC"
+      :global-prefix "C-SPC")
 
-  (nmkip/leader-keys
-    "b"  '(:ignore t :which-key "buffers")
-    "f"  '(:ignore t :which-key "files")
-    "g"  '(:ignore t :which-key "git")
-    "h"  '(:ignore t :which-key "help")
+    (nmkip/leader-keys
+      "b"  '(:ignore t :which-key "buffers")
+      "f"  '(:ignore t :which-key "files")
+      "g"  '(:ignore t :which-key "git")
+      "h"  '(:ignore t :which-key "help")
 
-    "SPC" '(counsel-M-x :which-key "M-x")
-    "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
-    "/" '(swiper :which-key "swiper")
+      "SPC" '(counsel-M-x :which-key "M-x")
+      "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
+      "/" '(swiper :which-key "swiper")
 
-    ;; Buffers
-    ;; TODO: Add transient state: move to next/prev buffer. 
-    "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
-    "b2" '(buffer-to-window-2 :which-key "Move buffer to window 2")
-    "b3" '(buffer-to-window-3 :which-key "Move buffer to window 3")
-    "b4" '(buffer-to-window-4 :which-key "Move buffer to window 4")
-    "b5" '(buffer-to-window-5 :which-key "Move buffer to window 5")
-    "b6" '(buffer-to-window-6 :which-key "Move buffer to window 6")
-    "b7" '(buffer-to-window-7 :which-key "Move buffer to window 7")
-    "b8" '(buffer-to-window-8 :which-key "Move buffer to window 8")
-    "b9" '(buffer-to-window-9 :which-key "Move buffer to window 9")
-    "b[" '(next-buffer :which-key "Next buffer")
-    "b]" '(previous-buffer :which-key "Previous buffer")
-    "bb" '(counsel-switch-buffer :which-key "Switch buffer")
-    "bd" '(kill-this-buffer :which-key "Delete buffer")
-    "bD" '(kill-buffer-and-window :which-key "Delete buffer and window")
-    "bm" '(nmkip/show-messages-buffer :which-key "Messages buffer")
-    "bs" '(nmkip/show-scratch-buffer :which-key "Scratch buffer")
-    "br" '(Revert buffer :which-key "Revert buffer")
+      ;; Buffers
+      ;; TODO: Add transient state: move to next/prev buffer. 
+      "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
+      "b2" '(buffer-to-window-2 :which-key "Move buffer to window 2")
+      "b3" '(buffer-to-window-3 :which-key "Move buffer to window 3")
+      "b4" '(buffer-to-window-4 :which-key "Move buffer to window 4")
+      "b5" '(buffer-to-window-5 :which-key "Move buffer to window 5")
+      "b6" '(buffer-to-window-6 :which-key "Move buffer to window 6")
+      "b7" '(buffer-to-window-7 :which-key "Move buffer to window 7")
+      "b8" '(buffer-to-window-8 :which-key "Move buffer to window 8")
+      "b9" '(buffer-to-window-9 :which-key "Move buffer to window 9")
+      "b[" '(next-buffer :which-key "Next buffer")
+      "b]" '(previous-buffer :which-key "Previous buffer")
+      "bb" '(counsel-switch-buffer :which-key "Switch buffer")
+      "bd" '(kill-this-buffer :which-key "Delete buffer")
+      "bD" '(kill-buffer-and-window :which-key "Delete buffer and window")
+      "bm" '(nmkip/show-messages-buffer :which-key "Messages buffer")
+      "bs" '(nmkip/show-scratch-buffer :which-key "Scratch buffer")
+      "br" '(Revert buffer :which-key "Revert buffer")
 
-    ;; Files
-    "fs" '(save-buffer :which-key "Save file")
-    "fS" '(evil-write-all :which-key "Save all files")
-    "fr" '(counsel-recentf :which-key "Recent files")
-    "fR" '(rename-file :which-key "Rename file")
+      ;; Files
+      "fs" '(save-buffer :which-key "Save file")
+      "fS" '(evil-write-all :which-key "Save all files")
+      "fr" '(counsel-recentf :which-key "Recent files")
+      "fR" '(rename-file :which-key "Rename file")
 
-    ;; git
-    ;; TODO: Add transient state: move to next/prev hunk. 
-    "gs" '(magit-status :which-key "Next buffer")
+      ;; git
+      ;; TODO: Add transient state: move to next/prev hunk. 
+      "gs" '(magit-status :which-key "Next buffer")
 
-    ;; help
-    "ha" '(counsel-apropos :which-key "Apropos")
-    "hb" '(counsel-describe-binds :which-key "Describe binds")
-    "hf" '(counsel-describe-function :which-key "Describe function")
-    "hF" '(counsel-describe-face :which-key "Describe face")
-    "hk" '(describe-key :which-key "Describe key")
-    "hm" '(describe-mode :which-key "Describe mode")
-    "hp" '(describe-package :which-key "Describe package")
-    "hs" '(counsel-symbol :which-key "Describe symbol")
-    "ht" '(describe-theme :which-key "Describe theme")
-    "hv" '(counsel-describe-variable :which-key "Describe variable")
+      ;; help
+      "ha" '(counsel-apropos :which-key "Apropos")
+      "hb" '(counsel-describe-binds :which-key "Describe binds")
+      "hf" '(counsel-describe-function :which-key "Describe function")
+      "hF" '(counsel-describe-face :which-key "Describe face")
+      "hk" '(describe-key :which-key "Describe key")
+      "hm" '(describe-mode :which-key "Describe mode")
+      "hp" '(describe-package :which-key "Describe package")
+      "hs" '(counsel-symbol :which-key "Describe symbol")
+      "ht" '(describe-theme :which-key "Describe theme")
+      "hv" '(counsel-describe-variable :which-key "Describe variable")
 
-    ;; Windows
-    ;; TODO: Resize transient state Vertical: [ ] Horizontal: { } 
-    "w=" '(balance-windows :which-key "Balance windows")
-    "wd" '(delete-window :which-key "Delete window")
-    "wD" '(delete-other-windows :which-key "Delete buffer and window")
-    "wh" '(evil-window-left :which-key "Focus window left")
-    "wH" '(evil-window-move-far-left :which-key "Move far left")
-    "wj" '(evil-window-down :which-key "Focus window down")
-    "wJ" '(evil-window-move-very-bottom :which-key "Move very bottom")
-    "wk" '(evil-window-up :which-key "Focus window up")
-    "wK" '(evil-window-move-very-top :which-key "Move very top")
-    "wl" '(evil-window-right :which-key "Focus window right")
-    "wL" '(evil-window-move-far-right :which-key "Move far right")
-    "wm" '(nmkip/maximize-window :which-key "Maximize window")
-    "wr" '(winner-redo :which-key "Winner redo")
-    "ws" '(split-window-below :which-key "Split horizontally")
-    "wu" '(winner-undo :which-key "Winner undo")
-    "wv" '(split-window-right :which-key "Split vertically")
+      ;; Windows
+      ;; TODO: Resize transient state Vertical: [ ] Horizontal: { } 
+      "w=" '(balance-windows :which-key "Balance windows")
+      "wd" '(delete-window :which-key "Delete window")
+      "wD" '(delete-other-windows :which-key "Delete buffer and window")
+      "wh" '(evil-window-left :which-key "Focus window left")
+      "wH" '(evil-window-move-far-left :which-key "Move far left")
+      "wj" '(evil-window-down :which-key "Focus window down")
+      "wJ" '(evil-window-move-very-bottom :which-key "Move very bottom")
+      "wk" '(evil-window-up :which-key "Focus window up")
+      "wK" '(evil-window-move-very-top :which-key "Move very top")
+      "wl" '(evil-window-right :which-key "Focus window right")
+      "wL" '(evil-window-move-far-right :which-key "Move far right")
+      "wm" '(nmkip/maximize-window :which-key "Maximize window")
+      "wr" '(winner-redo :which-key "Winner redo")
+      "ws" '(split-window-below :which-key "Split horizontally")
+      "wu" '(winner-undo :which-key "Winner undo")
+      "wv" '(split-window-right :which-key "Split vertically")
 
-    ))
+      ))
+
+(defhydra hydra-buffers (:hint nil)
+    "\n[_n_]: next buffer [_p_/_N_]: previous buffer "
+    ("n" next-buffer)
+    ("N" previous-buffer)
+    ("p" previous-buffer)
+    ("q" nil "quit" :color blue))
+
+(nmkip/leader-keys
+    "b." '(hydra-buffers/body :which-key "Buffer transient state"))
 
 (use-package evil
   :init

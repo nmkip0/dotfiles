@@ -243,6 +243,16 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
 
       ))
 
+(defhydra hydra-buffers (:hint nil)
+    "\n[_n_]: next buffer [_p_/_N_]: previous buffer "
+    ("n" next-buffer)
+    ("N" previous-buffer)
+    ("p" previous-buffer)
+    ("q" nil "quit" :color blue))
+
+(nmkip/leader-keys
+    "b." '(hydra-buffers/body :which-key "Buffer transient state"))
+
 #+end_src
 
 #+begin_src emacs-lisp
