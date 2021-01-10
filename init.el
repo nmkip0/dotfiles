@@ -449,6 +449,13 @@ Buffer Transient State
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge)
 
+(use-package undo-tree
+    :diminish undo-tree-mode
+    :ensure t
+    :config 
+        (global-undo-tree-mode)
+        (evil-set-undo-system 'undo-tree))
+
 (use-package smartparens
   :hook (prog-mode . smartparens-mode))
 
