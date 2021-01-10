@@ -173,7 +173,7 @@
       ;; Windows
       "w=" '(balance-windows :which-key "Balance windows")
       "wd" '(delete-window :which-key "Delete window")
-      "wD" '(delete-other-windows :which-key "Delete buffer and window")
+      "wD" '(delete-other-windows :which-key "Delete other windows")
       "wh" '(evil-window-left :which-key "Focus window left")
       "wH" '(evil-window-move-far-left :which-key "Move far left")
       "wj" '(evil-window-down :which-key "Focus window down")
