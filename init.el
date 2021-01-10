@@ -119,6 +119,7 @@
     "b"  '(:ignore t :which-key "buffers")
     "f"  '(:ignore t :which-key "files")
     "g"  '(:ignore t :which-key "git")
+    "h"  '(:ignore t :which-key "help")
 
     "SPC" '(counsel-M-x :which-key "M-x")
     "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
@@ -152,6 +153,18 @@
     ;; git
     ;; TODO: Add transient state: move to next/prev hunk. 
     "gs" '(magit-status :which-key "Next buffer")
+
+    ;; help
+    "ha" '(counsel-apropos :which-key "Apropos")
+    "hb" '(counsel-describe-binds :which-key "Describe binds")
+    "hf" '(counsel-describe-function :which-key "Describe function")
+    "hF" '(counsel-describe-face :which-key "Describe face")
+    "hk" '(describe-key :which-key "Describe key")
+    "hm" '(describe-mode :which-key "Describe mode")
+    "hp" '(describe-package :which-key "Describe package")
+    "hs" '(counsel-symbol :which-key "Describe symbol")
+    "ht" '(describe-theme :which-key "Describe theme")
+    "hv" '(counsel-describe-variable :which-key "Describe variable")
 
     ;; Windows
     ;; TODO: Resize transient state Vertical: [ ] Horizontal: { } 
