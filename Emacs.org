@@ -689,11 +689,13 @@ This will install the [[https://github.com/theia-ide/typescript-language-server]
 *** Clojure
 
 #+begin_src emacs-lisp
+(use-package clojure-mode
+  :ensure t)
 
 (use-package cider
-  :mode "\\.clj[sc]?\\'"
+  :ensure t
   :config
-  (evil-collection-cider-setup))
+    (evil-collection-cider-setup))
 
 #+end_src
 
@@ -792,8 +794,11 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+begin_src emacs-lisp
 
-(use-package smartparens
-  :hook (prog-mode . smartparens-mode))
+  (use-package smartparens
+    :hook 
+      (prog-mode . smartparens-mode)
+      (emacs-lisp-mode . smartparens-strict-mode)
+      (clojure-mode . smartparens-strict-mode))
 
 #+end_src
 

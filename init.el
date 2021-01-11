@@ -400,10 +400,13 @@ Buffer Transient State
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nmkip/org-babel-tangle-config)))
 
+(use-package clojure-mode
+  :ensure t)
+
 (use-package cider
-  :mode "\\.clj[sc]?\\'"
+  :ensure t
   :config
-  (evil-collection-cider-setup))
+    (evil-collection-cider-setup))
 
 (use-package company
   :after lsp-mode
@@ -457,7 +460,10 @@ Buffer Transient State
         (evil-set-undo-system 'undo-tree))
 
 (use-package smartparens
-  :hook (prog-mode . smartparens-mode))
+  :hook 
+    (prog-mode . smartparens-mode)
+    (emacs-lisp-mode . smartparens-strict-mode)
+    (clojure-mode . smartparens-strict-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
