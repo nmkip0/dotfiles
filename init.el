@@ -463,7 +463,7 @@ Buffer Transient State
   :hook 
     (prog-mode . smartparens-mode)
     (emacs-lisp-mode . smartparens-strict-mode)
-    (clojure-mode . smartparens-strict-mode))
+  :config (show-smartparens-global-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
