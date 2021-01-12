@@ -30,23 +30,24 @@ Emacs has a built in package manager but it doesn't make it easy to automaticall
 
 #+begin_src emacs-lisp
 
-  ;; Initialize package sources
-  (require 'package)
+    ;; Initialize package sources
+    (require 'package)
 
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("org" . "https://orgmode.org/elpa/")
-                           ("elpa" . "https://elpa.gnu.org/packages/")))
+    (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                             ("melpa-stable" . "https://stable.melpa.org/packages/")
+                             ("org" . "https://orgmode.org/elpa/")
+                             ("elpa" . "https://elpa.gnu.org/packages/")))
 
-  (package-initialize)
-  (unless package-archive-contents
-    (package-refresh-contents))
+    (package-initialize)
+    (unless package-archive-contents
+      (package-refresh-contents))
 
-    ;; Initialize use-package on non-Linux platforms
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
+      ;; Initialize use-package on non-Linux platforms
+    (unless (package-installed-p 'use-package)
+      (package-install 'use-package))
 
-  (require 'use-package)
-  (setq use-package-always-ensure t)
+    (require 'use-package)
+    (setq use-package-always-ensure t)
 
 #+end_src
 
@@ -63,7 +64,7 @@ This section configures basic UI settings that remove unneeded elements to make 
   (tooltip-mode -1)           ; Disable tooltips
   (set-fringe-mode 10)        ; Give some breathing room
 
-  (menu-bar-mode -1)            ; Disable the menu bar
+  (menu-bar-mode -1)          ; Disable the menu bar
 
   (column-number-mode)
   (global-display-line-numbers-mode t)
@@ -586,7 +587,6 @@ This snippet adds a hook to =org-mode= buffers so that =nmkip/org-babel-tangle-c
 #+end_src
 
 * Development
-
 ** Languages
 
 *** IDE Features with lsp-mode
@@ -689,13 +689,14 @@ This will install the [[https://github.com/theia-ide/typescript-language-server]
 *** Clojure
 
 #+begin_src emacs-lisp
-(use-package clojure-mode
-  :ensure t)
 
-(use-package cider
-  :ensure t
-  :config
-    (evil-collection-cider-setup))
+  (use-package clojure-mode
+    :ensure t)
+
+  (use-package cider
+    :ensure t
+    :config
+      (evil-collection-cider-setup))
 
 #+end_src
 
@@ -794,11 +795,29 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+begin_src emacs-lisp
 
-  (use-package smartparens
-    :hook 
-      (prog-mode . smartparens-mode)
-      (emacs-lisp-mode . smartparens-strict-mode)
-    :config (show-smartparens-global-mode))
+    (use-package smartparens
+      :hook 
+        (prog-mode . smartparens-mode)
+        (emacs-lisp-mode . smartparens-strict-mode)
+        (clojure-mode . smartparens-strict-mode)
+      :config
+        (show-smartparens-global-mode))
+
+    (defadvice evil-delete-backward-char-and-join
+        (around evil-delete-backward-char-and-join activate)
+        (if (and (bound-and-true-p smartparens-mode)
+                (bound-and-true-p smartparens-strict-mode))
+            (call-interactively 'sp-backward-delete-char)
+            ad-do-it))
+
+#+end_src
+
+#+begin_src emacs-lisp
+
+      (use-package evil-cleverparens
+        :hook
+            (clojure-mode . evil-cleverparens-mode)
+            (emacs-lisp-mode . evil-cleverparens-mode))
 
 #+end_src
 

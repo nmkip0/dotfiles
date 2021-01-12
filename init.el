@@ -13,6 +13,7 @@
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
@@ -34,7 +35,7 @@
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)        ; Give some breathing room
 
-(menu-bar-mode -1)            ; Disable the menu bar
+(menu-bar-mode -1)          ; Disable the menu bar
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -463,7 +464,21 @@ Buffer Transient State
   :hook 
     (prog-mode . smartparens-mode)
     (emacs-lisp-mode . smartparens-strict-mode)
-  :config (show-smartparens-global-mode))
+    (clojure-mode . smartparens-strict-mode)
+  :config
+    (show-smartparens-global-mode))
+
+(defadvice evil-delete-backward-char-and-join
+    (around evil-delete-backward-char-and-join activate)
+    (if (and (bound-and-true-p smartparens-mode)
+            (bound-and-true-p smartparens-strict-mode))
+        (call-interactively 'sp-backward-delete-char)
+        ad-do-it))
+
+(use-package evil-cleverparens
+  :hook
+      (clojure-mode . evil-cleverparens-mode)
+      (emacs-lisp-mode . evil-cleverparens-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
