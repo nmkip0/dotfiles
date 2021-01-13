@@ -795,20 +795,21 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+begin_src emacs-lisp
 
-    (use-package smartparens
-      :hook 
-        (prog-mode . smartparens-mode)
-        (emacs-lisp-mode . smartparens-strict-mode)
-        (clojure-mode . smartparens-strict-mode)
-      :config
-        (show-smartparens-global-mode))
+  (use-package smartparens
+    :hook 
+      (prog-mode . smartparens-mode)
+      (emacs-lisp-mode . smartparens-strict-mode)
+      (clojure-mode . smartparens-strict-mode)
+    :config
+      (sp-local-pair sp-lisp-modes "'" nil :actions nil)
+      (show-smartparens-global-mode))
 
-    (defadvice evil-delete-backward-char-and-join
-        (around evil-delete-backward-char-and-join activate)
-        (if (and (bound-and-true-p smartparens-mode)
-                (bound-and-true-p smartparens-strict-mode))
-            (call-interactively 'sp-backward-delete-char)
-            ad-do-it))
+  (defadvice evil-delete-backward-char-and-join
+      (around evil-delete-backward-char-and-join activate)
+      (if (and (bound-and-true-p smartparens-mode)
+              (bound-and-true-p smartparens-strict-mode))
+          (call-interactively 'sp-backward-delete-char)
+          ad-do-it))
 
 #+end_src
 
