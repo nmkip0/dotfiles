@@ -481,6 +481,7 @@ Buffer Transient State
       (clojure-mode . evil-cleverparens-mode)
       (emacs-lisp-mode . evil-cleverparens-mode)
   :custom
+      (evil-cleverparens-use-additional-bindings nil)
       (evil-cleverparens-use-additional-movement-keys nil))
 
 (use-package rainbow-delimiters
