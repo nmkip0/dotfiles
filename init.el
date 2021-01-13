@@ -482,7 +482,11 @@ Buffer Transient State
       (emacs-lisp-mode . evil-cleverparens-mode)
   :custom
       (evil-cleverparens-use-additional-bindings nil)
-      (evil-cleverparens-use-additional-movement-keys nil))
+      (evil-cleverparens-use-additional-movement-keys nil)
+  :general
+      (:keymaps '(normal visual)
+                "M-[" 'evil-cp-beginning-of-defun
+                "M-]" 'evil-cp-end-of-defun))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))

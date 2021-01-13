@@ -815,13 +815,17 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+begin_src emacs-lisp 
 
-  (use-package evil-cleverparens
-    :hook
-        (clojure-mode . evil-cleverparens-mode)
-        (emacs-lisp-mode . evil-cleverparens-mode)
-    :custom
-        (evil-cleverparens-use-additional-bindings nil)
-        (evil-cleverparens-use-additional-movement-keys nil))
+      (use-package evil-cleverparens
+        :hook
+            (clojure-mode . evil-cleverparens-mode)
+            (emacs-lisp-mode . evil-cleverparens-mode)
+        :custom
+            (evil-cleverparens-use-additional-bindings nil)
+            (evil-cleverparens-use-additional-movement-keys nil)
+        :general
+            (:keymaps '(normal visual)
+                      "M-[" 'evil-cp-beginning-of-defun
+                      "M-]" 'evil-cp-end-of-defun))
 
 #+end_src
 
