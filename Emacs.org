@@ -824,15 +824,6 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+end_src
 
-#+begin_src emacs-lisp :tangle no
-
-  (use-package evil-smartparens
-    :hook
-        (clojure-mode . evil-smartparens-mode)
-        (emacs-lisp-mode . evil-smartparens-mode))
-
-#+end_src
-
 *** Rainbow Delimiters
 
 [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth.  This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
