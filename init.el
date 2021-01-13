@@ -124,6 +124,7 @@
       "f"  '(:ignore t :which-key "files")
       "g"  '(:ignore t :which-key "git")
       "h"  '(:ignore t :which-key "help")
+      "s"  '(:ignore t :which-key "search")
       "w"  '(:ignore t :which-key "windows")
 
       "SPC" '(counsel-M-x :which-key "M-x")
@@ -151,6 +152,7 @@
       "br" '(Revert buffer :which-key "Revert buffer")
 
       ;; Files
+      "ff" '(counsel-find-file :which-key "Find file")
       "fs" '(save-buffer :which-key "Save file")
       "fS" '(evil-write-all :which-key "Save all files")
       "fr" '(counsel-recentf :which-key "Recent files")
@@ -171,6 +173,9 @@
       "hs" '(counsel-symbol :which-key "Describe symbol")
       "ht" '(describe-theme :which-key "Describe theme")
       "hv" '(counsel-describe-variable :which-key "Describe variable")
+
+      "ss" '(swiper :which-key "Search")
+      "sd" '(counsel-rg :which-key "Search in directory")
 
       ;; Windows
       "w=" '(balance-windows :which-key "Balance windows")
@@ -214,7 +219,7 @@ Buffer Transient State
     ("{" shrink-window "shrink" :column "vertical")
     ("}" enlarge-window "enlarge" :column "vertical")
     ("q" nil "quit" :color blue :column nil)
-) 
+)
 
 
 (nmkip/leader-keys
