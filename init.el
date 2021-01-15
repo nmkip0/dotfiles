@@ -9,6 +9,19 @@
 (defvar nmkip/fixed-pitch-font-size 120)
 (defvar nmkip/variable-pitch-font-size 150)
 
+;; Lisp modes
+(defconst nmkip/lisp-modes '(cider-repl-mode
+                            clojure-mode
+                            clojurec-mode
+                            clojurescript-mode
+                            clojurex-mode
+                            emacs-lisp-mode
+                            eshell-mode
+                            inf-clojure-mode
+                            inferior-emacs-lisp-mode
+                            lisp-interaction-mode
+                            lisp-mode))
+
 ;; Initialize package sources
 (require 'package)
 
@@ -118,6 +131,9 @@
       :keymaps '(normal insert visual emacs)
       :prefix "SPC"
       :global-prefix "C-SPC")
+
+    (general-create-definer nmkip/local-leader
+      :prefix ",")
 
     (nmkip/leader-keys
       "b"  '(:ignore t :which-key "buffers")
@@ -405,6 +421,13 @@ Buffer Transient State
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nmkip/org-babel-tangle-config)))
+
+(nmkip/local-leader 'normal '(emacs-lisp-mode-map clojure-mode-map)
+                "kt" 'next-buffer
+                "kb" 'next-buffer)
+
+(nmkip/local-leader 'normal emacs-lisp-mode-map
+                "kt" 'next-buffer)
 
 (use-package clojure-mode
   :ensure t)

@@ -7,17 +7,29 @@ This file generates [[file:init.el][init.el]] which can be loaded by Emacs at st
 
 #+begin_src emacs-lisp
 
-;; NOTE: init.el is now generated from Emacs.org.  Please edit that file
-;;       in Emacs and init.el will be generated automatically!
+  ;; NOTE: init.el is now generated from Emacs.org.  Please edit that file
+  ;;       in Emacs and init.el will be generated automatically!
 
-;; Path to this file
-(defvar emacs-org-config-path "~/.dotfiles/Emacs.org")
+  ;; Path to this file
+  (defvar emacs-org-config-path "~/.dotfiles/Emacs.org")
 
-;; You will most likely need to adjust this font size for your system!
-(defvar nmkip/default-font-size 120)
-(defvar nmkip/fixed-pitch-font-size 120)
-(defvar nmkip/variable-pitch-font-size 150)
+  ;; You will most likely need to adjust this font size for your system!
+  (defvar nmkip/default-font-size 120)
+  (defvar nmkip/fixed-pitch-font-size 120)
+  (defvar nmkip/variable-pitch-font-size 150)
 
+  ;; Lisp modes
+  (defconst nmkip/lisp-modes '(cider-repl-mode
+                              clojure-mode
+                              clojurec-mode
+                              clojurescript-mode
+                              clojurex-mode
+                              emacs-lisp-mode
+                              eshell-mode
+                              inf-clojure-mode
+                              inferior-emacs-lisp-mode
+                              lisp-interaction-mode
+                              lisp-mode))
 #+end_src
 
 * Tips for Use
@@ -171,6 +183,9 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
         :prefix "SPC"
         :global-prefix "C-SPC")
 
+      (general-create-definer nmkip/local-leader
+        :prefix ",")
+    
       (nmkip/leader-keys
         "b"  '(:ignore t :which-key "buffers")
         "f"  '(:ignore t :which-key "files")
@@ -280,7 +295,7 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
       "w]" '(hydra-windows/enlarge-window-horizontally :which-key "Enlarge window horizontally")
       "w{" '(hydra-windows/shrink-window :which-key "Shrink window vertically")
       "w}" '(hydra-windows/enlarge-window :which-key "Enlarge window vertically"))
- 
+
 #+end_src
 
 #+begin_src emacs-lisp
@@ -593,7 +608,16 @@ This snippet adds a hook to =org-mode= buffers so that =nmkip/org-babel-tangle-c
 
 * Development
 ** Languages
+*** Lisps
+#+begin_src emacs-lisp
 
+      (nmkip/local-leader 'normal '(emacs-lisp-mode-map clojure-mode-map)
+                      "kt" 'next-buffer
+                      "kb" 'next-buffer)
+
+      (nmkip/local-leader 'normal emacs-lisp-mode-map
+                      "kt" 'next-buffer)
+#+end_src
 *** IDE Features with lsp-mode
 
 **** lsp-mode
