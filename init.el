@@ -135,6 +135,10 @@
     (general-create-definer nmkip/local-leader-keys
       :prefix ",")
 
+    (general-define-key
+     :states 'normal
+     "\\" 'evil-repeat-find-char-reverse)
+
     (nmkip/leader-keys
       "b"  '(:ignore t :which-key "buffers")
       "f"  '(:ignore t :which-key "files")
@@ -547,6 +551,8 @@ Buffer Transient State
   "Te" '(cider-enlighten-mode :which-key "Cider enlighten mode")
   "Tt" '(cider-auto-test-mode :which-key "Cider auto-test mode")
  )
+
+
 
 (use-package company
   :after lsp-mode
