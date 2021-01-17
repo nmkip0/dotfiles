@@ -471,6 +471,83 @@ Buffer Transient State
   :config
     (evil-collection-cider-setup))
 
+(defun nmkip/cider-eval-sexp-end-of-line ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (cider-eval-last-sexp)))
+
+(defun nmkip/cider-pprint-eval-sexp-end-of-line ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (cider-pprint-eval-last-sexp)))
+
+(nmkip/local-leader-keys '(normal visual) clojure-mode-map
+  "=" '(:ignore t :which-key "format")
+  "=e" '(:ignore t :which-key "edn")
+  "d" '(:ignore t :which-key "debug")
+  "e" '(:ignore t :which-key "evaluation")
+  "e;" '(:ignore t :which-key "comment")
+  "h" '(:ignore t :which-key "help")
+  "r" '(:ignore t :which-key "refactor")
+  "t" '(:ignore t :which-key "tests")
+  "T" '(:ignore t :which-key "toggle")
+
+  "'" 'sesman-start 
+
+  ;; Format
+  "==" '(cider-format-buffer :which-key "Format buffer")
+  "=f" '(cider-format-defun :which-key "Format function")
+  "=r" '(cider-format-region :which-key "Format region")
+
+  ;; Format edn
+  "=eb" '(cider-format-edn-buffer :which-key "Format edn buffer")
+  "=ee" '(cider-format-edn-last-sexp :which-key "Format edn last sexp")
+  "=er" '(cider-format-edn-region :which-key "Format edn region")
+
+  ;; Debug
+  "df" '(cider-debug-defun-at-point :which-key "Debug function")
+  "di" '(cider-inspect :which-key "Cider inspect")
+
+  ;; Evaluation
+  "e$" '(nmkip/cider-eval-sexp-end-of-line :which-key "Eval line")
+  "eb" '(cider-eval-buffer :which-key "Eval buffer")
+  "ee" '(cider-eval-last-sexp :which-key "Eval sexp before point")
+  "ef" '(cider-eval-defun-at-point :which-key "Eval function")
+  "el" '(nmkip/cider-eval-sexp-end-of-line :which-key "Eval line")
+  "em" '(cider-macroexpand-1 :which-key "Macroexpand")
+  "eM" '(cider-macroexpand-all :which-key "Macroexpand all")
+  "ev" '(cider-eval-sexp-at-point :which-key "Eval sexp at point")
+  "eL" '(nmkip/cider-pprint-eval-sexp-end-of-line :which-key "Eval pprint line")
+  "eF" '(cider-pprint-eval-defun-at-point :which-key "Eval pprint function")
+
+  ;; Evaluation to comment
+  "e;f" '(cider-eval-defun-to-comment :which-key "Eval function")
+  "e;F" '(cider-pprint-eval-defun-to-comment :which-key "Eval pprint function")
+
+  ;; Help
+  "ha" '(cider-apropos :which-key "Apropos")
+  "hd" '(cider-clojuredocs :which-key "Clojuredocs")
+  "hh" '(cider-doc :which-key "Doc")
+  "hj" '(cider-javadoc :which-key "Javadoc")
+  "hn" '(cider-brose-ns :which-key "Browse ns")
+  "hs" '(cider-browse-spec :which-key "Browse spec")
+  "hS" '(cider-browse-spec-all :which-key "Browse all specs")
+
+  ;; Tests
+  "ta" '(cider-test-run-project-tests :which-key "Run all")
+  "tb" '(cider-test-show-report :which-key "Show report")
+  "tl" '(cider-test-run-loaded-tests :which-key "Run all loaded")
+  "tn" '(cider-test-run-ns-tests :which-key "Run ns")
+  "tr" '(cider-test-rerun-failed-tests :which-key "Run failed")
+  "tt" '(cider-test-run-test :which-key "Run test at point")
+
+  ;; Toggle
+  "Te" '(cider-enlighten-mode :which-key "Cider enlighten mode")
+  "Tt" '(cider-auto-test-mode :which-key "Cider auto-test mode")
+ )
+
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
