@@ -132,7 +132,7 @@
       :prefix "SPC"
       :global-prefix "C-SPC")
 
-    (general-create-definer nmkip/local-leader
+    (general-create-definer nmkip/local-leader-keys
       :prefix ",")
 
     (nmkip/leader-keys
@@ -140,6 +140,7 @@
       "f"  '(:ignore t :which-key "files")
       "g"  '(:ignore t :which-key "git")
       "h"  '(:ignore t :which-key "help")
+      "k"  '(:ignore t :which-key "lisp")
       "s"  '(:ignore t :which-key "search")
       "w"  '(:ignore t :which-key "windows")
 
@@ -422,12 +423,45 @@ Buffer Transient State
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nmkip/org-babel-tangle-config)))
 
-(nmkip/local-leader 'normal '(emacs-lisp-mode-map clojure-mode-map)
-                "kt" 'next-buffer
-                "kb" 'next-buffer)
+(defhydra hydra-lisp ()
+ "Lisp State"
+  ("b" sp-forward-barf-sexp "forward barf")
+  ("B" sp-backward-barf-sexp "backward barf")
+  ("s" sp-forward-slurp-sexp "forward slurp")
+  ("S" sp-backward-slurp-sexp "backward slurp")
+  ("h" evil-cp-backward-symbol-begin "backward symbol")
+  ("j" evil-cp-next-closing "next closing")
+  ("k" evil-cp-previous-opening "previous opening")
+  ("l" evil-cp-forward-symbol-begin "forward symbol")
+  ("r" sp-raise-sexp "raise sexp")
+  ("t" sp-transpose-sexp "transpose sexp")
+  ("w" sp-rewrap-sexp "rewrap sexp")
+  ("y" sp-copy-sexp "copy sexp")
+  ("[" sp-wrap-square "wrap []")
+  ("(" sp-wrap-round "wrap ()")
+  ("{" sp-wrap-curly "wrap {}")
+  ("q" nil "quit" :exit t))
 
-(nmkip/local-leader 'normal emacs-lisp-mode-map
-                "kt" 'next-buffer)
+(nmkip/local-leader-keys 'normal '(emacs-lisp-mode-map clojure-mode-map)
+  "," '(hydra-lisp/body :which-key "Lisp transient state"))
+
+(nmkip/leader-keys 'normal '(emacs-lisp-mode-map clojure-mode-map)
+  "k." '(hydra-lisp/body :which-key "Lisp transient state")
+  "kb" '(hydra-lisp/sp-forward-barf-sexp :which-key "forward barf")
+  "kB" '(hydra-lisp/sp-backward-barf-sexp :which-key "backward barf")
+  "ks" '(hydra-lisp/sp-forward-slurp-sexp :which-key "forward slurp")
+  "kS" '(hydra-lisp/sp-backward-slurp-sexp :which-key "backward slurp")
+  "kh" '(hydra-lisp/evil-cp-backward-symbol-begin :which-key "backward symbol")
+  "kj" '(hydra-lisp/evil-cp-next-closing :which-key "next closing")
+  "kk" '(hydra-lisp/evil-cp-previous-opening :which-key "previous opening")
+  "kl" '(hydra-lisp/evil-cp-forward-symbol-begin :which-key "forward symbol")
+  "kr" '(hydra-lisp/sp-raise-sexp :which-key "raise sexp")
+  "kt" '(hydra-lisp/sp-transpose-sexp :which-key "transpose sexp")
+  "kw" '(hydra-lisp/sp-rewrap-sexp :which-key "rewrap sexp")
+  "ky" '(hydra-lisp/sp-copy-sexp :which-key "copy sexp")
+  "k[" '(hydra-lisp/sp-wrap-square :which-key "wrap []")
+  "k(" '(hydra-lisp/sp-wrap-round :which-key "wrap ()")
+  "k{" '(hydra-lisp/sp-wrap-curly :which-key "wrap {}"))
 
 (use-package clojure-mode
   :ensure t)
