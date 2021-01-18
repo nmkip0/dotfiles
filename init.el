@@ -552,7 +552,34 @@ Buffer Transient State
   "Tt" '(cider-auto-test-mode :which-key "Cider auto-test mode")
  )
 
+(defun nmkip/elisp-eval-sexp-end-of-line ()
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (eval-last-sexp nil)))
 
+(nmkip/local-leader-keys '(normal visual) emacs-lisp-mode-map
+  "=" '(:ignore t :which-key "format")
+  "d" '(:ignore t :which-key "debug")
+  "e" '(:ignore t :which-key "evaluation")
+  "h" '(:ignore t :which-key "help")
+  "r" '(:ignore t :which-key "refactor")
+  "t" '(:ignore t :which-key "tests")
+  "T" '(:ignore t :which-key "toggle")
+
+  "'" 'ielm
+
+  ;; Evaluation
+  "e$" '(nmkip/elisp-eval-sexp-end-of-line :which-key "Eval line")
+  "eb" '(eval-buffer :which-key "Eval buffer")
+  "ee" '(eval-last-sexp :which-key "Eval sexp before point")
+  "ef" '(eval-defun :which-key "Eval function")
+  "el" '(nmkip/elisp-eval-sexp-end-of-line :which-key "Eval line")
+  "er" '(eval-region :which-key "Eval region")
+
+  ;; Help
+  "hh" '(helpful-at-point :which-key "Helpful doc")
+ )
 
 (use-package company
   :after lsp-mode
