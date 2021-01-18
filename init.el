@@ -477,13 +477,20 @@ Buffer Transient State
   "k(" '(hydra-lisp/sp-wrap-round :which-key "wrap ()")
   "k{" '(hydra-lisp/sp-wrap-curly :which-key "wrap {}"))
 
+(defun nmkip/clojure-mode-hook ()
+  (clj-refactor-mode 1)
+  (yas-minor-mode 1))
+
 (use-package clojure-mode
+  :hook (clojure-mode . nmkip/clojure-mode-hook)
   :ensure t)
 
 (use-package cider
-  :ensure t
+  :ensure 
   :config
     (evil-collection-cider-setup))
+
+(use-package clj-refactor)
 
 (defun nmkip/cider-eval-sexp-end-of-line ()
     (interactive)

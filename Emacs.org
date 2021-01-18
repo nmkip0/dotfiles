@@ -773,13 +773,20 @@ This will install the [[https://github.com/theia-ide/typescript-language-server]
 
 #+begin_src emacs-lisp
 
-  (use-package clojure-mode
-    :ensure t)
+    (defun nmkip/clojure-mode-hook ()
+      (clj-refactor-mode 1)
+      (yas-minor-mode 1))
 
-  (use-package cider
-    :ensure t
-    :config
-      (evil-collection-cider-setup))
+    (use-package clojure-mode
+      :hook (clojure-mode . nmkip/clojure-mode-hook)
+      :ensure t)
+
+    (use-package cider
+      :ensure 
+      :config
+        (evil-collection-cider-setup))
+
+    (use-package clj-refactor)
 
 #+end_src
 
