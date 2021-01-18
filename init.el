@@ -456,10 +456,15 @@ Buffer Transient State
   ("{" sp-wrap-curly "wrap {}")
   ("q" nil "quit" :exit t))
 
-(nmkip/local-leader-keys 'normal '(emacs-lisp-mode-map clojure-mode-map)
+(nmkip/local-leader-keys 'normal '(emacs-lisp-mode-map
+                                   clojure-mode-map
+                                   lisp-interaction-mode-map)
   "," '(hydra-lisp/body :which-key "Lisp transient state"))
 
-(nmkip/leader-keys 'normal '(emacs-lisp-mode-map clojure-mode-map)
+(nmkip/leader-keys 'normal '(emacs-lisp-mode-map
+                             clojure-mode-map
+                             lisp-interaction-mode-map)
+
   "k." '(hydra-lisp/body :which-key "Lisp transient state")
   "kb" '(hydra-lisp/sp-forward-barf-sexp :which-key "forward barf")
   "kB" '(hydra-lisp/sp-backward-barf-sexp :which-key "backward barf")
