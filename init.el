@@ -603,7 +603,7 @@ Buffer Transient State
     (end-of-line)
     (eval-last-sexp nil)))
 
-(nmkip/local-leader-keys '(normal visual) emacs-lisp-mode-map
+(nmkip/local-leader-keys '(normal visual) '(emacs-lisp-mode-map lisp-interaction-mode-map)
   "=" '(:ignore t :which-key "format")
   "d" '(:ignore t :which-key "debug")
   "e" '(:ignore t :which-key "evaluation")
