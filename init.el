@@ -678,7 +678,7 @@ Buffer Transient State
   "pK" '(projectile-kill-buffers :which-key "find file")
   "pl" '(projectile-edit-dir-locals :which-key "dir locals")
   "pn" '(hydra-projectile/projectile-next-project-buffer :which-key "next buffer")
-  "pN" '(hydra-projectile/projectile-previous-project-buffer :which-key "next buffer")
+  "pN" '(hydra-projectile/projectile-previous-project-buffer :which-key "previous buffer")
   "ps" '(counsel-projectile-rg :which-key "search")
   "pS" '(projectile-multi-occur :which-key "multi-occur")
   "pp" '(counsel-projectile-switch-project :which-key "switch project")
