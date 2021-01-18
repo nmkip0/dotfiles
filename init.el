@@ -164,9 +164,6 @@
       "b8" '(buffer-to-window-8 :which-key "Move buffer to window 8")
       "b9" '(buffer-to-window-9 :which-key "Move buffer to window 9")
       "bl" '(clm/open-command-log-buffer :which-key "Command log buffer")
-      "bn" '(next-buffer :which-key "Next buffer")
-      "bN" '(previous-buffer :which-key "Previous buffer")
-      "bp" '(previous-buffer :which-key "Previous buffer")
       "bb" '(counsel-switch-buffer :which-key "Switch buffer")
       "bd" '(kill-this-buffer :which-key "Delete buffer")
       "bD" '(kill-buffer-and-window :which-key "Delete buffer and window")
@@ -237,6 +234,9 @@ Buffer Transient State
 (nmkip/leader-keys
     "b." '(hydra-buffers/body :which-key "Buffer transient state")
     "b," '(hydra-buffers/previous-buffer :which-key "Buffer transient state")
+    "bn" '(hydra-buffers/next-buffer :which-key "Next buffer")
+    "bN" '(hydra-buffers/previous-buffer :which-key "Previous buffer")
+    "bp" '(hydra-buffers/previous-buffer :which-key "Previous buffer")
 )
 
 (defhydra hydra-windows (:hint nil)
