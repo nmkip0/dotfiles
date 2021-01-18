@@ -553,8 +553,36 @@ Buffer Transient State
   "hh" '(cider-doc :which-key "Doc")
   "hj" '(cider-javadoc :which-key "Javadoc")
   "hn" '(cider-brose-ns :which-key "Browse ns")
+  "hr" '(cljr-describe-refactoring :which-key "Describe refactoring")
   "hs" '(cider-browse-spec :which-key "Browse spec")
   "hS" '(cider-browse-spec-all :which-key "Browse all specs")
+
+  "ra" '(:ignore t :which-key "Add")
+  "rai" '(cljr-add-import-to-ns :which-key "Add import")
+  "ral" '(cljr-introduce-let :which-key "Add let")
+  "ram" '(cljr-add-missing-libspec :which-key "Add missing dependency")
+  "rap" '(cljr-add-project-dependency :which-key "Add project dependency")
+  "rar" '(cljr-add-require-to-ns :which-key "Add require")
+  "ras" '(cljr-add-stubs :which-key "Add stubs for protocol at point")
+
+  "rh" '(cljr-describe-refactoring :which-key "Describe refactoring")
+
+  "rf" '(:ignore t :which-key "Function")
+  "rfc" '(cljr-create-fn-from-example :which-key "Create")
+  "rfp" '(cljr-promote-function :which-key "Promote/Extract")
+
+  "ri" '(:ignore t :which-key "Inline")
+  "ril" '(cljr-remove-let :which-key "Remove let and inline")
+  "ris" '(cljr-inline-symbol :which-key "Inline symbol")
+
+  "rr" '(cljr-rename-symbol :which-key "Rename symbol")
+
+  "rt" '(:ignore t :which-key "Thread")
+  "rtf" '(cljr-thread-first-all :which-key "Thread first all")
+  "rti" '(cljr-thread :which-key "Thread into current thread")
+  "rtl" '(cljr-thread-last-all :which-key "Thread last all")
+  "rtu" '(cljr-unwind-all :which-key "Unwind entire thread")
+  "rtU" '(cljr-unwind :which-key "Unwind one thread step")
 
   ;; Tests
   "ta" '(cider-test-run-project-tests :which-key "Run all")
