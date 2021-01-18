@@ -147,6 +147,7 @@
       "k"  '(:ignore t :which-key "lisp")
       "s"  '(:ignore t :which-key "search")
       "w"  '(:ignore t :which-key "windows")
+      "t"  '(:ignore t :which-key "toggles")
 
       "SPC" '(counsel-M-x :which-key "M-x")
       "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
@@ -162,6 +163,7 @@
       "b7" '(buffer-to-window-7 :which-key "Move buffer to window 7")
       "b8" '(buffer-to-window-8 :which-key "Move buffer to window 8")
       "b9" '(buffer-to-window-9 :which-key "Move buffer to window 9")
+      "bl" '(clm/open-command-log-buffer :which-key "Command log buffer")
       "bn" '(next-buffer :which-key "Next buffer")
       "bN" '(previous-buffer :which-key "Previous buffer")
       "bp" '(previous-buffer :which-key "Previous buffer")
@@ -216,6 +218,11 @@
       "wu" '(winner-undo :which-key "Winner undo")
       "wv" '(split-window-right :which-key "Split vertically")
 
+      ;; Toggles
+      "tl" '(command-log-mode :whick-key "Command log mode")
+      "tL" '(global-command-log-mode :whick-key "Command log mode")
+      "ts" '(smartparens-mode :whick-key "Smartparens mode")
+      "tS" '(smartparens-strict-mode :whick-key "Smartparens strict mode")
       ))
 
 (defhydra hydra-buffers (:hint nil)
