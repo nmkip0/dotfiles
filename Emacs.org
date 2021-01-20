@@ -1073,8 +1073,8 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
 
   (defhydra hydra-projectile (:hint nil)
     "
-        Projectile Transient State
-        [_n_]: next buffer [_p_/_N_]: previous buffer "
+Projectile Transient State
+[_n_]: next buffer [_p_/_N_]: previous buffer "
     ("n" projectile-next-project-buffer)
     ("N" projectile-previous-project-buffer)
     ("p" projectile-previous-project-buffer)

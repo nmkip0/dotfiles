@@ -714,36 +714,36 @@ Flycheck Transient State
   :config (counsel-projectile-mode))
 
 (defhydra hydra-projectile (:hint nil)
-  "
-      Projectile Transient State
-      [_n_]: next buffer [_p_/_N_]: previous buffer "
-  ("n" projectile-next-project-buffer)
-  ("N" projectile-previous-project-buffer)
-  ("p" projectile-previous-project-buffer)
-  ("q" nil "quit" :color blue))
+    "
+Projectile Transient State
+[_n_]: next buffer [_p_/_N_]: previous buffer "
+    ("n" projectile-next-project-buffer)
+    ("N" projectile-previous-project-buffer)
+    ("p" projectile-previous-project-buffer)
+    ("q" nil "quit" :color blue))
 
-(nmkip/leader-keys
-  "p" '(:ignore t :which-key "projects")
+  (nmkip/leader-keys
+    "p" '(:ignore t :which-key "projects")
 
-  "p." '(hydra-projectile/body :which-key "Projectile transient state")
-  "p*" '(projectile-clear-known-projects :which-key "clean-up")
-  "p!" '(projectile-run-shell :which-key "shell")
-  "pA" '(projectile-add-known-project :which-key "add project")
-  "pb" '(counsel-projectile-switch-to-buffer :which-key "buffers")
-  "pd" '(counsel-projectile-find-dir :which-key "find dirs")
-  "pD" '(projectile-discover-projects-in-directory :which-key "discover")
-  "pf" '(counsel-projectile-find-file :which-key "find file")
-  "pK" '(projectile-kill-buffers :which-key "find file")
-  "pl" '(projectile-edit-dir-locals :which-key "dir locals")
-  "pn" '(hydra-projectile/projectile-next-project-buffer :which-key "next buffer")
-  "pN" '(hydra-projectile/projectile-previous-project-buffer :which-key "previous buffer")
-  "ps" '(counsel-projectile-rg :which-key "search")
-  "pS" '(projectile-multi-occur :which-key "multi-occur")
-  "pp" '(counsel-projectile-switch-project :which-key "switch project")
-  "pr" '(projectile-recentf :which-key "recent files")
-  "pt" '(projectile-toggle-between-implementation-and-test :which-key "implementation<->test")
-  "pT" '(projectile-find-test-file :which-key "find test file")
-  )
+    "p." '(hydra-projectile/body :which-key "Projectile transient state")
+    "p*" '(projectile-clear-known-projects :which-key "clean-up")
+    "p!" '(projectile-run-shell :which-key "shell")
+    "pA" '(projectile-add-known-project :which-key "add project")
+    "pb" '(counsel-projectile-switch-to-buffer :which-key "buffers")
+    "pd" '(counsel-projectile-find-dir :which-key "find dirs")
+    "pD" '(projectile-discover-projects-in-directory :which-key "discover")
+    "pf" '(counsel-projectile-find-file :which-key "find file")
+    "pK" '(projectile-kill-buffers :which-key "find file")
+    "pl" '(projectile-edit-dir-locals :which-key "dir locals")
+    "pn" '(hydra-projectile/projectile-next-project-buffer :which-key "next buffer")
+    "pN" '(hydra-projectile/projectile-previous-project-buffer :which-key "previous buffer")
+    "ps" '(counsel-projectile-rg :which-key "search")
+    "pS" '(projectile-multi-occur :which-key "multi-occur")
+    "pp" '(counsel-projectile-switch-project :which-key "switch project")
+    "pr" '(projectile-recentf :which-key "recent files")
+    "pt" '(projectile-toggle-between-implementation-and-test :which-key "implementation<->test")
+    "pT" '(projectile-find-test-file :which-key "find test file")
+    )
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
