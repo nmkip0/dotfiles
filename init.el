@@ -195,6 +195,7 @@
       "hb" '(counsel-describe-binds :which-key "Describe binds")
       "hf" '(counsel-describe-function :which-key "Describe function")
       "hF" '(counsel-describe-face :which-key "Describe face")
+      "hh" '(helpful-at-point :which-key "Helpul at point")
       "hk" '(describe-key :which-key "Describe key")
       "hm" '(describe-mode :which-key "Describe mode")
       "hp" '(describe-package :which-key "Describe package")
