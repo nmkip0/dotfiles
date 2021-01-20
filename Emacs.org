@@ -1017,23 +1017,24 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
 
 #+begin_src emacs-lisp
 
-    (use-package company
-      :hook
-      (clojure-mode . company-mode)
-      (emacs-lisp-mode . company-mode)
-      (lisp-interaction-mode . company-mode)
-      :bind (:map company-active-map
-                  ("<tab>" . company-complete-selection))
-      :custom
-      (company-minimum-prefix-length 1)
-      (company-idle-delay 0.0)
-      (company-show-numbers t))
+  (use-package company
+    :hook
+    (clojure-mode . company-mode)
+    (emacs-lisp-mode . company-mode)
+    (lisp-interaction-mode . company-mode)
+    :bind (:map company-active-map
+                ("C-w" . evil-delete-backward-word)
+                ("<tab>" . company-complete-selection))
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0)
+    (company-show-numbers t))
 
-    (use-package company-box
-      :hook (company-mode . company-box-mode))
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
 
-   ;; Maybe this
-   ;;("<tab>" . company-indent-or-complete-common)
+  ;; Maybe this
+  ;;("<tab>" . company-indent-or-complete-common)
 
   ;; Workaround evil-mode had higher priority when company-mode was active.
   (with-eval-after-load 'company
