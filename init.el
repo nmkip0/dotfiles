@@ -216,6 +216,7 @@
       "wv" '(split-window-right :which-key "Split vertically")
 
       ;; Toggles
+      "tf" '(flycheck-mode :whick-key "Flycheck mode")
       "tl" '(command-log-mode :whick-key "Command log mode")
       "tL" '(global-command-log-mode :whick-key "Command log mode")
       "ts" '(smartparens-mode :whick-key "Smartparens mode")
