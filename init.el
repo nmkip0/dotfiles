@@ -188,8 +188,7 @@
       "fR" '(rename-file :which-key "Rename file")
 
       ;; git
-      ;; TODO: Add transient state: move to next/prev hunk. 
-      "gs" '(magit-status :which-key "Next buffer")
+      "gs" '(magit-status :which-key "Magit Status")
 
       ;; help
       "ha" '(counsel-apropos :which-key "Apropos")
