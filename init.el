@@ -770,6 +770,14 @@ Projectile Transient State
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge)
 
+(use-package diff-hl
+  :hook
+  (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
+  (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+  :ensure t
+  :config (global-diff-hl-mode)
+)
+
 (use-package undo-tree
     :diminish undo-tree-mode
     :ensure t

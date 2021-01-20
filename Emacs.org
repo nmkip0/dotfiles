@@ -1147,6 +1147,20 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+end_src
 
+** Diff-hl
+
+#+begin_src emacs-lisp
+
+    (use-package diff-hl
+      :hook
+      (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
+      (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+      :ensure t
+      :config (global-diff-hl-mode)
+    )
+
+#+end_src
+
 ** Productivity
 
 *** Undo-tree
