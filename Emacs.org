@@ -1160,6 +1160,32 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+end_src
 
+*** Keybindings
+
+#+begin_src emacs-lisp
+  (defhydra hydra-git (:hint nil)
+    "
+Git Transient State
+[_d_]: diff [_x_]: discard hunk [_s_]: status [_n_]: next hunk [_p_/_N_]: previous hunk "
+    ("d" vc-diff)
+    ("n" diff-hl-next-hunk)
+    ("N" diff-hl-previous-hunk)
+    ("p" diff-hl-previous-hunk)
+    ("s" magit-status)
+    ("x" diff-hl-revert-hunk)
+    ("q" nil "quit" :color blue))
+
+  (nmkip/leader-keys
+    "g." '(hydra-git/body :which-key "Git transient state")
+    "gd" '(hydra-git/vc-diff :which-key "Show diff")
+    "gn" '(hydra-git/diff-hl-next-hunk :which-key "Next hunk")
+    "gN" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
+    "gp" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
+    "gx" '(hydra-git/diff-hl-revert-hunk :which-key "Revert hunk")
+    )
+
+#+end_src
+
 ** Productivity
 
 *** Undo-tree
