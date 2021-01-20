@@ -441,6 +441,27 @@ Buffer Transient State
   :ensure t
   :init (global-flycheck-mode))
 
+(defhydra hydra-flycheck (:hint nil)
+  "
+Flycheck Transient State
+[_n_]: next error [_p_/_N_]: previous error "
+  ("n" flycheck-next-error)
+  ("N" flycheck-previous-error)
+  ("p" flycheck-previous-error)
+  ("q" nil "quit" :color blue))
+
+(nmkip/leader-keys
+  "e" '(:ignore t :which-key "errors")
+
+  "e." '(hydra-flycheck/body :which-key "Flycheck transient state")
+  "eb" '(flycheck-list-errors :which-key "Errors buffer")
+  "en" '(hydra-flycheck/flycheck-next-error :which-key "Next error")
+  "eN" '(hydra-flycheck/flycheck-previous-error :which-key "Previous error")
+  "ep" '(hydra-flycheck/flycheck-previous-error :which-key "Next error")
+  "ev" '(flycheck-verify-setup :which-key "Verify setup")
+  "ev" '(flycheck-verify-setup :which-key "Verify setup")
+  )
+
 (defhydra hydra-lisp ()
  "Lisp State"
   ("b" sp-forward-barf-sexp "forward barf")
