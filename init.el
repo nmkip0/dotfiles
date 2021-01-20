@@ -53,7 +53,7 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
-(setq display-line-numbers-type 'visual) ; Relative line numbers
+(setq display-line-numbers-type 'relative) ; Relative line numbers
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
