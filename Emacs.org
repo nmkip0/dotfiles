@@ -774,6 +774,16 @@ npm install -g typescript-language-server typescript
 
 This will install the [[https://github.com/theia-ide/typescript-language-server][typescript-language-server]] and the TypeScript compiler package.
 
+*** TODO Javascript
+
+Check this out. Maybe [[https://github.com/felipeochoa/rjsx-mode/][rjsx-mode]] for jsx files?
+[[https://github.com/mooz/js2-mode][js2-mode]] says there are some tradeoffs. Which ones?
+
+#+begin_src emacs-lisp :tangle no
+  (use-package js2-mode)
+  (use-package rjsx-mode)
+#+end_src
+
 *** Clojure
 
 #+begin_src emacs-lisp
