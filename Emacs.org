@@ -796,20 +796,24 @@ Check this out. Maybe [[https://github.com/felipeochoa/rjsx-mode/][rjsx-mode]] f
 
 #+begin_src emacs-lisp
 
-    (defun nmkip/clojure-mode-hook ()
-      (clj-refactor-mode 1)
-      (yas-minor-mode 1))
+      (defun nmkip/clojure-mode-hook ()
+        (clj-refactor-mode 1)
+        (yas-minor-mode 1))
 
-    (use-package clojure-mode
-      :hook (clojure-mode . nmkip/clojure-mode-hook)
-      :ensure t)
+      (use-package flycheck-clj-kondo
+        :ensure t)
 
-    (use-package cider
-      :ensure 
-      :config
-        (evil-collection-cider-setup))
+      (use-package clojure-mode
+        :hook (clojure-mode . nmkip/clojure-mode-hook)
+        :ensure t
+        :config (require 'flycheck-clj-kondo))
 
-    (use-package clj-refactor)
+      (use-package cider
+        :ensure t
+        :config
+          (evil-collection-cider-setup))
+
+      (use-package clj-refactor)
 
 #+end_src
 

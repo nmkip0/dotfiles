@@ -490,12 +490,16 @@ Buffer Transient State
   (clj-refactor-mode 1)
   (yas-minor-mode 1))
 
-(use-package clojure-mode
-  :hook (clojure-mode . nmkip/clojure-mode-hook)
+(use-package flycheck-clj-kondo
   :ensure t)
 
+(use-package clojure-mode
+  :hook (clojure-mode . nmkip/clojure-mode-hook)
+  :ensure t
+  :config (require 'flycheck-clj-kondo))
+
 (use-package cider
-  :ensure 
+  :ensure t
   :config
     (evil-collection-cider-setup))
 
