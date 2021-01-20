@@ -169,6 +169,7 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
             (progn
                 (window-configuration-to-register ?_)
                 (delete-other-windows)))))
+
 #+end_src
 
 #+begin_src emacs-lisp
@@ -203,6 +204,15 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
         "SPC" '(counsel-M-x :which-key "M-x")
         "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
         "/" '(swiper :which-key "swiper")
+        "1" '(winum-select-window-1 :which-key "Select window 1")
+        "2" '(winum-select-window-2 :which-key "Select window 2")
+        "3" '(winum-select-window-3 :which-key "Select window 3")
+        "4" '(winum-select-window-4 :which-key "Select window 4")
+        "5" '(winum-select-window-5 :which-key "Select window 5")
+        "6" '(winum-select-window-6 :which-key "Select window 6")
+        "7" '(winum-select-window-7 :which-key "Select window 7")
+        "8" '(winum-select-window-8 :which-key "Select window 8")
+        "9" '(winum-select-window-9 :which-key "Select window 9")
 
         ;; Buffers
         "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
