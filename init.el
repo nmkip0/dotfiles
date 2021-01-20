@@ -437,6 +437,10 @@ Buffer Transient State
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nmkip/org-babel-tangle-config)))
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 (defhydra hydra-lisp ()
  "Lisp State"
   ("b" sp-forward-barf-sexp "forward barf")

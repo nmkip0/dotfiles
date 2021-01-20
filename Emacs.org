@@ -626,6 +626,14 @@ This snippet adds a hook to =org-mode= buffers so that =nmkip/org-babel-tangle-c
 
 #+end_src
 
+* Flycheck
+#+begin_src emacs-lisp
+
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode))
+
+#+end_src
 * Development
 ** Languages
 *** Lisps
