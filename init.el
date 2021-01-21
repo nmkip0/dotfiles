@@ -494,11 +494,13 @@ Flycheck Transient State
 
 (nmkip/local-leader-keys 'normal '(emacs-lisp-mode-map
                                    clojure-mode-map
+                                   cider-repl-mode-map
                                    lisp-interaction-mode-map)
   "," '(hydra-lisp/body :which-key "Lisp transient state"))
 
 (nmkip/leader-keys 'normal '(emacs-lisp-mode-map
                              clojure-mode-map
+                             cider-repl-mode-map
                              lisp-interaction-mode-map)
 
   "k." '(hydra-lisp/body :which-key "Lisp transient state")
@@ -813,6 +815,7 @@ Git Transient State
     (prog-mode . smartparens-mode)
     (emacs-lisp-mode . smartparens-strict-mode)
     (clojure-mode . smartparens-strict-mode)
+    (cider-repl-mode . smartparens-strict-mode)
   :config
     (sp-local-pair sp-lisp-modes "'" nil :actions nil)
     (show-smartparens-global-mode))
@@ -828,6 +831,7 @@ Git Transient State
   :hook
       (clojure-mode . evil-cleverparens-mode)
       (emacs-lisp-mode . evil-cleverparens-mode)
+      (cider-repl-mode . evil-cleverparens-mode)
   :custom
       (evil-cleverparens-use-additional-bindings nil)
       (evil-cleverparens-use-additional-movement-keys nil)
