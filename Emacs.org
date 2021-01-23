@@ -214,6 +214,7 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
         "7" '(winum-select-window-7 :which-key "Select window 7")
         "8" '(winum-select-window-8 :which-key "Select window 8")
         "9" '(winum-select-window-9 :which-key "Select window 9")
+        "T" '(counsel-load-theme  :which-key "Load theme")
 
         ;; Buffers
         "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
@@ -380,11 +381,18 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
 
 #+begin_src emacs-lisp
 
-(use-package doom-themes
-  :init (load-theme 'doom-vibrant t))
+(use-package doom-themes)
+  ;;:init (load-theme 'doom-vibrant t))
 
 #+end_src
 
+#+begin_src emacs-lisp
+       (use-package solarized-theme
+         :init
+         (setq solarized-use-less-bold t)
+        :config
+        (load-theme 'solarized-dark-high-contrast t) )
+#+end_src
 ** Better Modeline
 
 [[https://github.com/seagle0128/doom-modeline][doom-modeline]] is a very attractive and rich (yet still minimal) mode line configuration for Emacs.  The default configuration is quite good but you can check out the [[https://github.com/seagle0128/doom-modeline#customize][configuration options]] for more things you can enable or disable.

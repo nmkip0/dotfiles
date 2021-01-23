@@ -162,6 +162,7 @@
       "7" '(winum-select-window-7 :which-key "Select window 7")
       "8" '(winum-select-window-8 :which-key "Select window 8")
       "9" '(winum-select-window-9 :which-key "Select window 9")
+      "T" '(counsel-load-theme  :which-key "Load theme")
 
       ;; Buffers
       "b1" '(buffer-to-window-1 :which-key "Move buffer to window 1")
@@ -302,8 +303,14 @@ Buffer Transient State
 
 (use-package command-log-mode)
 
-(use-package doom-themes
-  :init (load-theme 'doom-vibrant t))
+(use-package doom-themes)
+  ;;:init (load-theme 'doom-vibrant t))
+
+(use-package solarized-theme
+  :init
+  (setq solarized-use-less-bold t)
+ :config
+ (load-theme 'solarized-dark-high-contrast t) )
 
 (use-package all-the-icons)
 
