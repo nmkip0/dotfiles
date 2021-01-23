@@ -152,6 +152,7 @@
       "SPC" '(counsel-M-x :which-key "M-x")
       "TAB" '(evil-switch-to-windows-last-buffer :which-key "Last buffer")
       "/" '(swiper :which-key "swiper")
+      "!" '(eshell :which-key "eshel")
       "1" '(winum-select-window-1 :which-key "Select window 1")
       "2" '(winum-select-window-2 :which-key "Select window 2")
       "3" '(winum-select-window-3 :which-key "Select window 3")
