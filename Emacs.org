@@ -229,6 +229,7 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
         "bb" '(counsel-switch-buffer :which-key "Switch buffer")
         "bd" '(kill-this-buffer :which-key "Delete buffer")
         "bD" '(kill-buffer-and-window :which-key "Delete buffer and window")
+        "be" '(flycheck-list-errors :which-key "Flycheck list errors")
         "bm" '(nmkip/show-messages-buffer :which-key "Messages buffer")
         "bs" '(nmkip/show-scratch-buffer :which-key "Scratch buffer")
         "br" '(Revert buffer :which-key "Revert buffer")
@@ -665,7 +666,7 @@ This snippet adds a hook to =org-mode= buffers so that =nmkip/org-babel-tangle-c
     "e" '(:ignore t :which-key "errors")
 
     "e." '(hydra-flycheck/body :which-key "Flycheck transient state")
-    "eb" '(flycheck-list-errors :which-key "Errors buffer")
+    "el" '(flycheck-list-errors :which-key "List errors")
     "en" '(hydra-flycheck/flycheck-next-error :which-key "Next error")
     "eN" '(hydra-flycheck/flycheck-previous-error :which-key "Previous error")
     "ep" '(hydra-flycheck/flycheck-previous-error :which-key "Next error")
