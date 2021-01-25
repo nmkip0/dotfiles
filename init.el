@@ -544,9 +544,12 @@ Flycheck Transient State
 (use-package cider
   :ensure t
   :config
-    (evil-collection-cider-setup))
+  (evil-collection-cider-setup))
 
 (use-package clj-refactor)
+
+(use-package html-to-hiccup
+  :ensure t)
 
 (defun nmkip/cider-eval-sexp-end-of-line ()
     (interactive)
@@ -620,6 +623,9 @@ Flycheck Transient State
   "rap" '(cljr-add-project-dependency :which-key "Add project dependency")
   "rar" '(cljr-add-require-to-ns :which-key "Add require")
   "ras" '(cljr-add-stubs :which-key "Add stubs for protocol at point")
+
+  "rc" '(:ignore t :which-key "Convert")
+  "rch" '(html-to-hiccup-convert-region :which-key "Region to hiccup")
 
   "rh" '(cljr-describe-refactoring :which-key "Describe refactoring")
 
