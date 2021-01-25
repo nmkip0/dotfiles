@@ -729,8 +729,8 @@ Flycheck Transient State
   ("C-c p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/projects")
-    (setq projectile-project-search-path '("~/projects")))
+  ;;(when (file-directory-p "~/projects")
+    ;;(setq projectile-project-search-path '("~/projects")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package counsel-projectile
@@ -756,7 +756,7 @@ Projectile Transient State
     "pd" '(counsel-projectile-find-dir :which-key "find dirs")
     "pD" '(projectile-discover-projects-in-directory :which-key "discover")
     "pf" '(counsel-projectile-find-file :which-key "find file")
-    "pK" '(projectile-kill-buffers :which-key "find file")
+    "pK" '(projectile-kill-buffers :which-key "kill buffers")
     "pl" '(projectile-edit-dir-locals :which-key "dir locals")
     "pn" '(hydra-projectile/projectile-next-project-buffer :which-key "next buffer")
     "pN" '(hydra-projectile/projectile-previous-project-buffer :which-key "previous buffer")
