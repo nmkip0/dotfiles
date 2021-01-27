@@ -239,7 +239,8 @@
 (defhydra hydra-buffers (:hint nil)
     "
 Buffer Transient State
-[_n_]: next buffer [_p_/_N_]: previous buffer "
+[_k_]: kill buffer [_n_]: next buffer [_p_/_N_]: previous buffer "
+    ("k" kill-buffer)
     ("n" next-buffer)
     ("N" previous-buffer)
     ("p" previous-buffer)
@@ -262,7 +263,6 @@ Buffer Transient State
     ("}" enlarge-window "enlarge" :column "vertical")
     ("q" nil "quit" :color blue :column nil)
 )
-
 
 (nmkip/leader-keys
     "w." '(hydra-windows/body :which-key "Windows transient state")
