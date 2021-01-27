@@ -240,7 +240,7 @@
     "
 Buffer Transient State
 [_k_]: kill buffer [_n_]: next buffer [_p_/_N_]: previous buffer "
-    ("k" kill-buffer)
+    ("k" kill-current-buffer)
     ("n" next-buffer)
     ("N" previous-buffer)
     ("p" previous-buffer)
