@@ -1079,12 +1079,17 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
 
 [[https://projectile.mx/][Projectile]] is a project management library for Emacs which makes it a lot easier to navigate around code projects for various languages.  Many packages integrate with Projectile so it's a good idea to have it installed even if you don't use its commands directly.
 
+NOTE: Set projectile-indexing-method to alien if listing files becomes slow.
+
 #+begin_src emacs-lisp
 
   (use-package projectile
     :diminish projectile-mode
     :config (projectile-mode)
-    :custom ((projectile-completion-system 'ivy))
+    :custom
+    (projectile-globally-ignored-file-suffixes '("~" "#"))
+    (projectile-indexing-method 'hybrid)
+    (projectile-completion-system 'ivy)
     :bind-keymap
     ("C-c p" . projectile-command-map)
     :init
@@ -1271,6 +1276,12 @@ Git Transient State
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+#+end_src
+
+*** Recent Files
+
+#+begin_src emacs-lisp
+(recentf-mode)
 #+end_src
 
 * Terminals

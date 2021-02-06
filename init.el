@@ -731,7 +731,10 @@ Flycheck Transient State
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
+  :custom
+  (projectile-globally-ignored-file-suffixes '("~" "#"))
+  (projectile-indexing-method 'hybrid)
+  (projectile-completion-system 'ivy)
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
@@ -858,6 +861,8 @@ Git Transient State
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(recentf-mode)
 
 (use-package term
   :config
