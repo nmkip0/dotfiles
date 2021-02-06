@@ -589,6 +589,7 @@ Flycheck Transient State
   ;; Debug
   "df" '(cider-debug-defun-at-point :which-key "Debug function")
   "di" '(cider-inspect :which-key "Cider inspect")
+  "dI" '(cider-inspect-last-result :which-key "Cider inspect last result")
 
   ;; Evaluation
   "e$" '(nmkip/cider-eval-sexp-end-of-line :which-key "Eval line")
