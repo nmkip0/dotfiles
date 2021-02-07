@@ -541,11 +541,54 @@ Flycheck Transient State
   :ensure t
   :config (require 'flycheck-clj-kondo))
 
+(defun nmkip/cider-config ()
+  (setq cider-repl-pop-to-buffer-on-connect nil)
+  ;(evil-collection-cider-setup)
+)
+
+(defun nmkip/cider-inspector-mode-hook ()
+  (general-override-local-mode)
+  (general-define-key
+   :states 'normal
+   :keymaps 'local
+   "h" 'cider-inspector-pop
+   "H" 'cider-inspector-prev-page
+   "j" 'cider-inspector-next-inspectable-object
+   "k" 'cider-inspector-previous-inspectable-object
+   "l" 'cider-inspector-operate-on-point
+   "L" 'cider-inspector-next-page
+   "q" 'quit-window
+   "r" 'cider-inspector-refresh
+   "s" 'cider-inspector-set-page-size
+   (kbd "RET") 'cider-inspector-operate-on-point
+   [mouse-1] 'cider-inspector-operate-on-click
+   ))
+
+(defun nmkip/cider--debug-mode-hook ()
+  (if (bound-and-true-p cider--debug-mode)
+      (progn
+        (general-override-local-mode 1)
+        (general-define-key
+         :states 'normal
+         :predicate '((lambda () (bound-and-true-p cider--debug-mode)))
+         :keymaps 'local
+         "n" 'evil-collection-cider-debug-next
+         "c" 'evil-collection-cider-debug-continue
+         "o" 'evil-collection-cider-debug-out
+         "q" 'evil-collection-cider-debug-quit
+         "e" 'evil-collection-cider-debug-eval
+         "J" 'evil-collection-cider-debug-inject
+         "p" 'evil-collection-cider-debug-inspect
+         "L" 'evil-collection-cider-debug-locals
+         "H" 'cider-debug-move-here))
+    (general-override-local-mode 0)))
+
 (use-package cider
   :ensure t
-  :config
-  (setq cider-repl-pop-to-buffer-on-connect nil)
-  (evil-collection-cider-setup))
+  :hook
+  (cider-inspector-mode . nmkip/cider-inspector-mode-hook)
+  (cider--debug-mode . nmkip/cider--debug-mode-hook)
+  :config (nmkip/cider-config))
 
 (use-package clj-refactor)
 
