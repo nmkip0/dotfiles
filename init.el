@@ -544,6 +544,7 @@ Flycheck Transient State
 (use-package cider
   :ensure t
   :config
+  (setq cider-repl-pop-to-buffer-on-connect nil)
   (evil-collection-cider-setup))
 
 (use-package clj-refactor)
