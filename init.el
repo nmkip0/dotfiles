@@ -740,7 +740,11 @@ Flycheck Transient State
   (lisp-interaction-mode . company-mode)
   :bind (:map company-active-map
               ("C-w" . evil-delete-backward-word)
-              ("<tab>" . company-complete-selection))
+              ("C-j" . company-select-next)
+              ("C-k" . company-select-previous)
+              ("C-l" . company-complete-selection)
+              ("<return>" . company-complete-selection)
+              ("<tab>" . company-complete-common-or-cycle))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
