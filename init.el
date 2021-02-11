@@ -192,6 +192,11 @@
 
       ;; git
       "gs" '(magit-status :which-key "Magit Status")
+      "gd" '(magit-diff-working-tree :which-key "Magit Diff working tree")
+      "gD" '(:ignore t "Diff")
+      "gDs" '(magit-diff-staged :which-key "Magit Diff staged")
+      "gDu" '(magit-diff-unstaged :which-key "Magit Diff unstaged")
+      "gDw" '(magit-diff-working-tree :which-key "Magit Diff working tree")
 
       ;; help
       "ha" '(counsel-apropos :which-key "Apropos")
@@ -850,23 +855,19 @@ Projectile Transient State
 (defhydra hydra-git (:hint nil)
     "
 Git Transient State
-[_d_]: diff [_x_]: discard hunk [_s_]: status [_n_]: next hunk [_p_/_N_]: previous hunk "
-    ("d" vc-diff)
+[_x_]: discard hunk [_n_]: next hunk [_p_/_N_]: previous hunk "
     ("n" diff-hl-next-hunk)
     ("N" diff-hl-previous-hunk)
     ("p" diff-hl-previous-hunk)
-    ("s" magit-status)
     ("x" diff-hl-revert-hunk)
     ("q" nil "quit" :color blue))
 
   (nmkip/leader-keys
     "g." '(hydra-git/body :which-key "Git transient state")
-    "gd" '(hydra-git/vc-diff :which-key "Show diff")
     "gn" '(hydra-git/diff-hl-next-hunk :which-key "Next hunk")
     "gN" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
     "gp" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
-    "gx" '(hydra-git/diff-hl-revert-hunk :which-key "Revert hunk")
-    )
+    "gx" '(hydra-git/diff-hl-revert-hunk :which-key "Revert hunk"))
 
 (use-package undo-tree
     :diminish undo-tree-mode
