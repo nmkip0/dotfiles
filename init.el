@@ -190,14 +190,6 @@
       "fr" '(counsel-recentf :which-key "Recent files")
       "fR" '(rename-file :which-key "Rename file")
 
-      ;; git
-      "gs" '(magit-status :which-key "Magit Status")
-      "gd" '(magit-diff-working-tree :which-key "Magit Diff working tree")
-      "gD" '(:ignore t "Diff")
-      "gDs" '(magit-diff-staged :which-key "Magit Diff staged")
-      "gDu" '(magit-diff-unstaged :which-key "Magit Diff unstaged")
-      "gDw" '(magit-diff-working-tree :which-key "Magit Diff working tree")
-
       ;; help
       "ha" '(counsel-apropos :which-key "Apropos")
       "hb" '(counsel-describe-binds :which-key "Describe binds")
@@ -864,10 +856,17 @@ Git Transient State
 
   (nmkip/leader-keys
     "g." '(hydra-git/body :which-key "Git transient state")
+    "gs" '(magit-status :which-key "Magit Status")
+    "gd" '(magit-diff-working-tree :which-key "Magit Diff working tree")
     "gn" '(hydra-git/diff-hl-next-hunk :which-key "Next hunk")
     "gN" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
     "gp" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
-    "gx" '(hydra-git/diff-hl-revert-hunk :which-key "Revert hunk"))
+    "gx" '(hydra-git/diff-hl-revert-hunk :which-key "Revert hunk")
+
+    "gD" '(:ignore t "Diff")
+    "gDs" '(magit-diff-staged :which-key "Magit Diff staged")
+    "gDu" '(magit-diff-unstaged :which-key "Magit Diff unstaged")
+    "gDw" '(magit-diff-working-tree :which-key "Magit Diff working tree"))
 
 (use-package undo-tree
     :diminish undo-tree-mode
