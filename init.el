@@ -2,7 +2,7 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; Path to this file
-(defvar emacs-org-config-path "~/.dotfiles/Emacs.org")
+(defvar emacs-org-config-path "~/dotfiles/nmkip/Emacs.org")
 
 ;; You will most likely need to adjust this font size for your system!
 (defvar nmkip/default-font-size 120)
