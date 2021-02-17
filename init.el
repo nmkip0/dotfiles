@@ -7,7 +7,7 @@
 ;; You will most likely need to adjust this font size for your system!
 (defvar nmkip/default-font-size 120)
 (defvar nmkip/fixed-pitch-font-size 120)
-(defvar nmkip/variable-pitch-font-size 150)
+(defvar nmkip/variable-pitch-font-size 130)
 
 ;; Lisp modes
 (defconst nmkip/lisp-modes '(cider-repl-mode
@@ -382,7 +382,7 @@ Buffer Transient State
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.2)
+  (dolist (face '((org-level-1 . 1.1)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
                   (org-level-4 . 1.0)
