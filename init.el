@@ -836,32 +836,34 @@ Projectile Transient State
 (use-package forge
   :disabled)
 
-(use-package diff-hl
-  :hook
-  (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
-  (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+(use-package git-gutter
+  :defer t
   :ensure t
-  :config (global-diff-hl-mode)
-)
+  :custom
+  (git-gutter:modified-sign "*")
+  ;;(git-gutter:ask-p nil)
+  :config
+  (set-face-foreground 'git-gutter:modified "orange")
+  :init (global-git-gutter-mode +1))
 
 (defhydra hydra-git (:hint nil)
     "
 Git Transient State
 [_x_]: discard hunk [_n_]: next hunk [_p_/_N_]: previous hunk "
-    ("n" diff-hl-next-hunk)
-    ("N" diff-hl-previous-hunk)
-    ("p" diff-hl-previous-hunk)
-    ("x" diff-hl-revert-hunk)
+    ("n" git-gutter:next-hunk)
+    ("N" git-gutter:previous-hunk)
+    ("p" git-gutter:previous-hunk)
+    ("x" git-gutter:revert-hunk)
     ("q" nil "quit" :color blue))
 
   (nmkip/leader-keys
     "g." '(hydra-git/body :which-key "Git transient state")
     "gs" '(magit-status :which-key "Magit Status")
     "gd" '(magit-diff-working-tree :which-key "Magit Diff working tree")
-    "gn" '(hydra-git/diff-hl-next-hunk :which-key "Next hunk")
-    "gN" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
-    "gp" '(hydra-git/diff-hl-previous-hunk :which-key "Previous hunk")
-    "gx" '(hydra-git/diff-hl-revert-hunk :which-key "Revert hunk")
+    "gn" '(hydra-git/git-gutter:next-hunk :which-key "Next hunk")
+    "gN" '(hydra-git/git-gutter:previous-hunk :which-key "Previous hunk")
+    "gp" '(hydra-git/git-gutter:previous-hunk :which-key "Previous hunk")
+    "gx" '(hydra-git/git-gutter:revert-hunk :which-key "Revert hunk")
 
     "gD" '(:ignore t "Diff")
     "gDs" '(magit-diff-staged :which-key "Magit Diff staged")
