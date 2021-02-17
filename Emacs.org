@@ -1216,19 +1216,6 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 
 #+end_src
 
-*** Diff-hl
-
-#+begin_src emacs-lisp :tangle no
-
-    (use-package diff-hl
-      :hook
-      (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
-      (magit-post-refresh-hook . diff-hl-magit-post-refresh)
-      :ensure t
-      :config (global-diff-hl-mode))
-
-#+end_src
-
 *** git-gutter
 
 This package adds gutter icons indicating inserted, modified or deleted lines. It also allows us to move between hunks and revert them.
