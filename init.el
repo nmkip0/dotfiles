@@ -959,7 +959,7 @@ Git Transient State
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "zsh" "vim" "clj")))
 
-  (eshell-git-prompt-use-theme 'powerline))
+  (eshell-git-prompt-use-theme 'git-radar))
 
 (use-package dired
   :ensure nil
