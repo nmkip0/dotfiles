@@ -877,6 +877,31 @@ Git Transient State
         (global-undo-tree-mode)
         (evil-set-undo-system 'undo-tree))
 
+(use-package origami
+  :defer t
+  :ensure t
+  :hook (prog-mode . origami-mode))
+
+(defhydra hydra-folding (:hint nil)
+  "
+Fold/unfold transient state
+[_<backtab>_]: toggle all [_TAB_]: toggle fold/unfold [_u_]: unfold all [_f_]: fold all [_n_]: next fold [_p_/_N_]: previous fold "
+  ("<backtab>" origami-toggle-all-nodes)
+  ("TAB" origami-toggle-node)
+  ("n" origami-next-fold)
+  ("N" origami-previous-fold)
+  ("p" origami-previous-fold)
+  ("q" nil "quit" :color blue))
+
+(nmkip/leader-keys
+  "x" '(:ignore t :which-key "Fold/unfold")
+  "x." '(hydra-folding/body :which-key "Fold/unfold transient state")
+  (kbd "x <backtab>") '(hydra-folding/origami-toggle-all-nodes :which-key "Toggle fold/unfold")
+  (kbd "x <tab>") '(hydra-folding/origami-toggle-node :which-key "Toggle fold/unfold")
+  "xn" '(hydra-folding/origami-next-fold :which-key "Next fold")
+  "xN" '(hydra-folding/origami-previous-fold :which-key "Previous fold")
+  "xp" '(hydra-folding/origami-previous-fold :which-key "Previous fold"))
+
 (use-package smartparens
   :hook 
     (prog-mode . smartparens-mode)

@@ -1278,6 +1278,48 @@ This package adds gutter icons indicating inserted, modified or deleted lines. I
 
 #+end_src
 
+*** Origami
+
+A text folding minor mode for Emacs.
+
+With this minor mode enabled, you can collapse and expand regions of text.
+
+The actual buffer contents are never changed in any way. This works by using overlays to affect how the buffer is presented. This also means that all of your usual editing commands should work with folded regions. For example killing and yanking folded text works as you would expect.
+
+#+begin_src emacs-lisp
+
+  (use-package origami
+    :defer t
+    :ensure t
+    :hook (prog-mode . origami-mode))
+
+#+end_src
+
+**** Keybindings
+
+#+begin_src emacs-lisp
+    (defhydra hydra-folding (:hint nil)
+      "
+    Fold/unfold transient state
+    [_<backtab>_]: toggle all [_TAB_]: toggle fold/unfold [_u_]: unfold all [_f_]: fold all [_n_]: next fold [_p_/_N_]: previous fold "
+      ("<backtab>" origami-toggle-all-nodes)
+      ("TAB" origami-toggle-node)
+      ("n" origami-next-fold)
+      ("N" origami-previous-fold)
+      ("p" origami-previous-fold)
+      ("q" nil "quit" :color blue))
+
+    (nmkip/leader-keys
+      "x" '(:ignore t :which-key "Fold/unfold")
+      "x." '(hydra-folding/body :which-key "Fold/unfold transient state")
+      (kbd "x <backtab>") '(hydra-folding/origami-toggle-all-nodes :which-key "Toggle fold/unfold")
+      (kbd "x <tab>") '(hydra-folding/origami-toggle-node :which-key "Toggle fold/unfold")
+      "xn" '(hydra-folding/origami-next-fold :which-key "Next fold")
+      "xN" '(hydra-folding/origami-previous-fold :which-key "Previous fold")
+      "xp" '(hydra-folding/origami-previous-fold :which-key "Previous fold"))
+
+#+end_src
+
 *** Smartparens
 
 #+begin_src emacs-lisp
