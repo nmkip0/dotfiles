@@ -886,7 +886,7 @@ Git Transient State
 (defhydra hydra-folding (:hint nil)
   "
 Fold/unfold transient state
-[_<backtab>_]: toggle all [_TAB_]: toggle fold/unfold [_u_]: unfold all [_f_]: fold all [_n_]: next fold [_p_/_N_]: previous fold "
+[_<backtab>_]: toggle all [_TAB_]: toggle fold/unfold [_n_]: next fold [_p_/_N_]: previous fold "
   ("<backtab>" origami-toggle-all-nodes)
   ("TAB" origami-toggle-node)
   ("n" origami-next-fold)
