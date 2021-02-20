@@ -843,8 +843,8 @@ Projectile Transient State
   (git-gutter:modified-sign "*")
   ;;(git-gutter:ask-p nil)
   :config
-  (set-face-foreground 'git-gutter:modified "orange")
-  :init (global-git-gutter-mode +1))
+  (global-git-gutter-mode +1)
+  (set-face-foreground 'git-gutter:modified "orange"))
 
 (defhydra hydra-git (:hint nil)
     "

@@ -1229,8 +1229,8 @@ This package adds gutter icons indicating inserted, modified or deleted lines. I
     (git-gutter:modified-sign "*")
     ;;(git-gutter:ask-p nil)
     :config
-    (set-face-foreground 'git-gutter:modified "orange")
-    :init (global-git-gutter-mode +1)) 
+    (global-git-gutter-mode +1)
+    (set-face-foreground 'git-gutter:modified "orange")) 
 
 #+end_src
 
