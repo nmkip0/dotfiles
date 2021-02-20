@@ -203,8 +203,9 @@
       "ht" '(describe-theme :which-key "Describe theme")
       "hv" '(counsel-describe-variable :which-key "Describe variable")
 
-      "ss" '(swiper :which-key "Search")
       "sd" '(counsel-rg :which-key "Search in directory")
+      "sl" '(counsel-imenu :which-key "Search symbol")
+      "ss" '(swiper :which-key "Search")
 
       ;; Windows
       "w=" '(balance-windows :which-key "Balance windows")
