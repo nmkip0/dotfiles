@@ -744,19 +744,39 @@ The =lsp-keymap-prefix= setting enables you to define a prefix for where =lsp-mo
 
 The =which-key= integration adds helpful descriptions of the various keys so you should be able to learn a lot just by pressing =C-c l= in a =lsp-mode= buffer and trying different things that you find there.
 
-#+begin_src emacs-lisp :tangle no
-
-  (defun efs/lsp-mode-setup ()
-    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-    (lsp-headerline-breadcrumb-mode))
+#+begin_src emacs-lisp
 
   (use-package lsp-mode
-    :commands (lsp lsp-deferred)
-    :hook (lsp-mode . efs/lsp-mode-setup)
-    :init
-    (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+    :ensure t
+    :hook ((clojure-mode . lsp)
+           (clojurec-mode . lsp)
+           (clojurescript-mode . lsp))
     :config
-    (lsp-enable-which-key-integration t))
+    ;; add paths to your local installation of project mgmt tools, like lein
+    (setenv "PATH" (concat
+                    "/usr/local/bin" path-separator
+                    (getenv "PATH")))
+    (dolist (m '(clojure-mode
+                 clojurec-mode
+                 clojurescript-mode
+                 clojurex-mode))
+      (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+    (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
+    (setq gc-cons-threshold 100000000)
+    (setq read-process-output-max (* 1024 1024))
+    ;; (setq lsp-completion-provider :capf)
+    (setq lsp-headerline-breadcrumb-enable nil))
+
+    (use-package company-lsp
+      :ensure t
+      :commands company-lsp)
+
+#+end_src
+***** Keybindings
+
+#+begin_src emacs-lisp
+
+
 
 #+end_src
 
@@ -785,7 +805,7 @@ Try these commands with =M-x=:
 
 This package is built on the [[https://github.com/Alexander-Miller/treemacs][treemacs]] package which might be of some interest to you if you like to have a file browser at the left side of your screen in your editor.
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
 
   (use-package lsp-treemacs
     :after lsp)
@@ -801,7 +821,7 @@ Try these commands with =M-x=:
 - =lsp-ivy-workspace-symbol= - Search for a symbol name in the current project workspace
 - =lsp-ivy-global-workspace-symbol= - Search for a symbol name in all active project workspaces
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
 
   (use-package lsp-ivy)
 

@@ -527,6 +527,38 @@ Flycheck Transient State
   "k(" '(hydra-lisp/sp-wrap-round :which-key "wrap ()")
   "k{" '(hydra-lisp/sp-wrap-curly :which-key "wrap {}"))
 
+(use-package lsp-mode
+  :ensure t
+  :hook ((clojure-mode . lsp)
+         (clojurec-mode . lsp)
+         (clojurescript-mode . lsp))
+  :config
+  ;; add paths to your local installation of project mgmt tools, like lein
+  (setenv "PATH" (concat
+                  "/usr/local/bin" path-separator
+                  (getenv "PATH")))
+  (dolist (m '(clojure-mode
+               clojurec-mode
+               clojurescript-mode
+               clojurex-mode))
+    (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+  (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 1024 1024))
+  ;; (setq lsp-completion-provider :capf)
+  (setq lsp-headerline-breadcrumb-enable nil))
+
+  (use-package company-lsp
+    :ensure t
+    :commands company-lsp)
+
+
+
+(use-package lsp-treemacs
+  :after lsp)
+
+(use-package lsp-ivy)
+
 (defun nmkip/clojure-mode-hook ()
   (clj-refactor-mode 1)
   (yas-minor-mode 1))
