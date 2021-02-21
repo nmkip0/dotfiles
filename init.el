@@ -870,7 +870,6 @@ Projectile Transient State
   :disabled)
 
 (use-package git-gutter
-  :defer t
   :ensure t
   :custom
   (git-gutter:modified-sign "*")
@@ -911,7 +910,6 @@ Git Transient State
         (evil-set-undo-system 'undo-tree))
 
 (use-package origami
-  :defer t
   :ensure t
   :hook (prog-mode . origami-mode))
 

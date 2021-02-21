@@ -1244,7 +1244,6 @@ This package adds gutter icons indicating inserted, modified or deleted lines. I
 #+begin_src emacs-lisp
 
   (use-package git-gutter
-    :defer t
     :ensure t
     :custom
     (git-gutter:modified-sign "*")
@@ -1310,7 +1309,6 @@ The actual buffer contents are never changed in any way. This works by using ove
 #+begin_src emacs-lisp
 
   (use-package origami
-    :defer t
     :ensure t
     :hook (prog-mode . origami-mode))
 
