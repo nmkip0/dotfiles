@@ -673,6 +673,7 @@ This snippet adds a hook to =org-mode= buffers so that =nmkip/org-babel-tangle-c
 
     "e." '(hydra-flycheck/body :which-key "Flycheck transient state")
     "el" '(flycheck-list-errors :which-key "List errors")
+    "eL" '(lsp-treemacs-errors-list :which-key "List errors")
     "en" '(hydra-flycheck/flycheck-next-error :which-key "Next error")
     "eN" '(hydra-flycheck/flycheck-previous-error :which-key "Previous error")
     "ep" '(hydra-flycheck/flycheck-previous-error :which-key "Next error")
@@ -734,8 +735,7 @@ This snippet adds a hook to =org-mode= buffers so that =nmkip/org-babel-tangle-c
             "k{" '(hydra-lisp/sp-wrap-curly :which-key "wrap {}"))
 
 #+end_src
-*** IDE Features with lsp-mode
-
+*** LSP
 **** lsp-mode
 
 We use the excellent [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]] to enable IDE-like functionality for many different programming languages via "language servers" that speak the [[https://microsoft.github.io/language-server-protocol/][Language Server Protocol]].  Before trying to set up =lsp-mode= for a particular language, check out the [[https://emacs-lsp.github.io/lsp-mode/page/languages/][documentation for your language]] so that you can learn which language servers are available and how to install them.
@@ -763,20 +763,31 @@ The =which-key= integration adds helpful descriptions of the various keys so you
       (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
     (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
     (setq gc-cons-threshold 100000000)
+    (setq lsp-file-watch-threshold 10000)
     (setq read-process-output-max (* 1024 1024))
-    ;; (setq lsp-completion-provider :capf)
+    (setq lsp-modeline-code-actions-segments '(count icon name))
+    (setq lsp-completion-provider :capf)
+    (setq lsp-semantic-tokens-enable t)
     (setq lsp-headerline-breadcrumb-enable nil))
 
-    (use-package company-lsp
-      :ensure t
-      :commands company-lsp)
-
 #+end_src
+
 ***** Keybindings
 
 #+begin_src emacs-lisp
 
+  (nmkip/local-leader-keys '(normal visual) lsp-mode-map
+    "==" '(lsp-format-buffer :which-key "format buffer")
+    "=r" '(lsp-format-region :which-key "format region")
+    "=l" '(lsp-format-region :which-key "format line")
 
+    "a" '(lsp-execute-code-action :which-key "actions")
+
+    "s" '(:ignore t :which-key "symbols")
+    "sf" '(lsp-find-references :which-key "Find references")
+    "sh" '(lsp-treemacs-call-hierarchy :which-key "Show call hierarchy")
+    "sr" '(lsp-rename :which-key "Rename...")
+    )
 
 #+end_src
 
@@ -869,17 +880,13 @@ Check this out. Maybe [[https://github.com/felipeochoa/rjsx-mode/][rjsx-mode]] f
     (clj-refactor-mode 1)
     (yas-minor-mode 1))
 
-  (use-package flycheck-clj-kondo
-    :ensure t)
-
   (use-package clojure-mode
     :hook (clojure-mode . nmkip/clojure-mode-hook)
     :ensure t
-    :config (require 'flycheck-clj-kondo))
+    )
 
   (defun nmkip/cider-config ()
     (setq cider-repl-pop-to-buffer-on-connect nil)
-    ;(evil-collection-cider-setup)
   )
 
   (defun nmkip/cider-inspector-mode-hook ()
@@ -926,7 +933,9 @@ Check this out. Maybe [[https://github.com/felipeochoa/rjsx-mode/][rjsx-mode]] f
     (cider--debug-mode . nmkip/cider--debug-mode-hook)
     :config (nmkip/cider-config))
 
-  (use-package clj-refactor)
+  (use-package clj-refactor
+  :config
+  (setq cljr-add-ns-to-blank-clj-files nil))
 
   (use-package html-to-hiccup
     :ensure t)
@@ -965,9 +974,9 @@ Check this out. Maybe [[https://github.com/felipeochoa/rjsx-mode/][rjsx-mode]] f
     "'" 'sesman-start 
 
     ;; Format
-    "==" '(cider-format-buffer :which-key "Format buffer")
-    "=f" '(cider-format-defun :which-key "Format function")
-    "=r" '(cider-format-region :which-key "Format region")
+;;    "==" '(cider-format-buffer :which-key "Format buffer")
+;;    "=f" '(cider-format-defun :which-key "Format function")
+;;    "=r" '(cider-format-region :which-key "Format region")
 
     ;; Format edn
     "=eb" '(cider-format-edn-buffer :which-key "Format edn buffer")
@@ -1005,36 +1014,6 @@ Check this out. Maybe [[https://github.com/felipeochoa/rjsx-mode/][rjsx-mode]] f
     "hs" '(cider-browse-spec :which-key "Browse spec")
     "hS" '(cider-browse-spec-all :which-key "Browse all specs")
 
-    "ra" '(:ignore t :which-key "Add")
-    "rai" '(cljr-add-import-to-ns :which-key "Add import")
-    "ral" '(cljr-introduce-let :which-key "Add let")
-    "ram" '(cljr-add-missing-libspec :which-key "Add missing dependency")
-    "rap" '(cljr-add-project-dependency :which-key "Add project dependency")
-    "rar" '(cljr-add-require-to-ns :which-key "Add require")
-    "ras" '(cljr-add-stubs :which-key "Add stubs for protocol at point")
-
-    "rc" '(:ignore t :which-key "Convert")
-    "rch" '(html-to-hiccup-convert-region :which-key "Region to hiccup")
-
-    "rh" '(cljr-describe-refactoring :which-key "Describe refactoring")
-
-    "rf" '(:ignore t :which-key "Function")
-    "rfc" '(cljr-create-fn-from-example :which-key "Create")
-    "rfp" '(cljr-promote-function :which-key "Promote/Extract")
-
-    "ri" '(:ignore t :which-key "Inline")
-    "ril" '(cljr-remove-let :which-key "Remove let and inline")
-    "ris" '(cljr-inline-symbol :which-key "Inline symbol")
-
-    "rr" '(cljr-rename-symbol :which-key "Rename symbol")
-
-    "rt" '(:ignore t :which-key "Thread")
-    "rtf" '(cljr-thread-first-all :which-key "Thread first all")
-    "rti" '(cljr-thread :which-key "Thread into current thread")
-    "rtl" '(cljr-thread-last-all :which-key "Thread last all")
-    "rtu" '(cljr-unwind-all :which-key "Unwind entire thread")
-    "rtU" '(cljr-unwind :which-key "Unwind one thread step")
-
     ;; Tests
     "ta" '(cider-test-run-project-tests :which-key "Run all")
     "tb" '(cider-test-show-report :which-key "Show report")
@@ -1050,6 +1029,45 @@ Check this out. Maybe [[https://github.com/felipeochoa/rjsx-mode/][rjsx-mode]] f
 
 #+end_src
 
+#+begin_src emacs-lisp
+
+  (nmkip/local-leader-keys '(normal visual) clojure-mode-map
+    "r" '(:ignore t :which-key "refactor")
+
+    "rs" '(cljr-add-stubs :which-key "Stubs for protocol at point")
+
+    "rn" '(:ignore t :which-key "Namespace")
+    "rnc" '(lsp-clojure-clean-ns :which-key "Clean ns")
+    "rnl" '(lsp-clojure-add-missing-libspec :which-key "Add missing lib")
+    "rni" '(lsp-clojure-add-import-to-namespace :which-key "Add import")
+
+    "re" '(:ignore t :which-key "Extract")
+    "red" '(cljr-extract-def :which-key "Extract def")
+    "rel" '(lsp-clojure-introduce-let :which-key "Extract let")
+    "reL" '(lsp-clojure-move-to-let :which-key "Move to let")
+    "ref" '(cljr-extract-function :which-key "Extract function")
+    "reF" '(lsp-clojure-extract-function :which-key "LSP Extract function")
+    "rep" '(cljr-promote-function :which-key "Promote/Extract function")
+
+    "rc" '(:ignore t :which-key "Convert")
+    "rcc" '(lsp-clojure-cycle-coll :which-key "Cycle coll")
+    "rch" '(html-to-hiccup-convert-region :which-key "Region to hiccup")
+    "rcp" '(lsp-clojure-cycle-privacy :which-key "Cycle privacy")
+
+    "ri" '(:ignore t :which-key "Inline")
+    "ril" '(cljr-remove-let :which-key "Remove let and inline")
+    "ris" '(lsp-clojure-inline-symbol :which-key "Inline symbol")
+
+    "rt" '(:ignore t :which-key "Thread")
+    "rtf" '(lsp-clojure-thread-first :which-key "Thread first")
+    "rtF" '(lsp-clojure-thread-first-all :which-key "Thread first all")
+    "rtl" '(lsp-clojure-thread-last :which-key "Thread last")
+    "rtL" '(lsp-clojure-thread-last-all :which-key "Thread last all")
+    "rtu" '(lsp-clojure-unwind-thread :which-key "Unwind thread")
+    "rtU" '(lsp-clojure-unwind-all :which-key "Unwind thread all")
+    )
+
+#+end_src
 *** Emacs Lisp
 
 **** Keybindings

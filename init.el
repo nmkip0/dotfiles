@@ -473,6 +473,7 @@ Flycheck Transient State
 
   "e." '(hydra-flycheck/body :which-key "Flycheck transient state")
   "el" '(flycheck-list-errors :which-key "List errors")
+  "eL" '(lsp-treemacs-errors-list :which-key "List errors")
   "en" '(hydra-flycheck/flycheck-next-error :which-key "Next error")
   "eN" '(hydra-flycheck/flycheck-previous-error :which-key "Previous error")
   "ep" '(hydra-flycheck/flycheck-previous-error :which-key "Next error")
@@ -544,15 +545,25 @@ Flycheck Transient State
     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
   (setq lsp-clojure-server-command '("bash" "-c" "clojure-lsp"))
   (setq gc-cons-threshold 100000000)
+  (setq lsp-file-watch-threshold 10000)
   (setq read-process-output-max (* 1024 1024))
-  ;; (setq lsp-completion-provider :capf)
+  (setq lsp-modeline-code-actions-segments '(count icon name))
+  (setq lsp-completion-provider :capf)
+  (setq lsp-semantic-tokens-enable t)
   (setq lsp-headerline-breadcrumb-enable nil))
 
-  (use-package company-lsp
-    :ensure t
-    :commands company-lsp)
+(nmkip/local-leader-keys '(normal visual) lsp-mode-map
+  "==" '(lsp-format-buffer :which-key "format buffer")
+  "=r" '(lsp-format-region :which-key "format region")
+  "=l" '(lsp-format-region :which-key "format line")
 
+  "a" '(lsp-execute-code-action :which-key "actions")
 
+  "s" '(:ignore t :which-key "symbols")
+  "sf" '(lsp-find-references :which-key "Find references")
+  "sh" '(lsp-treemacs-call-hierarchy :which-key "Show call hierarchy")
+  "sr" '(lsp-rename :which-key "Rename...")
+  )
 
 (use-package lsp-treemacs
   :after lsp)
@@ -563,17 +574,13 @@ Flycheck Transient State
   (clj-refactor-mode 1)
   (yas-minor-mode 1))
 
-(use-package flycheck-clj-kondo
-  :ensure t)
-
 (use-package clojure-mode
   :hook (clojure-mode . nmkip/clojure-mode-hook)
   :ensure t
-  :config (require 'flycheck-clj-kondo))
+  )
 
 (defun nmkip/cider-config ()
   (setq cider-repl-pop-to-buffer-on-connect nil)
-  ;(evil-collection-cider-setup)
 )
 
 (defun nmkip/cider-inspector-mode-hook ()
@@ -620,7 +627,9 @@ Flycheck Transient State
   (cider--debug-mode . nmkip/cider--debug-mode-hook)
   :config (nmkip/cider-config))
 
-(use-package clj-refactor)
+(use-package clj-refactor
+:config
+(setq cljr-add-ns-to-blank-clj-files nil))
 
 (use-package html-to-hiccup
   :ensure t)
@@ -638,101 +647,107 @@ Flycheck Transient State
       (cider-pprint-eval-last-sexp)))
 
 (nmkip/local-leader-keys '(normal visual) clojure-mode-map
-  "=" '(:ignore t :which-key "format")
-  "=e" '(:ignore t :which-key "edn")
-  "d" '(:ignore t :which-key "debug")
-  "e" '(:ignore t :which-key "evaluation")
-  "e;" '(:ignore t :which-key "comment")
-  "h" '(:ignore t :which-key "help")
+    "=" '(:ignore t :which-key "format")
+    "=e" '(:ignore t :which-key "edn")
+    "d" '(:ignore t :which-key "debug")
+    "e" '(:ignore t :which-key "evaluation")
+    "e;" '(:ignore t :which-key "comment")
+    "h" '(:ignore t :which-key "help")
+    "r" '(:ignore t :which-key "refactor")
+    "t" '(:ignore t :which-key "tests")
+    "T" '(:ignore t :which-key "toggle")
+
+    "'" 'sesman-start 
+
+    ;; Format
+;;    "==" '(cider-format-buffer :which-key "Format buffer")
+;;    "=f" '(cider-format-defun :which-key "Format function")
+;;    "=r" '(cider-format-region :which-key "Format region")
+
+    ;; Format edn
+    "=eb" '(cider-format-edn-buffer :which-key "Format edn buffer")
+    "=ee" '(cider-format-edn-last-sexp :which-key "Format edn last sexp")
+    "=er" '(cider-format-edn-region :which-key "Format edn region")
+
+    ;; Debug
+    "df" '(cider-debug-defun-at-point :which-key "Debug function")
+    "di" '(cider-inspect :which-key "Cider inspect")
+    "dI" '(cider-inspect-last-result :which-key "Cider inspect last result")
+
+    ;; Evaluation
+    "e$" '(nmkip/cider-eval-sexp-end-of-line :which-key "Eval line")
+    "eb" '(cider-eval-buffer :which-key "Eval buffer")
+    "ee" '(cider-eval-last-sexp :which-key "Eval sexp before point")
+    "ef" '(cider-eval-defun-at-point :which-key "Eval function")
+    "el" '(nmkip/cider-eval-sexp-end-of-line :which-key "Eval line")
+    "em" '(cider-macroexpand-1 :which-key "Macroexpand")
+    "eM" '(cider-macroexpand-all :which-key "Macroexpand all")
+    "ev" '(cider-eval-sexp-at-point :which-key "Eval sexp at point")
+    "eL" '(nmkip/cider-pprint-eval-sexp-end-of-line :which-key "Eval pprint line")
+    "eF" '(cider-pprint-eval-defun-at-point :which-key "Eval pprint function")
+
+    ;; Evaluation to comment
+    "e;f" '(cider-eval-defun-to-comment :which-key "Eval function")
+    "e;F" '(cider-pprint-eval-defun-to-comment :which-key "Eval pprint function")
+
+    ;; Help
+    "ha" '(cider-apropos :which-key "Apropos")
+    "hd" '(cider-clojuredocs :which-key "Clojuredocs")
+    "hh" '(cider-doc :which-key "Doc")
+    "hj" '(cider-javadoc :which-key "Javadoc")
+    "hn" '(cider-brose-ns :which-key "Browse ns")
+    "hr" '(cljr-describe-refactoring :which-key "Describe refactoring")
+    "hs" '(cider-browse-spec :which-key "Browse spec")
+    "hS" '(cider-browse-spec-all :which-key "Browse all specs")
+
+    ;; Tests
+    "ta" '(cider-test-run-project-tests :which-key "Run all")
+    "tb" '(cider-test-show-report :which-key "Show report")
+    "tl" '(cider-test-run-loaded-tests :which-key "Run all loaded")
+    "tn" '(cider-test-run-ns-tests :which-key "Run ns")
+    "tr" '(cider-test-rerun-failed-tests :which-key "Run failed")
+    "tt" '(cider-test-run-test :which-key "Run test at point")
+
+    ;; Toggle
+    "Te" '(cider-enlighten-mode :which-key "Cider enlighten mode")
+    "Tt" '(cider-auto-test-mode :which-key "Cider auto-test mode")
+   )
+
+(nmkip/local-leader-keys '(normal visual) clojure-mode-map
   "r" '(:ignore t :which-key "refactor")
-  "t" '(:ignore t :which-key "tests")
-  "T" '(:ignore t :which-key "toggle")
 
-  "'" 'sesman-start 
+  "rs" '(cljr-add-stubs :which-key "Stubs for protocol at point")
 
-  ;; Format
-  "==" '(cider-format-buffer :which-key "Format buffer")
-  "=f" '(cider-format-defun :which-key "Format function")
-  "=r" '(cider-format-region :which-key "Format region")
+  "rn" '(:ignore t :which-key "Namespace")
+  "rnc" '(lsp-clojure-clean-ns :which-key "Clean ns")
+  "rnl" '(lsp-clojure-add-missing-libspec :which-key "Add missing lib")
+  "rni" '(lsp-clojure-add-import-to-namespace :which-key "Add import")
 
-  ;; Format edn
-  "=eb" '(cider-format-edn-buffer :which-key "Format edn buffer")
-  "=ee" '(cider-format-edn-last-sexp :which-key "Format edn last sexp")
-  "=er" '(cider-format-edn-region :which-key "Format edn region")
-
-  ;; Debug
-  "df" '(cider-debug-defun-at-point :which-key "Debug function")
-  "di" '(cider-inspect :which-key "Cider inspect")
-  "dI" '(cider-inspect-last-result :which-key "Cider inspect last result")
-
-  ;; Evaluation
-  "e$" '(nmkip/cider-eval-sexp-end-of-line :which-key "Eval line")
-  "eb" '(cider-eval-buffer :which-key "Eval buffer")
-  "ee" '(cider-eval-last-sexp :which-key "Eval sexp before point")
-  "ef" '(cider-eval-defun-at-point :which-key "Eval function")
-  "el" '(nmkip/cider-eval-sexp-end-of-line :which-key "Eval line")
-  "em" '(cider-macroexpand-1 :which-key "Macroexpand")
-  "eM" '(cider-macroexpand-all :which-key "Macroexpand all")
-  "ev" '(cider-eval-sexp-at-point :which-key "Eval sexp at point")
-  "eL" '(nmkip/cider-pprint-eval-sexp-end-of-line :which-key "Eval pprint line")
-  "eF" '(cider-pprint-eval-defun-at-point :which-key "Eval pprint function")
-
-  ;; Evaluation to comment
-  "e;f" '(cider-eval-defun-to-comment :which-key "Eval function")
-  "e;F" '(cider-pprint-eval-defun-to-comment :which-key "Eval pprint function")
-
-  ;; Help
-  "ha" '(cider-apropos :which-key "Apropos")
-  "hd" '(cider-clojuredocs :which-key "Clojuredocs")
-  "hh" '(cider-doc :which-key "Doc")
-  "hj" '(cider-javadoc :which-key "Javadoc")
-  "hn" '(cider-brose-ns :which-key "Browse ns")
-  "hr" '(cljr-describe-refactoring :which-key "Describe refactoring")
-  "hs" '(cider-browse-spec :which-key "Browse spec")
-  "hS" '(cider-browse-spec-all :which-key "Browse all specs")
-
-  "ra" '(:ignore t :which-key "Add")
-  "rai" '(cljr-add-import-to-ns :which-key "Add import")
-  "ral" '(cljr-introduce-let :which-key "Add let")
-  "ram" '(cljr-add-missing-libspec :which-key "Add missing dependency")
-  "rap" '(cljr-add-project-dependency :which-key "Add project dependency")
-  "rar" '(cljr-add-require-to-ns :which-key "Add require")
-  "ras" '(cljr-add-stubs :which-key "Add stubs for protocol at point")
+  "re" '(:ignore t :which-key "Extract")
+  "red" '(cljr-extract-def :which-key "Extract def")
+  "rel" '(lsp-clojure-introduce-let :which-key "Extract let")
+  "reL" '(lsp-clojure-move-to-let :which-key "Move to let")
+  "ref" '(cljr-extract-function :which-key "Extract function")
+  "reF" '(lsp-clojure-extract-function :which-key "LSP Extract function")
+  "rep" '(cljr-promote-function :which-key "Promote/Extract function")
 
   "rc" '(:ignore t :which-key "Convert")
+  "rcc" '(lsp-clojure-cycle-coll :which-key "Cycle coll")
   "rch" '(html-to-hiccup-convert-region :which-key "Region to hiccup")
-
-  "rh" '(cljr-describe-refactoring :which-key "Describe refactoring")
-
-  "rf" '(:ignore t :which-key "Function")
-  "rfc" '(cljr-create-fn-from-example :which-key "Create")
-  "rfp" '(cljr-promote-function :which-key "Promote/Extract")
+  "rcp" '(lsp-clojure-cycle-privacy :which-key "Cycle privacy")
 
   "ri" '(:ignore t :which-key "Inline")
   "ril" '(cljr-remove-let :which-key "Remove let and inline")
-  "ris" '(cljr-inline-symbol :which-key "Inline symbol")
-
-  "rr" '(cljr-rename-symbol :which-key "Rename symbol")
+  "ris" '(lsp-clojure-inline-symbol :which-key "Inline symbol")
 
   "rt" '(:ignore t :which-key "Thread")
-  "rtf" '(cljr-thread-first-all :which-key "Thread first all")
-  "rti" '(cljr-thread :which-key "Thread into current thread")
-  "rtl" '(cljr-thread-last-all :which-key "Thread last all")
-  "rtu" '(cljr-unwind-all :which-key "Unwind entire thread")
-  "rtU" '(cljr-unwind :which-key "Unwind one thread step")
-
-  ;; Tests
-  "ta" '(cider-test-run-project-tests :which-key "Run all")
-  "tb" '(cider-test-show-report :which-key "Show report")
-  "tl" '(cider-test-run-loaded-tests :which-key "Run all loaded")
-  "tn" '(cider-test-run-ns-tests :which-key "Run ns")
-  "tr" '(cider-test-rerun-failed-tests :which-key "Run failed")
-  "tt" '(cider-test-run-test :which-key "Run test at point")
-
-  ;; Toggle
-  "Te" '(cider-enlighten-mode :which-key "Cider enlighten mode")
-  "Tt" '(cider-auto-test-mode :which-key "Cider auto-test mode")
- )
+  "rtf" '(lsp-clojure-thread-first :which-key "Thread first")
+  "rtF" '(lsp-clojure-thread-first-all :which-key "Thread first all")
+  "rtl" '(lsp-clojure-thread-last :which-key "Thread last")
+  "rtL" '(lsp-clojure-thread-last-all :which-key "Thread last all")
+  "rtu" '(lsp-clojure-unwind-thread :which-key "Unwind thread")
+  "rtU" '(lsp-clojure-unwind-all :which-key "Unwind thread all")
+  )
 
 (defun nmkip/elisp-eval-sexp-end-of-line ()
   (interactive)
