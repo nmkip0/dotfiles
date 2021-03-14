@@ -956,6 +956,7 @@ Fold/unfold transient state
     (cider-repl-mode . smartparens-strict-mode)
   :config
     (sp-local-pair sp-lisp-modes "'" nil :actions nil)
+    (sp-local-pair sp-lisp-modes "`" nil :actions nil)
     (show-smartparens-global-mode))
 
 (defadvice evil-delete-backward-char-and-join
