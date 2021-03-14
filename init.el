@@ -549,6 +549,7 @@ Flycheck Transient State
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-modeline-code-actions-segments '(count icon name))
   (setq lsp-completion-provider :capf)
+  (setq lsp-diagnostics-provider :none)
   (setq lsp-semantic-tokens-enable t)
   (setq lsp-headerline-breadcrumb-enable nil))
 
@@ -574,14 +575,16 @@ Flycheck Transient State
   (clj-refactor-mode 1)
   (yas-minor-mode 1))
 
+(use-package flycheck-clj-kondo
+  :ensure t)
+
 (use-package clojure-mode
   :hook (clojure-mode . nmkip/clojure-mode-hook)
   :ensure t
-  )
+  :config (require 'flycheck-clj-kondo))
 
 (defun nmkip/cider-config ()
-  (setq cider-repl-pop-to-buffer-on-connect nil)
-)
+  (setq cider-repl-pop-to-buffer-on-connect nil))
 
 (defun nmkip/cider-inspector-mode-hook ()
   (general-override-local-mode)
