@@ -302,19 +302,20 @@ Buffer Transient State
 (use-package command-log-mode)
 
 (use-package doom-themes)
-  ;;:init (load-theme 'doom-vibrant t))
+  :init (load-theme 'doom-wilmersdorf  t)
 
 (use-package solarized-theme
-  :init
-  (setq solarized-use-less-bold t)
- :config
- (load-theme 'solarized-dark-high-contrast t) )
+       ;;:init
+       ;;(setq solarized-use-less-bold t)
+       ;;:config
+       ;;(load-theme 'solarized-dark-high-contrast t) 
+)
 
 (use-package all-the-icons)
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+  :custom ((doom-modeline-height 30)))
 
 (use-package which-key
   :init (which-key-mode)
