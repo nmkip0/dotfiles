@@ -301,14 +301,18 @@ Buffer Transient State
 
 (use-package command-log-mode)
 
+;; doom-one
+;; doom-nord
+;; doom-tomorrow-night
+;; doom-spacegrey
 (use-package doom-themes)
-  :init (load-theme 'doom-wilmersdorf  t)
+  :init (load-theme 'doom-one  t)
 
 (use-package solarized-theme
        ;;:init
        ;;(setq solarized-use-less-bold t)
        ;;:config
-       ;;(load-theme 'solarized-dark-high-contrast t) 
+       ;;(load-theme 'solarized-dark-high-contrast t)
 )
 
 (use-package all-the-icons)
