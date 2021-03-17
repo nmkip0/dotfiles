@@ -569,6 +569,7 @@ Flycheck Transient State
   "sf" '(lsp-find-references :which-key "Find references")
   "sh" '(lsp-treemacs-call-hierarchy :which-key "Show call hierarchy")
   "sr" '(lsp-rename :which-key "Rename...")
+  "ss" '(counsel-imenu :which-key "Search")
   )
 
 (use-package lsp-treemacs
@@ -867,7 +868,7 @@ Projectile Transient State
     "pd" '(counsel-projectile-find-dir :which-key "find dirs")
     "pD" '(projectile-discover-projects-in-directory :which-key "discover")
     "pf" '(counsel-projectile-find-file :which-key "find file")
-    "pK" '(projectile-kill-buffers :which-key "kill buffers")
+    "pk" '(projectile-kill-buffers :which-key "kill buffers")
     "pl" '(projectile-edit-dir-locals :which-key "dir locals")
     "pn" '(hydra-projectile/projectile-next-project-buffer :which-key "next buffer")
     "pN" '(hydra-projectile/projectile-previous-project-buffer :which-key "previous buffer")
