@@ -305,6 +305,7 @@ Buffer Transient State
 ;; doom-nord
 ;; doom-tomorrow-night
 ;; doom-spacegrey
+;; doom-monokai-pro
 (use-package doom-themes)
   :init (load-theme 'doom-one  t)
 
