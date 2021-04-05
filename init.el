@@ -225,6 +225,9 @@
       "wu" '(winner-undo :which-key "Winner undo")
       "wv" '(split-window-right :which-key "Split vertically")
 
+      ;; TODO: Encontrarle un hogar. Por ahi todo lo de texto junto. Ver spacemacs.
+      "P" '(counsel-yank-pop :whick-key "Show kill ring...")
+
       ;; Toggles
       "td" '(diff-hl-mode :whick-key "Diff-hl mode")
       "tf" '(flycheck-mode :whick-key "Flycheck mode")
