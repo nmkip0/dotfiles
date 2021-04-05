@@ -573,8 +573,14 @@ Flycheck Transient State
   "sf" '(lsp-find-references :which-key "Find references")
   "sh" '(lsp-treemacs-call-hierarchy :which-key "Show call hierarchy")
   "sr" '(lsp-rename :which-key "Rename...")
-  "ss" '(counsel-imenu :which-key "Search")
+  "sa" '(counsel-imenu :which-key "All symbols")
   )
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-enable nil)
+  (lsp-ui-sideline-show-code-actions nil))
 
 (use-package lsp-treemacs
   :after lsp)

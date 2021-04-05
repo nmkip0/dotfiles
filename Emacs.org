@@ -796,7 +796,7 @@ The =which-key= integration adds helpful descriptions of the various keys so you
     "sf" '(lsp-find-references :which-key "Find references")
     "sh" '(lsp-treemacs-call-hierarchy :which-key "Show call hierarchy")
     "sr" '(lsp-rename :which-key "Rename...")
-    "ss" '(counsel-imenu :which-key "Search")
+    "sa" '(counsel-imenu :which-key "All symbols")
     )
 
 #+end_src
@@ -805,12 +805,13 @@ The =which-key= integration adds helpful descriptions of the various keys so you
 
 [[https://emacs-lsp.github.io/lsp-ui/][lsp-ui]] is a set of UI enhancements built on top of =lsp-mode= which make Emacs feel even more like an IDE.  Check out the screenshots on the =lsp-ui= homepage (linked at the beginning of this paragraph) to see examples of what it can do.
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp 
 
   (use-package lsp-ui
     :hook (lsp-mode . lsp-ui-mode)
     :custom
-    (lsp-ui-doc-position 'bottom))
+    (lsp-ui-doc-enable nil)
+    (lsp-ui-sideline-show-code-actions nil))
 
 #+end_src
 
