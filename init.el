@@ -810,6 +810,8 @@ Flycheck Transient State
               ("C-l" . company-complete-selection)
               ("<return>" . company-complete-selection)
               ("<tab>" . company-complete-common-or-cycle))
+  :config
+  (setq company-format-margin-function #'company-vscode-light-icons-margin-function)
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
