@@ -295,6 +295,13 @@ Buffer Transient State
   :after evil
   :config (evil-collection-init))
 
+(defadvice evil-search-word-forward (around hyphen-and-underscore-as-words activate)
+  (let ((table (copy-syntax-table (syntax-table))))
+    (modify-syntax-entry ?_ "w" table)
+    (modify-syntax-entry ?- "w" table)
+    (with-syntax-table table
+      ad-do-it)))
+
 (use-package winum
     :config (winum-mode))
 
