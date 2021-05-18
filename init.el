@@ -448,7 +448,9 @@ Buffer Transient State
 
 (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("clj" . "src clojure"))
 (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+(add-to-list 'org-structure-template-alist '("js" . "src javascript"))
 (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
@@ -457,7 +459,8 @@ Buffer Transient State
 (org-babel-do-load-languages
   'org-babel-load-languages
   '((emacs-lisp . t)
-    (python . t)))
+    (python . t)
+    (clojure . t)))
 
 (push '("conf-unix" . conf-unix) org-src-lang-modes)
 
@@ -566,7 +569,7 @@ Flycheck Transient State
   (setq lsp-modeline-code-actions-segments '(count icon name))
   (setq lsp-completion-provider :capf)
   (setq lsp-semantic-tokens-enable t)
-  (setq lsp-enable-indentation nil) ;; WORKAROUND BREAKS SMARTPARENS
+  (setq lsp-enable-indentation t) ;; WORKAROUND IF BREAKS SMARTPARENS => nil
   (setq lsp-headerline-breadcrumb-enable nil))
 
 (nmkip/local-leader-keys '(normal visual) lsp-mode-map
@@ -601,10 +604,18 @@ Flycheck Transient State
 ;;(use-package flycheck-clj-kondo
 ;; :ensure t)
 
+(defun nmkip/clojure-before-save-hook ()
+  (when (eq major-mode 'clojure-mode)
+    (lsp-format-buffer)))
+
+(add-hook 'before-save-hook 'nmkip/clojure-before-save-hook)
+
 (use-package clojure-mode
   :hook (clojure-mode . nmkip/clojure-mode-hook)
   :ensure t
   ;;:config (require 'flycheck-clj-kondo)
+  :custom
+  (clojure-indent-style 'align-arguments)
   )
 
 (defun nmkip/cider-config ()
@@ -646,6 +657,9 @@ Flycheck Transient State
          "L" 'evil-collection-cider-debug-locals
          "H" 'cider-debug-move-here))
     (general-override-local-mode 0)))
+
+(use-package ivy-clojuredocs
+  :ensure t)
 
 (use-package cider
   :ensure t
@@ -720,6 +734,8 @@ Flycheck Transient State
     ;; Help
     "ha" '(cider-apropos :which-key "Apropos")
     "hd" '(cider-clojuredocs :which-key "Clojuredocs")
+    "hb" '(ivy-clojuredocs-at-point :which-key "Clojuredocs at point (Browser)")
+    "hB" '(ivy-clojuredocs :which-key "Clojuredocs (Browser)")
     "hh" '(cider-doc :which-key "Doc")
     "hj" '(cider-javadoc :which-key "Javadoc")
     "hn" '(cider-brose-ns :which-key "Browse ns")
@@ -819,6 +835,9 @@ Flycheck Transient State
               ("<tab>" . company-complete-common-or-cycle))
   :config
   (setq company-format-margin-function #'company-vscode-light-icons-margin-function)
+  :general
+  ;; Try this. Sometimes an error happens. "No completion found". GOOGLE IT.
+  (:keymaps '(insert) "TAB" 'company-search-candidates)
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
@@ -934,8 +953,10 @@ Git Transient State
 
   (nmkip/leader-keys
     "g." '(hydra-git/body :which-key "Git transient state")
+    "g?" '(magit-dispatch :which-key "Magit Dispatch")
     "gs" '(magit-status :which-key "Magit Status")
     "gd" '(magit-diff-working-tree :which-key "Magit Diff working tree")
+    "gm" '(magit-dispatch :which-key "Magit Dispatch")
     "gn" '(hydra-git/git-gutter:next-hunk :which-key "Next hunk")
     "gN" '(hydra-git/git-gutter:previous-hunk :which-key "Previous hunk")
     "gp" '(hydra-git/git-gutter:previous-hunk :which-key "Previous hunk")
@@ -1012,6 +1033,16 @@ Fold/unfold transient state
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (recentf-mode)
+
+(use-package webpaste
+  :ensure t)
+
+(nmkip/leader-keys
+  "y" '(:ignore t :which-key "yank")
+
+  "yb" '(webpaste-paste-buffer :which-key "Buffer")
+  "yr" '(webpaste-paste-region :which-key "Region")
+  "yp" '(webpaste-paste-buffer-or-region :which-key "Buffer or region"))
 
 (use-package term
   :config
