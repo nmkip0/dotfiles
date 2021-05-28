@@ -427,6 +427,7 @@ Buffer Transient State
   :hook (org-mode . nmkip/org-mode-setup)
   :config
   (setq org-ellipsis " ▾")
+  ;;(setq org-startup-folded t)
   (nmkip/org-font-setup))
 
 (use-package org-bullets

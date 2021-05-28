@@ -1,4 +1,5 @@
 #+title: Emacs Configuration
+#+STARTUP: overview
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
 * Welcome!
@@ -573,6 +574,7 @@ This section contains the basic configuration for =org-mode= plus the configurat
     :hook (org-mode . nmkip/org-mode-setup)
     :config
     (setq org-ellipsis " ▾")
+    ;;(setq org-startup-folded t)
     (nmkip/org-font-setup))
 
 #+end_src
