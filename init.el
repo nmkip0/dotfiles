@@ -1033,6 +1033,9 @@ Fold/unfold transient state
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package rainbow-mode
+  :hook (prog-mode . rainbow-mode))
+
 (recentf-mode)
 
 (use-package webpaste

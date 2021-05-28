@@ -1454,6 +1454,21 @@ The actual buffer contents are never changed in any way. This works by using ove
 
 #+end_src
 
+*** Rainbow Mode
+
+[[https:github.com/Fanael/rainbow-delimiters][rainbow-mode]] is a minor mode for Emacs which highlights text representing color codes in various forms by setting the background color of the text accordingly. This works for color codes in many forms including hexadecimal #RRGGBB color codes, LaTeX {rgb} or {HTML} colors, HTML named and rgb() color, R color names, X color names, and ANSI shell colors. 
+
+Aside from hexadecimal colors, others are enabled on an as-needed basis:
+
+Some colors, like HTML colors name (yellow, red, …) and rgb() ones are automatically activated in some mode like html-mode or css-mode. On the other hand, the X colors are activated only in some mode like emacs-lisp-mode or c-mode. The hexadecimal ones (#aabbcc) are always activated.
+
+#+begin_src emacs-lisp
+
+(use-package rainbow-mode
+  :hook (prog-mode . rainbow-mode))
+
+#+end_src
+
 *** Recent Files
 
 #+begin_src emacs-lisp
