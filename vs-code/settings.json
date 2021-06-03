@@ -3,7 +3,6 @@
     "editor.lineNumbers": "relative",
     "workbench.colorTheme": "Default Dark+",
 
-    // nvim plugins in init.vim
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
 
     "tailwindCSS.emmetCompletions": true,
