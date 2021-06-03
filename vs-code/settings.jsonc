@@ -1,0 +1,22 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "relative",
+    "workbench.colorTheme": "Default Dark+",
+
+    // nvim plugins in init.vim
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+
+    "tailwindCSS.emmetCompletions": true,
+    "tailwindCSS.colorDecorators": true,
+    "tailwindCSS.includeLanguages": {
+        "clojure": "html"
+    },
+    "tailwindCSS.experimental.classRegex": [
+       ":class\\s*\"([^\"]*)\""
+    ],
+
+    "calva.keybindingsEnabled": false,
+    "calva.autoOpenREPLWindow": false,
+    "calva.autoOpenJackInTerminal": false,
+    "calva.paredit.hijackVSCodeDefaults": false
+}
