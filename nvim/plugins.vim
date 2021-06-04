@@ -15,4 +15,5 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-speeddating'
 	Plug 'tpope/vim-commentary'
+	Plug 'justinmk/vim-sneak'
 call plug#end()
