@@ -14,8 +14,12 @@
        ":class\\s*\"([^\"]*)\""
     ],
 
-    "calva.keybindingsEnabled": false,
+    "calva.keybindingsEnabled": true,
     "calva.autoOpenREPLWindow": false,
     "calva.autoOpenJackInTerminal": false,
-    "calva.paredit.hijackVSCodeDefaults": false
+    "calva.paredit.hijackVSCodeDefaults": false,
+    "calva.referencesCodeLens.enabled": true,
+    "calva.paredit.defaultKeyMap": "strict",
+    "calva.paredit.strictPreventUnmatchedClosingBracket": true,
+    "clover.experimental": true
 }
