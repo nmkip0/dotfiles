@@ -1,7 +1,9 @@
 {
     "editor.minimap.enabled": false,
     "editor.lineNumbers": "relative",
-    "workbench.colorTheme": "Default Dark+",
+    "explorer.confirmDelete": false,
+    "window.titleBarStyle": "custom",
+    "workbench.colorTheme": "Noctis",
 
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
 
@@ -15,11 +17,16 @@
     ],
 
     "calva.keybindingsEnabled": true,
-    "calva.autoOpenREPLWindow": false,
+    "calva.autoOpenREPLWindow": true,
     "calva.autoOpenJackInTerminal": false,
     "calva.paredit.hijackVSCodeDefaults": false,
     "calva.referencesCodeLens.enabled": true,
     "calva.paredit.defaultKeyMap": "strict",
     "calva.paredit.strictPreventUnmatchedClosingBracket": true,
-    "clover.experimental": true
+
+    "clover.experimental": true,
+
+    "[javascript]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    }
 }

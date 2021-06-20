@@ -1,5 +1,11 @@
 
 [
+    // 
+    {
+        "key": "escape",
+        "command": "calva.clearInlineResults",
+        "when": "neovim.mode == normal && calva:keybindingsEnabled && editorTextFocus && !editorHasMultipleSelections && !editorHasSelection && !editorReadOnly && !hasOtherSuggestions && !parameterHintsVisible && !selectionAnchorSet && !suggestWidgetVisible && editorLangId == 'clojure' && editorLangId == 'clojure'"
+    },
     {
         "key": "ctrl+.",
         "command": "keyboard-quickfix.openQuickFix",
@@ -53,5 +59,29 @@
         "key": "ctrl+l",
         "command": "file-browser.stepIn",
         "when": "inFileBrowser"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "workbench.action.closeWindow",
+        "when": "!editorIsOpen && !multipleEditorGroups"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "-workbench.action.closeWindow",
+        "when": "!editorIsOpen && !multipleEditorGroups"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-workbench.action.quit"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+i",
+        "command": "-editor.action.showHover",
+        "when": "editorTextFocus"
     }
 ]
