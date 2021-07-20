@@ -1,4 +1,5 @@
 if exists('g:vscode')
+
     noremap <Leader>cs :call VSCodeNotify('clover.connectSocketRepl')<CR>  
     noremap <Leader>c0 :call VSCodeNotify('clover.clear-console')<CR>  
     noremap <Leader>eF :call VSCodeNotify('clover.evaluate-top-block')<CR>  

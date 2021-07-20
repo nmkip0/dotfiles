@@ -812,6 +812,12 @@ The =which-key= integration adds helpful descriptions of the various keys so you
 
 #+end_src
 
+**** lsp-tailwindcss
+#+begin_src emacs-lisp :tangle no
+  (use-package lsp-tailwindcss
+    :init
+    (setq lsp-tailwindcss-add-on-mode t))
+#+end_src
 **** lsp-ui
 
 [[https://emacs-lsp.github.io/lsp-ui/][lsp-ui]] is a set of UI enhancements built on top of =lsp-mode= which make Emacs feel even more like an IDE.  Check out the screenshots on the =lsp-ui= homepage (linked at the beginning of this paragraph) to see examples of what it can do.

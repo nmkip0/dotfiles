@@ -7,8 +7,8 @@ endif
 
 " Plugins go here:
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-"	Plug 'vim-scripts/paredit.vim'
-	Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release', 'for': 'clojure'}
+"	Plug 'vim-scripts/paredit.vim', {'for': 'clojure'}
+"	Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release', 'for': 'clojure'}
     Plug 'guns/vim-sexp', {'for': 'clojure'}
     Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': 'clojure'}
     Plug 'tpope/vim-surround'
