@@ -3,7 +3,7 @@
     "editor.lineNumbers": "relative",
     "explorer.confirmDelete": false,
     "window.titleBarStyle": "custom",
-
+    "keyboard.dispatch": "keyCode",
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
 
     "tailwindCSS.emmetCompletions": true,
@@ -41,5 +41,7 @@
         "width": 120,
         "maxLength": 50
     },
-    "calva.showDocstringInParameterHelp": true
+    "calva.showDocstringInParameterHelp": true,
+    "calva.clojureLspPath": "/usr/bin/clojure-lsp",
+    "window.zoomLevel": 1
 }
