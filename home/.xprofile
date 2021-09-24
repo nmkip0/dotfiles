@@ -1,1 +1,10 @@
-/home/nmkip/dotfiles/nmkip/home/.xprofile
+#!/bin/sh
+
+# This file runs when a DM logs you into a graphical session.
+# Also works with startx/xinit.
+
+picom --experimental-backends &
+dunst &
+unclutter &
+feh --randomize --bg-fill ~/Pictures/dt-wallpapers/* &
+setxkbmap -option caps:escape

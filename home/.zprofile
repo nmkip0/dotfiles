@@ -1,1 +1,1 @@
-/home/nmkip/dotfiles/nmkip/home/.zprofile
+export BROWSER=vivaldi-stable
