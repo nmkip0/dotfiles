@@ -27,10 +27,8 @@
     "[javascript]": {
         "editor.defaultFormatter": "HookyQR.beautify"
     },
-    "codesnap.shutterAction": "copy",
     "workbench.iconTheme": "material-icon-theme",
     "git.autofetch": true,
-    "diffEditor.ignoreTrimWhitespace": false,
     "workbench.sideBar.location": "right",
     "[html]": {
         "editor.defaultFormatter": "HookyQR.beautify"
@@ -43,5 +41,5 @@
     },
     "calva.showDocstringInParameterHelp": true,
     "calva.clojureLspPath": "/usr/bin/clojure-lsp",
-    "window.zoomLevel": 1
+    "window.zoomLevel": -1
 }
