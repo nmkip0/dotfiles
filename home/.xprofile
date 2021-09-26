@@ -2,9 +2,11 @@
 
 # This file runs when a DM logs you into a graphical session.
 # Also works with startx/xinit.
+export PATH=$PATH:~/.emacs.d/bin:~/.local/bin/statusbar:~/.local/bin/cron
 
-picom --experimental-backends &
+#picom --experimental-backends &
+feh --randomize --bg-fill ~/Pictures/dt-wallpapers/* &
+xcompmgr &
 dunst &
 unclutter &
-feh --randomize --bg-fill ~/Pictures/dt-wallpapers/* &
-setxkbmap -option caps:escape
+setxkbmap -option caps:escape 
