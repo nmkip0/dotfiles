@@ -52,3 +52,27 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Local leader
+(setq doom-localleader-key ",")
+(setq doom-localleader-alt-key "M-,")
+
+;; Vim keys
+(general-define-key :states 'normal "\\" 'evil-snipe-repeat-reverse)
+
+;; Keybindings
+
+;; Packages
+(use-package! evil-cleverparens
+  :commands evil-cleverparens-mode
+  :init
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+  :custom
+  (evil-cleverparens-use-additional-bindings nil)
+  (evil-cleverparens-use-additional-movement-keys nil)
+  :config
+  (map! :map evil-cleverparens-mode-map
+        :nv "M-[" 'evil-cp-beginning-of-defun
+        :nv "M-]" 'evil-cp-end-of-defun
+        :nv "M-{" 'evil-cp-previous-opening
+        :nv "M-}" 'evil-cp-next-closing))
