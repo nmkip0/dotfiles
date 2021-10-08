@@ -76,3 +76,85 @@
         :nv "M-]" 'evil-cp-end-of-defun
         :nv "M-{" 'evil-cp-previous-opening
         :nv "M-}" 'evil-cp-next-closing))
+
+;; Projectile
+
+(after! projectile
+  (setq projectile-sort-order 'recently-active))
+
+;; Clojure;; clojure
+
+(after! cider
+  (setq cider-repl-pop-to-buffer-on-connect nil)
+  (setq cider-repl-display-in-current-window t))
+
+(setq lsp-ui-sideline-actions-icon nil
+        lsp-ui-sideline-show-code-actions nil
+        lsp-ui-doc-position 'at-point)
+
+(use-package! lsp
+  :config
+  (let ((lsp-dirs-to-ignore
+         '("[/\\\\]\\.cpcache\\'"
+           "[/\\\\]\\.datomic\\'"
+           "[/\\\\]cljs-runtime\\'"
+           "[/\\\\]\\.lsp\\'"
+           "[/\\\\]\\.store\\'"
+           "[/\\\\]\\.shadow-cljs\\'")))
+    (dolist (item lsp-dirs-to-ignore)
+      (add-to-list 'lsp-file-watch-ignored-directories item))))
+
+(defun nmkip/cider-quit-all ()
+  "Quit all current CIDER REPLs. Thanks to @plexus"
+  (interactive)
+  (let ((repls (seq-remove (lambda (r)
+                             (equal r (get-buffer "*babashka-repl*")))
+                           (seq-mapcat #'cdr (sesman-current-sessions 'CIDER)))))
+    (seq-do #'cider--close-connection repls))
+  ;; if there are no more sessions we can kill all ancillary buffers
+  (cider-close-ancillary-buffers)
+  ;; need this to refresh sesman browser
+  (run-hooks 'sesman-post-command-hook))
+
+;; Allows to eval sexp with cursor "on" the last char instead of
+;; "after" the last char. This is super helpful in vim normal / motion
+;; states
+;; https://github.com/syl20bnr/spacemacs/issues/646#issuecomment-106037404
+(defadvice cider-last-sexp (around evil activate)
+  "In normal-state or motion-state, last sexp ends at point."
+  (if (or (evil-normal-state-p) (evil-motion-state-p))
+      (save-excursion
+        (unless (or (eobp) (eolp)) (forward-char))
+        ad-do-it)
+    ad-do-it))
+
+(defun nmkip/cider-eval-sexp-end-of-line ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (cider-eval-last-sexp)))
+
+(defun nmkip/cider-pprint-eval-sexp-end-of-line ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (cider-pprint-eval-last-sexp)))
+
+(map! :localleader
+      :map (clojure-mode-map clojurescript-mode-map)
+      :prefix "e"
+      :nvm "l" #'nmkip/cider-eval-sexp-end-of-line)
+
+;; TODO: Review these keys.
+(map! :map cider-inspector-mode-map
+      :n "h" 'cider-inspector-pop
+      :n "H" 'cider-inspector-prev-page
+      :n "j" 'cider-inspector-next-inspectable-object
+      :n "k" 'cider-inspector-previous-inspectable-object
+      :n "l" 'cider-inspector-operate-on-point
+      :n "L" 'cider-inspector-next-page
+      :n "q" 'quit-window
+      :n "r" 'cider-inspector-refresh
+      :n "s" 'cider-inspector-set-page-size
+      :n (kbd "RET") 'cider-inspector-operate-on-point
+      :n [mouse-1] 'cider-inspector-operate-on-click)
