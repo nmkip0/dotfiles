@@ -106,6 +106,9 @@
   (setq cider-repl-pop-to-buffer-on-connect nil)
   (setq cider-repl-display-in-current-window t))
 
+(after! clojure-mode
+  (setq clojure-toplevel-inside-comment-form t))
+
 (setq lsp-ui-sideline-actions-icon nil
         lsp-ui-sideline-show-code-actions nil
         lsp-ui-doc-position 'at-point)
