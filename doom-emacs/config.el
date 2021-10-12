@@ -65,6 +65,11 @@
 ;; Packages
 (use-package! evil-cleverparens
   :commands evil-cleverparens-mode
+  :hook
+    (emacs-lisp-mode . evil-cleverparens-mode)
+    (clojure-mode . evil-cleverparens-mode)
+    (clojurescript-mode . evil-cleverparens-mode)
+    (cider-repl-mode . evil-cleverparens-mode)
   :init
   (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
   :custom
@@ -76,6 +81,19 @@
         :nv "M-]" 'evil-cp-end-of-defun
         :nv "M-{" 'evil-cp-previous-opening
         :nv "M-}" 'evil-cp-next-closing))
+
+(use-package! evil-cleverparens
+  :commands evil-cleverparens-mode
+:hook
+    (prog-mode . smartparens-mode)
+    (emacs-lisp-mode . smartparens-strict-mode)
+    (clojure-mode . smartparens-strict-mode)
+    (clojurescript-mode . smartparens-strict-mode)
+    (cider-repl-mode . smartparens-strict-mode)
+  :config
+    (sp-local-pair sp-lisp-modes "'" nil :actions nil)
+    (sp-local-pair sp-lisp-modes "`" nil :actions nil)
+    (show-smartparens-global-mode))
 
 ;; Projectile
 

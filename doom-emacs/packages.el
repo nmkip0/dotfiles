@@ -50,5 +50,6 @@
 ;(unpin! t)
 
 (package! evil-cleverparens)
+(package! smartparens)
 ;; (package! html-to-hiccup)
 ;; (package! zprint-mode)
