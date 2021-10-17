@@ -82,8 +82,8 @@
         :nv "M-{" 'evil-cp-previous-opening
         :nv "M-}" 'evil-cp-next-closing))
 
-(use-package! evil-cleverparens
-  :commands evil-cleverparens-mode
+(use-package! smartparens
+  :commands smartparens-mode
 :hook
     (prog-mode . smartparens-mode)
     (emacs-lisp-mode . smartparens-strict-mode)
