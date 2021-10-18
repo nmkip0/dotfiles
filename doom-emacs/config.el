@@ -57,6 +57,8 @@
 (setq doom-localleader-key ",")
 (setq doom-localleader-alt-key "M-,")
 
+(setq treemacs-follow-mode  t)
+
 ;; Vim keys
 (general-define-key :states 'normal "\\" 'evil-snipe-repeat-reverse)
 
@@ -179,3 +181,7 @@
       :n "s" 'cider-inspector-set-page-size
       :n (kbd "RET") 'cider-inspector-operate-on-point
       :n [mouse-1] 'cider-inspector-operate-on-click)
+
+(defadvice! nmkip/find-file-and-select (&optional _)
+    :after #'treemacs-find-file
+    (treemacs-select-window))
