@@ -166,7 +166,8 @@
 (map! :localleader
       :map (clojure-mode-map clojurescript-mode-map)
       :prefix "e"
-      :nvm "l" #'nmkip/cider-eval-sexp-end-of-line)
+      :nvm "l" #'nmkip/cider-eval-sexp-end-of-line
+      :nvm "v" #'cider-eval-sexp-at-point)
 
 ;; TODO: Review these keys.
 (map! :map cider-inspector-mode-map
