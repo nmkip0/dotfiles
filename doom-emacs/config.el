@@ -209,7 +209,7 @@
           Split: _v_ert  _s_:horz
          Delete: _c_lose  _o_nly
   Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
-         Resize: _<_:decrease width left  _>_:increase width _-_:decrease height  _+_:increase height  _=_: balance
+         Resize: _e_: enlargen _<_:decrease width left  _>_:increase width _-_:decrease height  _+_:increase height  _=_: balance
 "
   ("h" windmove-left)
   ("j" windmove-down)
