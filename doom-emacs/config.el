@@ -207,7 +207,7 @@
 (defhydra nmkip/hydra-window (:hint nil)
   "
           Split: _v_ert  _s_:horz
-         Delete: _c_lose  _o_nly
+         Delete: _d_:delete  _o_:other windows
   Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
          Resize: _e_: enlargen _<_:decrease width left  _>_:increase width _-_:decrease height  _+_:increase height  _=_: balance
 "
@@ -224,9 +224,10 @@
   ("s" split-window-below)
   ("v" split-window-right)
 
-  ("c" delete-window)
+  ("d" delete-window)
   ("o" delete-other-windows)
 
+  ("e" doom/window-enlargen)
   ("<" evil-window-decrease-width)
   ("-" evil-window-decrease-height)
   ("+" evil-window-increase-height)
@@ -240,6 +241,9 @@
 
       :desc "hydra"
       "." #'nmkip/hydra-window/body
+
+      :desc "doom/window-enlargen"
+      "<" #'nmkip/hydra-window/doom/window-enlargen
 
       :desc "evil-window-decrease-width"
       "<" #'nmkip/hydra-window/evil-window-decrease-width
