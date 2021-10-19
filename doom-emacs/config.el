@@ -186,3 +186,86 @@
 (defadvice! nmkip/find-file-and-select (&optional _)
     :after #'treemacs-find-file
     (treemacs-select-window))
+
+(defhydra nmkip/hydra-text-scale (:timeout 4)
+  "scale text"
+  ("k" text-scale-increase "scale up")
+  ("j" text-scale-decrease "scale down")
+  ("0" doom/reset-font-size "reset font")
+  ("q" nil "quit" :exit t))
+
+(map! :leader
+      :prefix ("z" . "zoom")
+      "." #'nmkip/hydra-text-scale/body
+      :desc "Increase font size"
+      "j" #'nmkip/hydra-text-scale/text-scale-decrease
+      :desc "Decrease font size"
+      "k" #'nmkip/hydra-text-scale/text-scale-increase
+      :desc "Reset font size"
+      "0" #'nmkip/hydra-text-scale/doom/reset-font-size)
+
+(defhydra nmkip/hydra-window (:hint nil)
+  "
+          Split: _v_ert  _s_:horz
+         Delete: _c_lose  _o_nly
+  Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
+         Resize: _<_:decrease width left  _>_:increase width _-_:decrease height  _+_:increase height  _=_: balance
+"
+  ("h" windmove-left)
+  ("j" windmove-down)
+  ("k" windmove-up)
+  ("l" windmove-right)
+
+  ("p" previous-buffer)
+  ("n" next-buffer)
+  ("b" switch-to-buffer)
+  ("f" find-file)
+
+  ("s" split-window-below)
+  ("v" split-window-right)
+
+  ("c" delete-window)
+  ("o" delete-other-windows)
+
+  ("<" evil-window-decrease-width)
+  ("-" evil-window-decrease-height)
+  ("+" evil-window-increase-height)
+  (">" evil-window-increase-width)
+  ("=" balance-windows)
+
+  ("q" nil))
+
+(map! :leader
+      :prefix "w"
+
+      :desc "hydra"
+      "." #'nmkip/hydra-window/body
+
+      :desc "evil-window-decrease-width"
+      "<" #'nmkip/hydra-window/evil-window-decrease-width
+
+      :desc "evil-window-decrease-height"
+      "-" #'nmkip/hydra-window/evil-window-decrease-height
+
+      :desc "evil-window-increase-height"
+      "+" #'nmkip/hydra-window/evil-window-increase-height
+
+      :desc "evil-window-increase-width"
+      ">" #'nmkip/hydra-window/evil-window-increase-width
+      )
+
+(defhydra nmkip/hydra-buffer (:hint nil)
+  "
+ _d_: kill buffer _p_revious  _n_ext  _b_:select
+"
+  ("p" previous-buffer)
+  ("n" next-buffer)
+  ("b" switch-to-buffer)
+  ("d" kill-this-buffer)
+
+  ("q" nil))
+
+(map! :leader
+      :prefix "b"
+      :desc "hydra"
+      "." #'nmkip/hydra-buffer/body)
