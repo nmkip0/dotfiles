@@ -258,6 +258,9 @@
       ">" #'nmkip/hydra-window/evil-window-increase-width
       )
 
+(after! avy
+  (setq avy-all-windows t))
+
 (defhydra nmkip/hydra-buffer (:hint nil)
   "
  _d_: kill buffer _p_revious  _n_ext  _b_:select
