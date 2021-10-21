@@ -1,7 +1,7 @@
 # Path to oh-my-zsh installation
+fpath=( "$HOME/.zfunctions" $fpath )
 ZSH="/usr/share/oh-my-zsh"
-
-
+ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
 # Load antigen. To find the place where it's installed(yay/pacman -Ql antigen)
 source /usr/share/zsh/share/antigen.zsh
@@ -19,7 +19,7 @@ antigen apply
 
 # Set name of the theme to load. If set to "random" it will load a random theme
 # each time that oh-my-zsh is loaded.
-ZSH_THEME="random"
+ZSH_THEME="lambda"
 
 # Enable ZSH plugins. Plugins can be found in "$ZSH/plugins/"
 plugins=(vi-mode git)
