@@ -276,3 +276,5 @@
       :prefix "b"
       :desc "hydra"
       "." #'nmkip/hydra-buffer/body)
+
+(map! :nv "M-r" #'evil-multiedit-match-all)
