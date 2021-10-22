@@ -51,5 +51,12 @@
 
 (package! evil-cleverparens)
 (package! smartparens)
-;; (package! html-to-hiccup)
-;; (package! zprint-mode)
+(package! html-to-hiccup)
+(package! zprint-mode)
+
+(package! gitconfig-mode
+	  :recipe (:host github :repo "magit/git-modes"
+			 :files ("gitconfig-mode.el")))
+(package! gitignore-mode
+	  :recipe (:host github :repo "magit/git-modes"
+			 :files ("gitignore-mode.el")))
