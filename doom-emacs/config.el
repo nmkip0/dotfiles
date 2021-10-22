@@ -278,3 +278,6 @@
       "." #'nmkip/hydra-buffer/body)
 
 (map! :nv "M-r" #'evil-multiedit-match-all)
+
+(after! ranger
+  (ranger-override-dired-mode t))
