@@ -35,11 +35,12 @@
     },
     "calva.prettyPrintingOptions": {
         "enabled": true,
-        "printEngine": "pprint",
         "width": 120,
-        "maxLength": 50
+        "maxLength": 50,
+        "printEngine": "pprint"
     },
     "calva.showDocstringInParameterHelp": true,
     "calva.clojureLspPath": "/usr/bin/clojure-lsp",
+    "editor.renderIndentGuides": false,
     "window.zoomLevel": -1
 }
