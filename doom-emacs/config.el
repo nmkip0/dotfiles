@@ -139,18 +139,6 @@
   ;; need this to refresh sesman browser
   (run-hooks 'sesman-post-command-hook))
 
-;; Allows to eval sexp with cursor "on" the last char instead of
-;; "after" the last char. This is super helpful in vim normal / motion
-;; states
-;; https://github.com/syl20bnr/spacemacs/issues/646#issuecomment-106037404
-(defadvice cider-last-sexp (around evil activate)
-  "In normal-state or motion-state, last sexp ends at point."
-  (if (or (evil-normal-state-p) (evil-motion-state-p))
-      (save-excursion
-        (unless (or (eobp) (eolp)) (forward-char))
-        ad-do-it)
-    ad-do-it))
-
 (defun nmkip/cider-eval-sexp-end-of-line ()
     (interactive)
     (save-excursion
@@ -281,3 +269,12 @@
 
 (after! ranger
   (ranger-override-dired-mode t))
+
+;; Command log
+(map! :leader
+      (:prefix "t"
+        :desc "Global Command Log"
+        "L" #'global-command-log-mode)
+      (:prefix "b"
+       :desc "Toggle Command Log buffer"
+       "L" #'clm/toggle-command-log-buffer))

@@ -53,6 +53,7 @@
 (package! smartparens)
 (package! html-to-hiccup)
 (package! zprint-mode)
+(package! command-log-mode)
 
 (package! gitconfig-mode
 	  :recipe (:host github :repo "magit/git-modes"
