@@ -75,6 +75,7 @@
   :init
   (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
   :custom
+  (evil-cleverparens-use-s-and-S nil)
   (evil-cleverparens-use-additional-bindings nil)
   (evil-cleverparens-use-additional-movement-keys nil)
   :config
