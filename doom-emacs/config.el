@@ -172,6 +172,42 @@
       :n (kbd "RET") 'cider-inspector-operate-on-point
       :n [mouse-1] 'cider-inspector-operate-on-click)
 
+;; Leverage an existing cider nrepl connection to evaluate portal.api functions
+;; and map them to convenient key bindings.
+
+(defun portal.api/open ()
+  (interactive)
+  (cider-nrepl-sync-request:eval
+   "(require 'portal.api) (portal.api/tap) (portal.api/open)"))
+
+(defun portal.api/clear ()
+  (interactive)
+  (cider-nrepl-sync-request:eval "(portal.api/clear)"))
+
+(defun portal.api/close ()
+  (interactive)
+  (cider-nrepl-sync-request:eval "(portal.api/close)"))
+
+;; Example key mappings for doom emacs
+(map! :localleader
+      :map (clojure-mode-map clojurescript-mode-map)
+      :prefix "P"
+      :n "o" #'portal.api/open
+      :n "l" #'portal.api/clear
+      :n "q" #'portal.api/close)
+
+;; NOTE: You do need to have portal on the class path and the easiest way I know
+;; how is via a clj user or project alias.
+(setq cider-clojure-cli-global-options "-A:portal")
+
+(defadvice! nmkip/add-tap (fn &rest args)
+    :around #'cider-interactive-eval
+    (let* ((form (nth 0 args))
+           (bounds (nth 2 args))
+           (form  (or form (apply #'buffer-substring-no-properties bounds)))
+           (form (concat "(doto " form " tap>)")))
+      (apply fn form (cdr args))))
+
 (defadvice! nmkip/find-file-and-select (&optional _)
     :after #'treemacs-find-file
     (treemacs-select-window))
@@ -279,3 +315,14 @@
       (:prefix "b"
        :desc "Toggle Command Log buffer"
        "L" #'clm/toggle-command-log-buffer))
+
+(defun jet-pretty ()
+  (interactive)
+  (shell-command-on-region
+   (region-beginning)
+   (region-end)
+   "jet --pretty --edn-reader-opts '{:default tagged-literal}'"
+   (current-buffer)
+   t
+   "*jet error buffer*"
+   t))
