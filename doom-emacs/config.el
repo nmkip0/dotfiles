@@ -34,7 +34,7 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
-
+(setq evil-collection-setup-minibuffer t)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -58,6 +58,10 @@
 (setq doom-localleader-alt-key "M-,")
 
 (setq treemacs-follow-mode  t)
+(setq doom-themes-treemacs-theme "all-the-icons")
+
+(define-key evil-motion-state-map (kbd "] e") #'flycheck-next-error)
+(define-key evil-motion-state-map (kbd "[ e") #'flycheck-previous-error)
 
 ;; Vim keys
 (general-define-key :states 'normal "\\" 'evil-snipe-repeat-reverse)
