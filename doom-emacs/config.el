@@ -109,9 +109,21 @@
 
 ;; Clojure;; clojure
 
-(after! cider
-  (setq cider-repl-pop-to-buffer-on-connect nil)
-  (setq cider-repl-display-in-current-window t))
+(use-package! cider
+  :after clojure-mode
+  :config
+  (setq cider-ns-refresh-show-log-buffer t
+        cider-repl-pop-to-buffer-on-connect nil
+        cider-repl-display-in-current-window t
+        cider-show-error-buffer t ;'only-in-repl
+        cider-font-lock-dynamically nil ; use lsp semantic tokens
+        cider-eldoc-display-for-symbol-at-point nil ; use lsp
+        cider-prompt-for-symbol nil)
+  (set-popup-rule! "*cider-test-report*" :side 'right :width 0.4)
+  (set-popup-rule! "^\\*cider-repl" :side 'bottom :quit nil)
+  (set-lookup-handlers! 'cider-mode nil) ; use lsp
+  (add-hook 'cider-mode-hook (lambda () (remove-hook 'completion-at-point-functions #'cider-complete-at-point))) ; use lsp
+  )
 
 (after! clojure-mode
   (setq clojure-toplevel-inside-comment-form t))
@@ -156,11 +168,21 @@
       (end-of-line)
       (cider-pprint-eval-last-sexp)))
 
-(map! :localleader
-      :map (clojure-mode-map clojurescript-mode-map)
+(defun cider-eval-last-sexpr-and-copy-to-clipboard ()
+  (interactive)
+  (cider-interactive-eval nil
+                         (cider-eval-clipboard-handler)
+                         (cider-last-sexp 'bounds)
+                         (cider--nrepl-pr-request-map)))
+
+(map! :after cider-mode
+      :map cider-mode-map
+      :localleader
       :prefix "e"
-      :nvm "l" #'nmkip/cider-eval-sexp-end-of-line
-      :nvm "v" #'cider-eval-sexp-at-point)
+      :desc "Cider eval last sexpr and copy to clipboard"
+      "c" #'cider-eval-last-sexpr-and-copy-to-clipboard
+      "l" #'nmkip/cider-eval-sexp-end-of-line
+      "v" #'cider-eval-sexp-at-point)
 
 ;; TODO: Review these keys.
 (map! :map cider-inspector-mode-map
@@ -203,6 +225,20 @@
 ;; NOTE: You do need to have portal on the class path and the easiest way I know
 ;; how is via a clj user or project alias.
 (setq cider-clojure-cli-global-options "-A:portal")
+(setq cider-eldoc-display-for-symbol-at-point nil)
+
+;;(defadvice! nmkip/add-tap (fn &rest args)
+;;    :around #'cider-interactive-eval
+;;    (let* ((form (nth 0 args))
+;;           (bounds (nth 2 args))
+;;           (form  (or form (apply #'buffer-substring-no-properties bounds))))
+;;      (if (eq major-mode 'clojure-mode)
+;;       (let* ((form (concat "(doto " form " tap>)")))
+;;         (message form)
+;;         (apply fn form (cdr args)))
+;;       (progn
+;;         (message form)
+;;         (apply fn args)))))
 
 (defadvice! nmkip/add-tap (fn &rest args)
     :around #'cider-interactive-eval
@@ -320,6 +356,8 @@
        :desc "Toggle Command Log buffer"
        "L" #'clm/toggle-command-log-buffer))
 
+
+
 (defun jet-pretty ()
   (interactive)
   (shell-command-on-region
@@ -330,3 +368,56 @@
    t
    "*jet error buffer*"
    t))
+
+(setq auth-sources '("~/.authinfo"))
+
+(use-package! treemacs-all-the-icons
+  :after treemacs)
+
+(use-package! company
+  :config
+  (setq company-tooltip-align-annotations t
+        company-frontends '(company-pseudo-tooltip-frontend)))
+
+(use-package! company-quickhelp
+  :init
+  (company-quickhelp-mode)
+  :config
+  (setq company-quickhelp-delay 1
+        company-quickhelp-use-propertized-text t
+        company-quickhelp-max-lines 15
+        ))
+
+(after! company
+  (define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin))
+
+(use-package! lsp-mode
+  :commands lsp
+  :hook ((clojure-mode . lsp))
+  :config
+  (setq lsp-headerline-breadcrumb-enable nil
+        lsp-lens-enable t
+        lsp-enable-file-watchers nil
+        lsp-signature-render-documentation t
+        lsp-signature-function 'lsp-signature-posframe
+        lsp-semantic-tokens-enable t
+        lsp-idle-delay 0.3
+        lsp-use-plists nil
+        lsp-completion-sort-initial-results t ; check if should keep as t
+        lsp-completion-no-cache t
+        lsp-completion-use-last-result nil)
+  (add-hook 'lsp-mode-hook (lambda () (setq-local company-format-margin-function #'company-vscode-dark-icons-margin))))
+
+(use-package! lsp-treemacs
+  :config
+  (setq lsp-treemacs-error-list-current-project-only t))
+
+(use-package! lsp-ui
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-peek-list-width 60
+        lsp-ui-doc-max-width 60
+        lsp-ui-doc-enable nil
+        lsp-ui-peek-fontify 'always
+        lsp-ui-sideline-show-code-actions nil))

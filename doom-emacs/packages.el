@@ -55,6 +55,15 @@
 (package! zprint-mode)
 (package! command-log-mode)
 
+(package! treemacs-all-the-icons)
+(package! company-quickhelp)
+
+(unpin! hover)
+(unpin! lsp-treemacs)
+(unpin! lsp-mode)
+(unpin! lsp-ui)
+(unpin! magit forge)
+
 (package! gitconfig-mode
 	  :recipe (:host github :repo "magit/git-modes"
 			 :files ("gitconfig-mode.el")))
