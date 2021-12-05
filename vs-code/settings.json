@@ -42,5 +42,7 @@
     "calva.showDocstringInParameterHelp": true,
     "calva.clojureLspPath": "/usr/bin/clojure-lsp",
     "editor.renderIndentGuides": false,
-    "window.zoomLevel": -1
+    "[jsonc]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    }
 }
