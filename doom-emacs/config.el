@@ -66,41 +66,45 @@
 ;; Vim keys
 (general-define-key :states 'normal "\\" 'evil-snipe-repeat-reverse)
 
-;; Keybindings
-
 ;; Packages
-(use-package! evil-cleverparens
-  :commands evil-cleverparens-mode
-  :hook
-    (emacs-lisp-mode . evil-cleverparens-mode)
-    (clojure-mode . evil-cleverparens-mode)
-    (clojurescript-mode . evil-cleverparens-mode)
-    (cider-repl-mode . evil-cleverparens-mode)
-  :init
-  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
-  :custom
-  (evil-cleverparens-use-s-and-S nil)
-  (evil-cleverparens-use-additional-bindings nil)
-  (evil-cleverparens-use-additional-movement-keys nil)
-  :config
-  (map! :map evil-cleverparens-mode-map
-        :nv "M-[" 'evil-cp-beginning-of-defun
-        :nv "M-]" 'evil-cp-end-of-defun
-        :nv "M-{" 'evil-cp-previous-opening
-        :nv "M-}" 'evil-cp-next-closing))
+(use-package! paredit
+  :hook ((clojure-mode . paredit-mode)
+         (clojurescript-mode . paredit-mode)
+         (clojurec-mode . paredit-mode)
+         (emacs-lisp-mode . paredit-mode)))
 
-(use-package! smartparens
-  :commands smartparens-mode
-:hook
-    (prog-mode . smartparens-mode)
-    (emacs-lisp-mode . smartparens-strict-mode)
-    (clojure-mode . smartparens-strict-mode)
-    (clojurescript-mode . smartparens-strict-mode)
-    (cider-repl-mode . smartparens-strict-mode)
-  :config
-    (sp-local-pair sp-lisp-modes "'" nil :actions nil)
-    (sp-local-pair sp-lisp-modes "`" nil :actions nil)
-    (show-smartparens-global-mode))
+
+ (map! :map (clojure-mode-map clojurescript-mode-map emacs-lisp-mode-map)
+       :localleader
+
+       :prefix ("s" . "Structural editing")
+
+       :desc "Raise sexp"
+       "r" #'paredit-raise-sexp
+
+       :desc "Splice sexp"
+       "x" #'paredit-splice-sexp
+
+       :desc "Forward barf"
+       "b" #'paredit-forward-barf-sexp
+
+       :desc "Forward slurp"
+       "s" #'paredit-forward-slurp-sexp
+
+       :desc "Backward barf"
+       "B" #'paredit-backward-barf-sexp
+
+       :desc "Backward slurp"
+       "S" #'paredit-backward-slurp-sexp)
+
+(after! paredit
+  ;; Like https://github.com/tpope/vim-sexp-mappings-for-regular-people
+  (general-define-key :states 'normal "<)" 'paredit-forward-barf-sexp)
+  (general-define-key :states 'normal ">)" 'paredit-forward-slurp-sexp)
+  (general-define-key :states 'normal "<(" 'paredit-backward-slurp-sexp)
+  (general-define-key :states 'normal ">(" 'paredit-backward-barf-sexp))
+
+
 
 ;; Projectile
 
