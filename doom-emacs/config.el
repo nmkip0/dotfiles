@@ -34,7 +34,7 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
-(setq evil-collection-setup-minibuffer t)
+(setq evil-collection-setup-minibuffer nil)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -133,8 +133,8 @@
   (setq clojure-toplevel-inside-comment-form t))
 
 (setq lsp-ui-sideline-actions-icon nil
-        lsp-ui-sideline-show-code-actions nil
-        lsp-ui-doc-position 'at-point)
+      lsp-ui-sideline-show-code-actions nil
+      lsp-ui-doc-position 'at-point)
 
 (use-package! lsp
   :config
@@ -161,23 +161,37 @@
   (run-hooks 'sesman-post-command-hook))
 
 (defun nmkip/cider-eval-sexp-end-of-line ()
-    (interactive)
-    (save-excursion
-      (end-of-line)
-      (cider-eval-last-sexp)))
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (cider-eval-last-sexp)))
 
 (defun nmkip/cider-pprint-eval-sexp-end-of-line ()
-    (interactive)
-    (save-excursion
-      (end-of-line)
-      (cider-pprint-eval-last-sexp)))
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (cider-pprint-eval-last-sexp)))
+
+(defun cider-eval-clipboard-handler ()
+  (nrepl-make-response-handler
+   (current-buffer)
+   (lambda (buffer value)
+     (with-current-buffer buffer
+       (with-temp-buffer
+         (insert value)
+         (clipboard-kill-region (point-min) (point-max)))))
+   (lambda (_buffer out)
+     (cider-emit-interactive-eval-output out))
+   (lambda (_buffer err)
+     (cider-emit-interactive-eval-err-output err))
+   '()))
 
 (defun cider-eval-last-sexpr-and-copy-to-clipboard ()
   (interactive)
   (cider-interactive-eval nil
-                         (cider-eval-clipboard-handler)
-                         (cider-last-sexp 'bounds)
-                         (cider--nrepl-pr-request-map)))
+                          (cider-eval-clipboard-handler)
+                          (cider-last-sexp 'bounds)
+                          (cider--nrepl-pr-request-map)))
 
 (map! :after cider-mode
       :map cider-mode-map
@@ -245,16 +259,16 @@
 ;;         (apply fn args)))))
 
 (defadvice! nmkip/add-tap (fn &rest args)
-    :around #'cider-interactive-eval
-    (let* ((form (nth 0 args))
-           (bounds (nth 2 args))
-           (form  (or form (apply #'buffer-substring-no-properties bounds)))
-           (form (concat "(doto " form " tap>)")))
-      (apply fn form (cdr args))))
+  :around #'cider-interactive-eval
+  (let* ((form (nth 0 args))
+         (bounds (nth 2 args))
+         (form  (or form (apply #'buffer-substring-no-properties bounds)))
+         (form (concat "(doto " form " tap>)")))
+    (apply fn form (cdr args))))
 
 (defadvice! nmkip/find-file-and-select (&optional _)
-    :after #'treemacs-find-file
-    (treemacs-select-window))
+  :after #'treemacs-find-file
+  (treemacs-select-window))
 
 (defhydra nmkip/hydra-text-scale (:timeout 4)
   "scale text"
@@ -354,8 +368,8 @@
 ;; Command log
 (map! :leader
       (:prefix "t"
-        :desc "Global Command Log"
-        "L" #'global-command-log-mode)
+       :desc "Global Command Log"
+       "L" #'global-command-log-mode)
       (:prefix "b"
        :desc "Toggle Command Log buffer"
        "L" #'clm/toggle-command-log-buffer))
@@ -425,3 +439,13 @@
         lsp-ui-doc-enable nil
         lsp-ui-peek-fontify 'always
         lsp-ui-sideline-show-code-actions nil))
+
+(use-package! clj-refactor
+  :after clojure-mode
+  :config
+  (set-lookup-handlers! 'clj-refactor-mode nil)
+  (setq cljr-warn-on-eval nil
+        cljr-eagerly-build-asts-on-startup nil
+        cljr-add-ns-to-blank-clj-files nil ; use lsp
+        cljr-magic-require-namespaces
+        '(("pp" . "clojure.pprint"))))
