@@ -49,8 +49,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! evil-cleverparens)
-(package! smartparens)
 (package! html-to-hiccup)
 (package! zprint-mode)
 (package! command-log-mode)
@@ -59,6 +57,7 @@
 (package! company-quickhelp)
 
 (unpin! hover)
+(unpin! treemacs)
 (unpin! lsp-treemacs)
 (unpin! lsp-mode)
 (unpin! lsp-ui)
@@ -70,3 +69,4 @@
 (package! gitignore-mode
 	  :recipe (:host github :repo "magit/git-modes"
 			 :files ("gitignore-mode.el")))
+
