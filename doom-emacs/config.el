@@ -222,7 +222,7 @@
 (defun portal.api/open ()
   (interactive)
   (cider-nrepl-sync-request:eval
-   "(require 'portal.api) (portal.api/tap) (portal.api/open)"))
+   "(require 'portal.api) (portal.api/tap) (do (def user/portal (portal.api/open)))"))
 
 (defun portal.api/clear ()
   (interactive)
