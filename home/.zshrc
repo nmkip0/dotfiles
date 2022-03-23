@@ -1,3 +1,4 @@
+
 # Path to oh-my-zsh installation
 fpath=( "$HOME/.zfunctions" $fpath )
 ZSH="/usr/share/oh-my-zsh"
@@ -12,9 +13,6 @@ antigen apply
 
 # ZSH config
 
-
-
-
 # Oh my zsh config
 
 # Set name of the theme to load. If set to "random" it will load a random theme
@@ -22,7 +20,7 @@ antigen apply
 ZSH_THEME="lambda"
 
 # Enable ZSH plugins. Plugins can be found in "$ZSH/plugins/"
-plugins=(vi-mode git)
+plugins=(vi-mode git z fzf)
 
 # Vi mode config
 VI_MODE_SET_CURSOR=true
@@ -55,3 +53,9 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/nmkip/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/nmkip/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/nmkip/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/nmkip/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
