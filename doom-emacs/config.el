@@ -238,7 +238,7 @@
                    (with-meta
                      [:div
                        {:style {:background :white}}
-                       [:portal.viewer/html [:iframe {:src url}]]
+                       [:portal.viewer/html [:iframe {:src url}]]]
                      {:portal.viewer/default :portal.viewer/hiccup}))]
          ;; install extra functions:
          (run! (fn [[k f]] (r! f {:name k}))
