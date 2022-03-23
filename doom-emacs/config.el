@@ -53,6 +53,13 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setq +format-on-save-enabled-modes
+      '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
+            sql-mode         ; sqlformat is currently broken
+            tex-mode         ; latexindent is broken
+            js-mode
+            latex-mode))
+
 ;; Local leader
 (setq doom-localleader-key ",")
 (setq doom-localleader-alt-key "M-,")
@@ -222,7 +229,25 @@
 (defun portal.api/open ()
   (interactive)
   (cider-nrepl-sync-request:eval
-   "(require 'portal.api) (portal.api/tap) (do (def user/portal (portal.api/open)))"))
+   "(require 'portal.api)
+    (portal.api/tap)
+    (do (def user/portal (portal.api/open)))
+    (try
+       (let [r!   (requiring-resolve 'portal.runtime/register!)
+             html (fn [url]
+                   (with-meta
+                     [:div
+                       {:style {:background :white}}
+                       [:portal.viewer/html [:iframe {:src url}]]
+                     {:portal.viewer/default :portal.viewer/hiccup}))]
+         ;; install extra functions:
+         (run! (fn [[k f]] (r! f {:name k}))
+               {'dev/->file   (requiring-resolve 'clojure.java.io/file)
+               'dev/->html   html
+               'dev/->map    (partial into {})
+               'dev/->set    (partial into #{})
+               'dev/->vector (partial into [])}))
+       (catch Throwable _))"))
 
 (defun portal.api/clear ()
   (interactive)
@@ -231,6 +256,14 @@
 (defun portal.api/close ()
   (interactive)
   (cider-nrepl-sync-request:eval "(portal.api/close)"))
+
+(defun k16.dev.system/reset ()
+  (interactive)
+  (cider-interactive-eval "(k16.dev.system/reset)"))
+
+(map! :localleader
+      :map (clojure-mode-map clojurescript-mode-map)
+      :n "!" #'k16.dev.system/reset)
 
 ;; Example key mappings for doom emacs
 (map! :localleader
@@ -242,7 +275,7 @@
 
 ;; NOTE: You do need to have portal on the class path and the easiest way I know
 ;; how is via a clj user or project alias.
-(setq cider-clojure-cli-global-options "-A:portal")
+(setq cider-clojure-cli-global-options "-A:portal:dev")
 (setq cider-eldoc-display-for-symbol-at-point nil)
 
 ;;(defadvice! nmkip/add-tap (fn &rest args)
@@ -257,6 +290,148 @@
 ;;       (progn
 ;;         (message form)
 ;;         (apply fn args)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Integration with portal
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun portal.api/clear ()
+  (interactive)
+  (cider-nrepl-sync-request:eval "(#?(:clj portal.api/clear :cljs portal.web/clear))"))
+
+(defun portal/invoke-portal-command (command-str)
+  (cider-nrepl-sync-request:eval
+   (concat "(#?(:clj portal.api/eval-str :cljs portal.web/eval-str) \"" command-str "\")")))
+
+(defun portal.ui.commands/select-root ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/select-root portal.ui.state/state)"))
+
+(defun portal.ui.commands/select-next ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/select-next portal.ui.state/state)"))
+
+(defun portal.ui.commands/select-prev ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/select-prev portal.ui.state/state)"))
+
+(defun portal.ui.commands/select-parent ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/select-parent portal.ui.state/state)"))
+
+(defun portal.ui.commands/select-child ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/select-child portal.ui.state/state)"))
+
+(defun portal.ui.commands/history-back ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/history-back portal.ui.state/state)"))
+
+(defun portal.ui.commands/history-forward ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/history-forward portal.ui.state/state)"))
+
+(defun portal.ui.commands/focus-selected ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/focus-selected portal.ui.state/state)"))
+
+(defun portal.ui.commands/toggle-expand ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/toggle-expand portal.ui.state/state)"))
+
+;; Not working
+(defun portal.ui.commands/copy ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/copy portal.ui.state/state)"))
+
+;; Not working
+(defun portal.ui.commands/copy-path ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/copy-path portal.ui.state/state)"))
+
+;; Not working
+(defun portal.ui.commands/copy-json ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/copy-json portal.ui.state/state)"))
+
+(defun portal.ui.commands/set-tree-viewer ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(require '[portal.ui.state :as s])
+    (defn set-viewer! [viewer]
+      (s/dispatch!
+       s/state
+       assoc-in
+       [:selected-viewers
+        (s/get-location
+         (s/get-selected-context @s/state))]
+       viewer))
+    (set-viewer! :portal.viewer/tree)"))
+
+;; nested hydra working mehh
+;; (defhydra hydra-portal-copy ()
+;;     "Copy"
+;;     ("y" portal.ui.commands/copy "Copy")
+;;     ("j" portal.ui.commands/copy-json "Copy JSON")
+;;     ("p" portal.ui.commands/copy-path "Copy Path")
+;;     ("b" hydra-portal/body "Back")
+;;     ("q" nil "Exit"))
+
+;; (defhydra hydra-portal ()
+;;     "Portal"
+;;     ("r" portal.ui.commands/select-root "Select root")
+;;     ("e" portal.ui.commands/toggle-expand "Toggle expand")
+;;     ("j" portal.ui.commands/select-next "Select next")
+;;     ("k" portal.ui.commands/select-prev "Select prev")
+;;     ("h" portal.ui.commands/select-parent "Select parent")
+;;     ("l" portal.ui.commands/select-child "Select child")
+;;     ("y" hydra-portal-copy/body "Copy" :exit t)
+;;     ("C-h" portal.ui.commands/history-back "History back")
+;;     ("C-l" portal.ui.commands/history-forward "History forward")
+;;     ("RET" portal.ui.commands/focus-selected "Focus selected")
+;;     ("C-;" portal.api/clear "Clear" :exit t)
+;;     ("q" nil "Exit" :exit t))
+
+ (after! clojure-mode
+   (defhydra hydra-portal (clojure-mode-map "C-k")
+     "Portal"
+     ("r" portal.ui.commands/select-root "Select root")
+     ("e" portal.ui.commands/toggle-expand "Toggle expand")
+     ("j" portal.ui.commands/select-next "Select next")
+     ("k" portal.ui.commands/select-prev "Select prev")
+     ("h" portal.ui.commands/select-parent "Select parent")
+     ("l" portal.ui.commands/select-child "Select child")
+     ("C-h" portal.ui.commands/history-back "History back")
+     ("C-l" portal.ui.commands/history-forward "History forward")
+     ("RET" portal.ui.commands/focus-selected "Focus selected")
+     ("C-;" portal.api/clear "Clear" :exit t)
+     ("q" nil "Exit" :exit t)))
+
+(map! :leader
+      :desc "portal"
+      "k" #'hydra-portal/body)
+
+;; This is needed to send the result of cider evaluate to portal
+;; (after! cider-mode
+;;   (defun cider-tap (&rest r)
+;;     (cons (concat "(let [__value "
+;;                   (caar r)
+;;                   "] (tap> __value) __value)")
+;;           (cdar r)))
+;;   (advice-add 'cider-nrepl-request:eval
+;;               :filter-args #'cider-tap))
+
 
 (defadvice! nmkip/add-tap (fn &rest args)
   :around #'cider-interactive-eval
@@ -449,3 +624,9 @@
         cljr-add-ns-to-blank-clj-files nil ; use lsp
         cljr-magic-require-namespaces
         '(("pp" . "clojure.pprint"))))
+
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+
+(consult-customize
+ +default/search-project
+ :preview-key '(:debounce 0.2 any))
