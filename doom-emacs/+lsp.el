@@ -49,4 +49,4 @@
 
 (setq lsp-ui-sideline-actions-icon nil
       lsp-ui-sideline-show-code-actions nil
-      lsp-ui-doc-position 'at-point)
+      lsp-ui-doc-position 'top)

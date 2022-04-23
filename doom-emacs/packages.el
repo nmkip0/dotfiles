@@ -52,7 +52,8 @@
 (package! html-to-hiccup)
 (package! zprint-mode)
 (package! command-log-mode)
-
+(package! posframe)
+(package! yaml-mode)
 (package! treemacs-all-the-icons)
 (package! company-quickhelp)
 

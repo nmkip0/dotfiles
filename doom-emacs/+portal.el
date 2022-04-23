@@ -2,7 +2,8 @@
 ;;; Commentary:
 
 ;;; Code:
-
+;; (def user/last-viewer (atom {:current :portal.viewer/inspector
+;;                             :viewers []}))
 (defun portal.api/open ()
   (interactive)
   (cider-nrepl-sync-request:eval
@@ -41,6 +42,10 @@
 (defun portal/invoke-portal-command (command-str)
   (cider-nrepl-sync-request:eval
    (concat "(#?(:clj portal.api/eval-str :cljs portal.web/eval-str) \"" command-str "\")")))
+
+(defun portal.web/eval-str (command-str)
+  (cider-nrepl-sync-request:eval
+   (concat "(portal.web/eval-str \"" command-str "\")")))
 
 (defun portal.ui.commands/select-root ()
   (interactive)
@@ -87,23 +92,28 @@
   (portal/invoke-portal-command
    "(portal.ui.commands/toggle-expand portal.ui.state/state)"))
 
-;; Not working
 (defun portal.ui.commands/copy ()
   (interactive)
-  (portal/invoke-portal-command
-   "(portal.ui.commands/copy portal.ui.state/state)"))
+  (with-temp-buffer
+    (insert (nrepl-dict-get (cider-nrepl-sync-request:eval "@user/portal") "value"))
+    (jet-pretty-region (point-min) (point-max))
+    (copy-region-as-kill (point-min) (point-max))))
 
-;; Not working
 (defun portal.ui.commands/copy-path ()
   (interactive)
-  (portal/invoke-portal-command
-   "(portal.ui.commands/copy-path portal.ui.state/state)"))
+  (with-temp-buffer
+    (insert (nrepl-dict-get (portal/invoke-portal-command
+                             "(require '[portal.ui.state :as s])
+                              (vec (rest (s/get-path @s/state)))")
+                            "value"))
+    (copy-region-as-kill (point-min) (point-max))))
 
-;; Not working
 (defun portal.ui.commands/copy-json ()
   (interactive)
-  (portal/invoke-portal-command
-   "(portal.ui.commands/copy-json portal.ui.state/state)"))
+  (with-temp-buffer
+    (insert (nrepl-dict-get (cider-nrepl-sync-request:eval "@user/portal") "value"))
+    (jet-pretty-json-region (point-min) (point-max))
+    (copy-region-as-kill (point-min) (point-max))))
 
 ;; Not working
 (defun portal.ui.commands/toggle-selection ()
@@ -115,7 +125,7 @@
             selected? (s/selected @s/state context)]
         (s/dispatch!
           s/state
-          (if selected
+          (if selected?
             s/deselect-context
             s/select-context)
           context
@@ -135,6 +145,20 @@
          (s/get-selected-context @s/state))]
        viewer))
     (set-viewer! :portal.viewer/tree)"))
+
+(defun portal.ui.commands/cycle-viewer ()
+  (interactive)
+  (insert (nrepl-dict-get
+           (portal/invoke-portal-command
+            "(require '[portal.ui.inspector :as ins])
+             (require '[portal.ui.state :as s])
+             (defn get-compatible-viewers []
+               (when-let [selected-context (s/get-selected-context @s/state)]
+                 (let [viewers (ins/get-compatible-viewers @ins/viewers selected-context)]
+                   (mapv :name viewers))))
+             (get-compatible-viewers)"
+            )
+           "value")))
 
 
 ;; This is needed to send the result of cider evaluate to portal
@@ -168,3 +192,31 @@
 ;;       (progn
 ;;         (message form)
 ;;         (apply fn args)))))
+
+;; (after! cider-mode
+;;   (defun cider-tap (&rest r)
+;;     (cons (concat "(let [__value "
+;;                   (caar r)
+;;                   "] (tap> (if (instance? clojure.lang.IObj __value)
+;;                              (with-meta __value {:portal.viewer/default :portal.viewer/pprint})
+;;                              __value))
+;;                      __value)")
+;;           (cdar r)))
+
+;;   (advice-add 'cider-nrepl-request:eval
+;;               :filter-args #'cider-tap))
+
+ ;; (dev/start! {:report portal.malli.visualizer/display-malli-error})
+
+(defun med/cider-eval-on-top-level-form (fn-str)
+  (let ((quoted-defn (concat "'" (cider-defun-at-point))))
+    (cider-interactive-eval (concat "(" fn-str " " quoted-defn ")"))))
+
+(defun malli-check-this ()
+  (interactive)
+  (med/cider-eval-on-top-level-form
+   "#(portal.malli.visualizer/check->portal (mi/check {:filters [(mi/-filter-var #{(resolve (second %))})]}))"))
+
+(defun malli-check-all ()
+  (interactive)
+  (cider-interactive-eval "(-> (mi/check) portal.malli.visualizer/check->portal)"))

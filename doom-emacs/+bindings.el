@@ -153,7 +153,11 @@
 (after! clojure-mode
    (defhydra hydra-portal (clojure-mode-map "C-k")
      "Portal"
-     ("1" portal.ui.commands/toggle-selection "Toggle selection")
+     ("9" portal.ui.commands/toggle-selection "Toggle selection")
+     ("8" portal.ui.commands/cycle-viewer "Set tree viewer")
+     ("1" portal.ui.commands/copy "Copy")
+     ("2" portal.ui.commands/copy-path "Copy path")
+     ("3" portal.ui.commands/copy-json "Copy json")
      ("r" portal.ui.commands/select-root "Select root")
      ("e" portal.ui.commands/toggle-expand "Toggle expand")
      ("j" portal.ui.commands/select-next "Select next")

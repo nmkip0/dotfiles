@@ -1,7 +1,8 @@
 (use-package! cider
   :after clojure-mode
   :config
-  (setq cider-ns-refresh-show-log-buffer t
+  (setq cider-use-xref nil
+        cider-ns-refresh-show-log-buffer t
         cider-repl-pop-to-buffer-on-connect nil
         cider-repl-display-in-current-window t
         cider-show-error-buffer t ;'only-in-repl
@@ -14,7 +15,7 @@
   (add-hook 'cider-mode-hook (lambda () (remove-hook 'completion-at-point-functions #'cider-complete-at-point)))) ; use lsp)
 
 (setq cider-eldoc-display-for-symbol-at-point nil)
-(setq cider-clojure-cli-global-options "-A:portal:dev")
+(setq cider-clojure-cli-global-options "-A:portal:dev:1.11")
 
 (defun nmkip/cider-quit-all ()
   "Quit all current CIDER REPLs. Thanks to @plexus"
