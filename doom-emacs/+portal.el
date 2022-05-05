@@ -4,11 +4,16 @@
 ;;; Code:
 ;; (def user/last-viewer (atom {:current :portal.viewer/inspector
 ;;                             :viewers []}))
+
+;;(portal.api/tap)
 (defun portal.api/open ()
   (interactive)
   (cider-nrepl-sync-request:eval
-   "(require 'portal.api)
-    (portal.api/tap)
+   "(require '[clojure.datafy :as d])
+    (require '[portal.api :as p])
+
+    (def submit (comp p/submit d/datafy))
+    (add-tap #'submit)
     (do (def user/portal (portal.api/open)))
     (try
        (let [r!   (requiring-resolve 'portal.runtime/register!)
