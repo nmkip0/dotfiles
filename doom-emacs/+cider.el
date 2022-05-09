@@ -9,6 +9,7 @@
         cider-font-lock-dynamically nil ; use lsp semantic tokens
         cider-eldoc-display-for-symbol-at-point nil ; use lsp
         cider-prompt-for-symbol nil)
+  (cider-register-cljs-repl-type 'nbb "(+ 42)")
   (set-popup-rule! "*cider-test-report*" :side 'right :width 0.4)
   (set-popup-rule! "^\\*cider-repl" :side 'bottom :quit nil)
   (set-lookup-handlers! 'cider-mode nil) ; use lsp
@@ -66,8 +67,13 @@
   (interactive)
   (cider-interactive-eval "(k16.dev.system/reset)"))
 
-;; Give cider--debug-mode-map precedence over all Evil keymaps in NORMAL STATE.
 ;; (evil-make-intercept-map cider--debug-mode-map 'normal)
+(defun mm/cider-connected-hook ()
+  (when (eq 'nbb cider-cljs-repl-type)
+    (setq-local cider-show-error-buffer nil)
+    (cider-set-repl-type 'cljs)))
+
+(add-hook 'cider-connected-hook #'mm/cider-connected-hook)
 
 (provide '+cider)
 ;;; cider.el ends here
