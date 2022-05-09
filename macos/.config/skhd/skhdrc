@@ -1,41 +1,47 @@
-# shift + ctrl + cmd = hyper --- basic
-# hyper + alt --- super
-# Window
+# hyper = cmd + alt + ctrl + shift
+# hyper + j = keypad_1 = 0x53
+# hyper + k = keypad_2 = 0x54
+# hyper + h = keypad_3 = 0x55
+# hyper + l = keypad_4 = 0x56
 
-# Change focus window
-#shift + alt - h : yabai -m window --focus west
-#shift + alt - j : yabai -m window --focus south
-#shift + alt - k : yabai -m window --focus north
-#shift + alt - l : yabai -m window --focus east
-
-
+# focus next window - hyper + j = keypad_1
 0x53 : yabai -m window --focus next || yabai -m window --focus first
+
+# focus prev window - hyper + k = keypad_2
 0x54 : yabai -m window --focus prev || yabai -m window --focus last
 
-# Resize window
-hyper - l : yabai -m window --resize right:20:0 || yabai -m window --resize left:20:0
-hyper - h : yabai -m window --resize right:-20:0 || yabai -m window --resize left:-20:0
-
-# Swap windows
-# hyper + j + cmd = cmd + keypad_1
+# swap next window - hyper + j + cmd = cmd + keypad_1
 cmd - 0x53 : yabai -m window --swap next || yabai -m window --swap first
-# hyper + k + cmd = cmd + keypad_2
+
+# swap prev window - hyper + k + cmd = cmd + keypad_2
 cmd - 0x54 : yabai -m window --swap prev || yabai -m window --swap last
 
-# Focus window
-# shift + alt - j : yabai -m window --focus next || yabai -m window --focus first
-# shift + alt - k : yabai -m window --focus prev || yabai -m window --focus last
+# resize window left - hyper + h = keypad_3
+0x55 : yabai -m window --resize right:20:0 || yabai -m window --resize left:20:0
 
-# Resize window
-# shift + alt  - l : yabai -m window --resize right:20:0 || yabai -m window --resize left:20:0
-# shift + alt  - h : yabai -m window --resize right:-20:0 || yabai -m window --resize left:-20:0
+# resize window right - hyper + l = keypad_4
+0x56 : yabai -m window --resize right:-20:0 || yabai -m window --resize left:-20:0
 
-# Swap windows
-# shift + alt + cmd - j : yabai -m window --swap next || yabai -m window --swap first
-# shift + alt + cmd - k : yabai -m window --swap prev || yabai -m window --swap last
+# focus next non empty space - cmd + hyper + h = cmd + keypad_3
+cmd - 0x56 : yabai -m space --focus "$(yabai-utils next-non-empty-space)"
+
+# focus prev non empty space - cmd + hyper + l = cmd + keypad_4
+cmd - 0x55 : yabai -m space --focus "$(yabai-utils prev-non-empty-space)"
+
+# send space to next display - cmd + shift + hyper + l = cmd + shift + keypad_4
+cmd + shift - 0x55 : yabai -m space --display next || yabai -m space --display first
+
+# send space to prev display - cmd + shift + hyper + h = cmd + shift + keypad_3
+cmd + shift - 0x56 : yabai -m space --display prev || yabai -m space --display last
+
+# focus space next display - cmd + alt + hyper + l = cmd + alt + keypad_4
+cmd + alt - 0x55 : yabai -m display --focus prev # || yabai -m display --focus last
+
+# focus space prev display - cmd + alt + hyper + h = cmd + alt + keypad_3
+cmd + alt - 0x56 : yabai -m display --focus next # || yabai -m display --focus first
+
 shift + alt - r : yabai -m space --rotate 90
 shift + alt + cmd - r : yabai -m space --rotate 270
-
 
 # Sticky
 # shift + alt - s : yabai -m window --toggle sticky
@@ -54,9 +60,6 @@ cmd + shift + alt - o : yabai -m space --layout float
 # Move space right
 # yabai -m space --move next
 
-# Send space to display 2 (by display arrangement index)
-cmd + shift + alt - l : yabai -m space --display next || yabai -m space --display first
-cmd + shift + alt - h : yabai -m space --display prev || yabai -m space --display last
 
 # Space
 shift + alt - 0 : yabai -m space --balance
@@ -82,12 +85,6 @@ shift + alt - 6 : yabai -m space --focus 6
 shift + alt - 7 : yabai -m space --focus 7
 shift + alt - 8 : yabai -m space --focus 8
 shift + alt - 9 : yabai -m space --focus 9
-shift + alt - b : yabai -m space --focus "$(yabai-utils next-non-empty-space)"
-cmd + shift + alt - b : yabai -m space --focus "$(yabai-utils prev-non-empty-space)"
-
-# focus monitor
-shift - 0x59 : yabai -m display --focus prev # || yabai -m display --focus last
-shift - 0x5B : yabai -m display --focus next # || yabai -m display --focus first
 
 # send window to monitor and follow focus
 # shift + cmd - 0x58 : yabai -m window --display recent; yabai -m display --focus recent
@@ -108,10 +105,3 @@ shift - 0x5B : yabai -m display --focus next # || yabai -m display --focus first
 # shift + alt - 7 : yabai -m window --space  7; yabai -m space --focus 7
 # shift + alt - 8 : yabai -m window --space  8; yabai -m space --focus 8
 # shift + alt - 9 : yabai -m window --space  9; yabai -m space --focus 9
-#
-## TODO:
-# - mostrar space al que cambie? nombre o algo?
-# - mover foco entre displays
-# - mover ventana al space q este mostrandose en ese momento
-# - mover todo un space al otro display
-
