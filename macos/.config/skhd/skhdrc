@@ -17,10 +17,10 @@ cmd - 0x53 : yabai -m window --swap next || yabai -m window --swap first
 cmd - 0x54 : yabai -m window --swap prev || yabai -m window --swap last
 
 # resize window left - hyper + h = keypad_3
-0x55 : yabai -m window --resize right:20:0 || yabai -m window --resize left:20:0
+0x56 : yabai -m window --resize right:20:0 || yabai -m window --resize left:20:0
 
 # resize window right - hyper + l = keypad_4
-0x56 : yabai -m window --resize right:-20:0 || yabai -m window --resize left:-20:0
+0x55 : yabai -m window --resize right:-20:0 || yabai -m window --resize left:-20:0
 
 # focus next non empty space - cmd + hyper + h = cmd + keypad_3
 cmd - 0x56 : yabai -m space --focus "$(yabai-utils next-non-empty-space)"
