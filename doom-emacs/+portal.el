@@ -1,40 +1,47 @@
-;;; package --- Summary
+;; package --- Summary
 ;;; Commentary:
 
 ;;; Code:
 ;; (def user/last-viewer (atom {:current :portal.viewer/inspector
 ;;                             :viewers []}))
 
-;;(portal.api/tap)
+;; TODO Symlink cljc files. Base path var.
+(defvar open-portal (f-read-text "/home/nmkip/dotfiles/nmkip/doom-emacs/portal/open_portal.cljc"))
+(defvar open-portal-logger (f-read-text "/home/nmkip/dotfiles/nmkip/doom-emacs/portal/logger/user.clj"))
+(defvar connect-remote-jvm (f-read-text "/home/nmkip/dotfiles/nmkip/doom-emacs/portal/remote/jvm/user.clj"))
+(defvar connect-remote-node (f-read-text "/home/nmkip/dotfiles/nmkip/doom-emacs/portal/remote/node/user.cljs"))
+
 (defun portal.api/open ()
   (interactive)
-  (cider-nrepl-sync-request:eval
-   "(require '[clojure.datafy :as d])
-    (require '[portal.api :as p])
+  (cider-nrepl-sync-request:eval open-portal))
 
-    (def submit (comp p/submit d/datafy))
-    (add-tap #'submit)
-    (do (def user/portal (portal.api/open)))
-    (try
-       (let [r!   (requiring-resolve 'portal.runtime/register!)
-             html (fn [url]
-                   (with-meta
-                     [:div
-                       {:style {:background :white}}
-                       [:portal.viewer/html [:iframe {:src url}]]]
-                     {:portal.viewer/default :portal.viewer/hiccup}))]
-         ;; install extra functions:
-         (run! (fn [[k f]] (r! f {:name k}))
-               {'dev/->file   (requiring-resolve 'clojure.java.io/file)
-               'dev/->html   html
-               'dev/->map    (partial into {})
-               'dev/->set    (partial into #{})
-               'dev/->vector (partial into [])}))
-       (catch Throwable _))"))
+(defun portal.api/open-logger ()
+  (interactive)
+  (cider-nrepl-sync-request:eval open-portal-logger))
+
+(defun portal.api/connect-remote-jvm ()
+  (interactive)
+  (cider-nrepl-sync-request:eval connect-remote-jvm))
+
+(defun portal.api/connect-remote-node ()
+  (interactive)
+  (cider-nrepl-sync-request:eval connect-remote-node))
+
+(defun portal/run-ns-test ()
+  (interactive)
+  (if-let (ns-str (cider-current-ns t))
+      (let* ((suffix "-test")
+             (ns-str (if (string-suffix-p suffix ns-str)
+                         ns-str
+                       (concat ns-str suffix)))
+             (req (concat "(run-ns-tests \"" ns-str "\")")))
+        (message req)
+        (cider-nrepl-sync-request:eval req))
+    (message "no ns")))
 
 (defun portal.api/clear ()
-  (interactive)
-  (cider-nrepl-sync-request:eval "(portal.api/clear)"))
+    (interactive)
+    (cider-nrepl-sync-request:eval "(portal.api/clear)"))
 
 (defun portal.api/close ()
   (interactive)
@@ -51,6 +58,16 @@
 (defun portal.web/eval-str (command-str)
   (cider-nrepl-sync-request:eval
    (concat "(portal.web/eval-str \"" command-str "\")")))
+
+(defun portal.ui.commands/select-next-viewer ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/select-next-viewer portal.ui.state/state)"))
+
+(defun portal.ui.commands/select-prev-viewer ()
+  (interactive)
+  (portal/invoke-portal-command
+   "(portal.ui.commands/select-next-viewer portal.ui.state/state)"))
 
 (defun portal.ui.commands/select-root ()
   (interactive)

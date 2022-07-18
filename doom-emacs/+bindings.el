@@ -160,6 +160,8 @@
      ("3" portal.ui.commands/copy-json "Copy json")
      ("r" portal.ui.commands/select-root "Select root")
      ("e" portal.ui.commands/toggle-expand "Toggle expand")
+     ("K" portal.ui.commands/select-prev-viewer "Select prev viewer")
+     ("J" portal.ui.commands/select-next-viewer "Select next viewer")
      ("j" portal.ui.commands/select-next "Select next")
      ("k" portal.ui.commands/select-prev "Select prev")
      ("h" portal.ui.commands/select-parent "Select parent")
