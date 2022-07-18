@@ -66,5 +66,8 @@
   (interactive)
   (cider-interactive-eval "(k16.dev.system/reset)"))
 
+;; Give cider--debug-mode-map precedence over all Evil keymaps in NORMAL STATE.
+;; (evil-make-intercept-map cider--debug-mode-map 'normal)
+
 (provide '+cider)
 ;;; cider.el ends here
