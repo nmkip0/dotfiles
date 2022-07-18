@@ -1,3 +1,16 @@
+# TODO:
+#  -  VERIFY H AND L COMMANDS, SOME HAVE TO BE SWAPPED. CONFIRM 0x55 = h or l.
+#  (map hyper n -> f13, 2 -> f14...)
+#    - focus space n f13, f14, f15...
+#    - send to space n cmd f13, cmd f14...
+#  - (map hyper r -> keypad_5)
+#    - rotate keybindings
+#  - fullscreen keybdings
+#  - toggle float? bsp? float/unfloat centered
+#  - create space and focus
+#  - check if can destroy space?
+#  - send window to empty space and focus? if no empty create new one.
+#
 # hyper = cmd + alt + ctrl + shift
 # hyper + j = keypad_1 = 0x53
 # hyper + k = keypad_2 = 0x54

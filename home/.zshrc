@@ -1,13 +1,29 @@
 
 # Path to oh-my-zsh installation
 fpath=( "$HOME/.zfunctions" $fpath )
-ZSH="/usr/share/oh-my-zsh"
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
 eval "$(zoxide init zsh)"
 
 # Load antigen. To find the place where it's installed(yay/pacman -Ql antigen)
 source /usr/share/zsh/share/antigen.zsh
+
+# Load antigen.
+if [[ `uname` == "Darwin" ]]; 
+then
+#  MACOS
+#  Antigen info macos: brew info antigen
+    FZF_BASE="/opt/homebrew/opt/fzf"
+   # PATH="/usr/local/homebrew/bin:$PATH"
+    ZSH="$HOME/.oh-my-zsh"
+    source /opt/homebrew/share/antigen/antigen.zsh
+    alias brew-intel="arch -x86_64 /usr/local/homebrew/bin/brew"
+else
+#  To find the place where it's installed(yay/pacman -Ql antigen)
+    ZSH="/usr/share/oh-my-zsh"
+   source /usr/share/zsh/share/antigen.zsh
+fi
+
 
 # Needed for zsh autosuggestions
 antigen bundle zsh-users/zsh-autosuggestions
@@ -62,3 +78,9 @@ if [ -f '/home/nmkip/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/n
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/nmkip/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/nmkip/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
