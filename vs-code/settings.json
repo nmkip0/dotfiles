@@ -1,6 +1,7 @@
 {
     "editor.minimap.enabled": false,
     "editor.lineNumbers": "relative",
+    "editor.formatOnSave": true,
     "explorer.confirmDelete": false,
     "window.titleBarStyle": "custom",
     "keyboard.dispatch": "keyCode",
@@ -41,8 +42,19 @@
     },
     "calva.showDocstringInParameterHelp": true,
     "calva.clojureLspPath": "/usr/bin/clojure-lsp",
-    "editor.renderIndentGuides": false,
     "[jsonc]": {
         "editor.defaultFormatter": "HookyQR.beautify"
-    }
+    },
+    "editor.guides.indentation": false,
+    "workbench.colorTheme": "Ayu One",
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "stash-push:command",
+        "switch:command",
+        "push:command"
+    ],
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.inlineSuggest.enabled": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "window.zoomLevel": -1
 }
