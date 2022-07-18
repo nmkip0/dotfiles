@@ -1,6 +1,8 @@
 (require '[clojure.datafy :as d])
 (require '[portal.api :as portal.api])
 
+(load-file "/home/nmkip/dotfiles/nmkip/doom-emacs/portal/test-runner/user.cljc")
+
 (def user/portal (portal.api/open))
 
 (def submit (comp portal.api/submit d/datafy))

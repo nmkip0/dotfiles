@@ -1,4 +1,4 @@
 {:socket-repl {:port 9000}
+ :deps-aliases [:portal]
  :dependencies [[cider/cider-nrepl "0.25.2"]
-                [binaryage/devtools "1.0.3"]]
-}
+                [binaryage/devtools "1.0.3"]]}

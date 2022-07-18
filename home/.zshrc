@@ -33,6 +33,7 @@ VI_MODE_INDICATOR="%F{yellow}+%f"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias portal='bb ~/scripts/portal-server'
 
 # Confirm before overwritting something
 alias rm="rm -i"
