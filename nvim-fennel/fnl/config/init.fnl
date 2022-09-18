@@ -5,8 +5,7 @@
 (require :config.mapping)
 (require :config.plugin)
 
-(nvim.ex.colorscheme "tokyonight-night")
-(nvim.ex.colorscheme "doom-one")
+(nvim.ex.colorscheme "kanagawa")
 
 ;; optional module with local overrides
 (pcall #(require :config.local))
