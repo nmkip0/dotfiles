@@ -42,7 +42,7 @@
   :folke/tokyonight.nvim {}
   ;;:navarasu/onedark.nvim {:mod :onedark}
   :rebelot/kanagawa.nvim {}
-
+  :NTBBloodbath/doom-one.nvim {}
   ; icons
   :ryanoasis/vim-devicons {}
   :kyazdani42/nvim-web-devicons {}
