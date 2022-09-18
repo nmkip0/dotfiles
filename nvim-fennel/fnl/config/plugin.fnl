@@ -9,22 +9,23 @@
     (when (not ok?)
       (print (.. "config error: " val-or-err)))))
 
-(defn- use [...]
+
+(defn use [pkgs]
   "Iterates through the arguments as pairs and calls packer's use function for
   each of them. Works around Fennel not liking mixed associative and sequential
   tables as well."
-  (let [pkgs [...]]
-    (packer.startup
+  (packer.startup
       (fn [use]
-        (for [i 1 (a.count pkgs) 2]
-          (let [name (. pkgs i)
-                opts (. pkgs (+ i 1))]
+        (a.run! 
+          (fn [[name opts]]
             (-?> (. opts :mod) (safe-require-plugin-config))
-            (use (a.assoc opts 1 name)))))))
+            (use (a.assoc opts 1 name)))
+          (a.kv-pairs pkgs))))
   nil)
 
 ;plugins managed by packer
-(use
+(def plugins
+  {
   ; plugin Manager
   :wbthomason/packer.nvim {}
   ; nvim config and plugins in Fennel
@@ -88,7 +89,7 @@
 ;;  :tpope/vim-eunuch {}
 ;;  :tpope/vim-repeat {}
 ;;  :tpope/vim-sleuth {}
-;;  :tpope/vim-surround {}
+ :tpope/vim-surround {}
 ;;  :tpope/vim-unimpaired {}
 ;;  :tpope/vim-vinegar {} 
 
@@ -131,4 +132,6 @@
   ; nvim-tree
   :kyazdani42/nvim-tree.lua {:mod :nvim-tree
                              :requires [:kyazdani42/nvim-web-devicons]}
-)
+})
+
+(use plugins)
