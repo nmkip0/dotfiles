@@ -104,10 +104,9 @@
   ; which-key
   :folke/which-key.nvim {:mod :which-key}
 
-
   ; parsing system
-;;  :nvim-treesitter/nvim-treesitter {:run ":TSUpdate"
-;;                                    :mod :treesitter}
+ :nvim-treesitter/nvim-treesitter {:run ":TSUpdate"
+                                   :mod :treesitter}
 
   ; lsp
 ;;  :neovim/nvim-lspconfig {:mod :lspconfig 
