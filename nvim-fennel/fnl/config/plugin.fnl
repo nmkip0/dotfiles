@@ -99,7 +99,7 @@
                               :tpope/vim-sexp-mappings-for-regular-people]}
 
   ; git helper
-;;  :lewis6991/gitsigns.nvim {:mod :gitsigns}
+ :lewis6991/gitsigns.nvim {:mod :gitsigns}
 
   ; which-key
   :folke/which-key.nvim {:mod :which-key}
