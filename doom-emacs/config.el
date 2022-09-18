@@ -91,8 +91,8 @@
 (load! "+cider")
 (load! "+portal")
 
-(consult-customize
-   +default/search-project
-   :preview-key '(:debounce 0.2 any))
+;; (consult-customize
+;;    +default/search-project
+;;    :preview-key '(:debounce 0.2 any))
 
 ;;; config.el ends here

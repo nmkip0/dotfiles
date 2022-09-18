@@ -15,7 +15,7 @@
   (add-hook 'cider-mode-hook (lambda () (remove-hook 'completion-at-point-functions #'cider-complete-at-point)))) ; use lsp)
 
 (setq cider-eldoc-display-for-symbol-at-point nil)
-(setq cider-clojure-cli-global-options "-A:portal:dev:1.11")
+(setq cider-clojure-cli-global-options "-A:portal:dev:test:1.11")
 
 (defun nmkip/cider-quit-all ()
   "Quit all current CIDER REPLs. Thanks to @plexus"

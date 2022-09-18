@@ -56,5 +56,7 @@
     "typescript.updateImportsOnFileMove.enabled": "always",
     "editor.inlineSuggest.enabled": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "window.zoomLevel": -1
+    "[scss]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    }
 }
