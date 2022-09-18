@@ -52,8 +52,8 @@
   ;; autosave
 ;;  :pocco81/auto-save.nvim {:mod :autosave}
   ; status line
-;;  :nvim-lualine/lualine.nvim {:mod :lualine
-;;                              :require [:kyazdani42/nvim-web-devicons]}
+ :nvim-lualine/lualine.nvim {:mod :lualine
+                             :require [:kyazdani42/nvim-web-devicons]}
 
   ; clip
 ;;  :AckslD/nvim-neoclip.lua 
