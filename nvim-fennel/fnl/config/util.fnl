@@ -1,5 +1,6 @@
 (module config.util
   {autoload {core aniseed.core
+             a aniseed.core
              nvim aniseed.nvim}})
 
 (defn expand [path]
@@ -16,10 +17,18 @@
 
 (def config-path (nvim.fn.stdpath "config"))
 
-(defn set-global-option [key value]
+(defn set-global-option! [key value]
   "Sets a nvim global options"
   (core.assoc nvim.o key value))
 
 (defn set-global-variable [key value]
   "Sets a nvim global variables"
   (core.assoc nvim.g key value))
+
+(defn set-global-options! [options]
+  "Takes a map of nvim options and sets them"
+  (a.run!
+    (fn [[option value]]
+      (set-global-option! option value))
+    (a.kv-pairs options))
+ )
