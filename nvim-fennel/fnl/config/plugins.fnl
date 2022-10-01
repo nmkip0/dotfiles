@@ -42,7 +42,12 @@
   :Olical/conjure {:branch :develop
                    :mod :conjure
                    :requires [:guns/vim-sexp
-                              :tpope/vim-sexp-mappings-for-regular-people]}
+                              ;;:tpope/vim-sexp-mappings-for-regular-people
+                              ]}
+
+   ; sexp
+   :guns/vim-sexp {:mod :sexp}
+   ;; :tpope/vim-sexp-mappings-for-regular-people {}
 
   ;; which-key
   :folke/which-key.nvim {:mod :which-key}
@@ -58,7 +63,7 @@
 
  
    ; toggleterm
-   ;; :akinsho/toggleterm.nvim {:mod :toggleterm}
+;   :akinsho/toggleterm.nvim {}
 
    ; themes
    ;; :Shatur/neovim-ayu {:mod :ayu}
@@ -77,10 +82,7 @@
    ;; :mg979/vim-visual-multi {}
    ; text alignment
    ;; :junegunn/vim-easy-align {:mod :easy-align}
-   ; sexp
-   ;; :guns/vim-sexp {:mod :sexp}
    ;;  :radenling/vim-dispatch-neovim {}
-   ;;  :tpope/vim-sexp-mappings-for-regular-people {}
    ;;  :kylechui/nvim-surround {:mod :surround}
    ;;  :tpope/vim-abolish {}
    ;;  :tpope/vim-commentary {}
@@ -109,6 +111,7 @@
    ; colorizer
    ;;  :norcalli/nvim-colorizer.lua {:mod :colorizer}
 
-   ; hop
-   ;;  :phaazon/hop.nvim {:mod :hop :branch "v2"}
+ ; hop
+ ;;  :phaazon/hop.nvim {:mod :hop :branch "v2"}
 })
+

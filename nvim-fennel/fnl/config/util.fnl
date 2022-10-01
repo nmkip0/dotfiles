@@ -30,5 +30,4 @@
   (a.run!
     (fn [[option value]]
       (set-global-option! option value))
-    (a.kv-pairs options))
- )
+    (a.kv-pairs options)))

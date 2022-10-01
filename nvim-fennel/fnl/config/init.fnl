@@ -11,7 +11,7 @@
 (def all-plugins (a.merge plugins.plugins))
 (def all-options (a.merge core.options))
 
-(require :config.mapping)
+(require :config.keymaps)
 
 (packer.use! all-plugins)
 (util.set-global-options! all-options)

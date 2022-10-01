@@ -68,3 +68,4 @@
    :hlsearch true
    ;makes signcolumn always one column with signs and linenumber
    :signcolumn "auto"})
+

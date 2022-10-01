@@ -1,7 +1,8 @@
-(module config.mapping
+(module config.keymaps
   {autoload {nvim aniseed.nvim
-            ;; wk which-key
-             }})
+             wk which-key
+             tb telescope.builtin
+             telescope telescope}})
 
 ;generic mapping leaders configuration
 ;(nvim.set_keymap :n :<space> :<nop> {:noremap true})
@@ -27,5 +28,17 @@
 (nvim.set_keymap :n :<A-Right> "<cmd>vertical resize -2<CR>" {:noremap true})
 (nvim.set_keymap :n :<A-Left> "<cmd>vertical resize +2<CR>" {:noremap true})
 
-;;(wk.register {:q [":bd<cr>" "Close buffer"]}
-;;             {:prefix :<leader>})
+(local keys {:b {:name "+buffer"
+                 :d [":bd<cr>" "Delete buffer"]
+                 :b [tb.buffers "Buffers"]
+                 :n [":bnext<cr>" "Next buffer"]
+                 :p [":bprevious<cr>" "Previous buffer"]}
+             :f {:name "+file"
+                 :f [tb.find_files "Find files"]
+                 :r [tb.oldfiles "Recent files"]}
+             :s {:name "+search"
+                 :g [tb.live_grep "Search in dir"] }
+             :/ [tb.live_grep "Search in dir"]
+             :<TAB> [":blast<cr>" "Previous buffer"]})
+
+(wk.register keys {:prefix :<leader>})
