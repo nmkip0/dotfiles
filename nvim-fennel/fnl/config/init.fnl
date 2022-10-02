@@ -6,14 +6,8 @@
              packer config.packer
              plugins config.plugins }})
 
-(nvim.ex.colorscheme "kanagawa")
-
-(def all-plugins (a.merge plugins.plugins))
-(def all-options (a.merge core.options))
-
 (require :config.keymaps)
 
-(packer.use! all-plugins)
-(util.set-global-options! all-options)
+(nvim.ex.colorscheme "kanagawa")
 
-
+(util.set-global-options! core.options)

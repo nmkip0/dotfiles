@@ -1,7 +1,7 @@
 (module config.plugin.blame
   {autoload {gs gitsigns
              wk which-key}})
-
+    
 (gs.setup 
   {:current_line_blame_opts
    {:delay 300}
