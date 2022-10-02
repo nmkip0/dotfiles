@@ -15,8 +15,7 @@
   ;;:navarasu/onedark.nvim {:mod :onedark}
   :rebelot/kanagawa.nvim {}
   :NTBBloodbath/doom-one.nvim {}
-
-  ;; icons
+;; icons
   :ryanoasis/vim-devicons {}
   :kyazdani42/nvim-web-devicons {}
 
@@ -42,7 +41,7 @@
   :Olical/conjure {:branch :develop
                    :mod :conjure
                    :requires [:guns/vim-sexp
-                              ;;:tpope/vim-sexp-mappings-for-regular-people
+                              ;; :tpope/vim-sexp-mappings-for-regular-people 
                               ]}
 
    ; sexp
@@ -61,6 +60,7 @@
   :kyazdani42/nvim-tree.lua {:mod :nvim-tree
                              :requires [:kyazdani42/nvim-web-devicons]}
 
+  :ahmedkhalf/project.nvim {:mod :project}
  
    ; toggleterm
 ;   :akinsho/toggleterm.nvim {}

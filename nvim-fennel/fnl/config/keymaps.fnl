@@ -38,7 +38,12 @@
                  :r [tb.oldfiles "Recent files"]}
              :s {:name "+search"
                  :g [tb.live_grep "Search in dir"] }
+             :P {:name "+packer"
+                 :c [":PackerClean<cr>" "Clean"]
+                 :C [":PackerCompile<cr>" "Compile"]
+                 :s [":PackerSync<cr>" "Sync"]
+                 :S [":PackerStatus<cr>" "Status"]}
              :/ [tb.live_grep "Search in dir"]
-             :<TAB> [":blast<cr>" "Previous buffer"]})
+              })
 
 (wk.register keys {:prefix :<leader>})
