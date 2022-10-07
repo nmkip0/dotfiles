@@ -1,6 +1,5 @@
 (module config.util
   {autoload {core aniseed.core
-             a aniseed.core
              nvim aniseed.nvim}})
 
 (defn expand [path]
@@ -27,7 +26,7 @@
 
 (defn set-global-options! [options]
   "Takes a map of nvim options and sets them"
-  (a.run!
+  (core.run!
     (fn [[option value]]
       (set-global-option! option value))
-    (a.kv-pairs options)))
+    (core.kv-pairs options)))

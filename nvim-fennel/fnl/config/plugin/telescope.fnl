@@ -29,10 +29,3 @@
 ;;(telescope.load_extension "zoxide")
 ;;(telescope.load_extension "neoclip")
 
-(local keys {:f [tb.find_files "Find files"]
-             :s {:name "Search for"
-                 :z [telescope.extensions.zoxide.list "Recent dirs"]
-                 :g [tb.live_grep "Live grep"]
-                 :b [tb.buffers "Buffers"]
-                 :r [tb.oldfiles "Recent files"]}})
-(wk.register keys {:prefix :<leader>})

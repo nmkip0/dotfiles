@@ -35,9 +35,13 @@
                  :p [":bprevious<cr>" "Previous buffer"]}
              :f {:name "+file"
                  :f [tb.find_files "Find files"]
-                 :r [tb.oldfiles "Recent files"]}
+                 :r [tb.oldfiles "Recent files"]
+                 :s [":w<cr>" "Save file"]
+                 :S [":wa<cr>" "Save all files"]}
              :s {:name "+search"
                  :g [tb.live_grep "Search in dir"] }
+             :o {:name "+open"
+                 :p [":NvimTreeToggle<cr>" "Project"]}
              :P {:name "+packer"
                  :c [":PackerClean<cr>" "Clean"]
                  :C [":PackerCompile<cr>" "Compile"]
@@ -47,3 +51,4 @@
               })
 
 (wk.register keys {:prefix :<leader>})
+

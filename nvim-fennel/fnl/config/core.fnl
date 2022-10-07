@@ -69,3 +69,4 @@
    ;makes signcolumn always one column with signs and linenumber
    :signcolumn "auto"})
 
+(util.set-global-options! options)

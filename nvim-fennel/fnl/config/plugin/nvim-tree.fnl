@@ -2,8 +2,6 @@
   {autoload {nvim aniseed.nvim
              nvim-tree nvim-tree}})
 
-(nvim.set_keymap :n :<leader>op ":NvimTreeToggle<CR>" {:noremap true})
-
 (nvim-tree.setup 
   {:sync_root_with_cwd true
    :respect_buf_cwd true

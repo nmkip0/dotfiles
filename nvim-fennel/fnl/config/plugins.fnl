@@ -43,13 +43,10 @@
    ;; repl tools
    :Olical/conjure {:branch :develop
                     :mod :conjure
-                    :requires [:guns/vim-sexp
-                               ;; :tpope/vim-sexp-mappings-for-regular-people 
-                               ]}
+                    :requires [:guns/vim-sexp ]}
 
    ; sexp
    :guns/vim-sexp {:mod :sexp}
-   ;; :tpope/vim-sexp-mappings-for-regular-people {}
 
    ;; which-key
    :folke/which-key.nvim {:mod :which-key}
@@ -81,11 +78,11 @@
                                  :PaterJason/cmp-conjure]
                       :mod :cmp}
 
-   
- :radenling/vim-dispatch-neovim {:requires [:tpope/vim-dispatch]}
+
+   :radenling/vim-dispatch-neovim {:requires [:tpope/vim-dispatch]}
 
    ; toggleterm
-   ;  :akinsho/toggleterm.nvim {}
+   :akinsho/toggleterm.nvim {}
 
    ; clip
    ;;  :AckslD/nvim-neoclip.lua 
@@ -96,12 +93,12 @@
    ; multicursor selector
    ;; :mg979/vim-visual-multi {}
 
-; text alignment
-;; :junegunn/vim-easy-align {:mod :easy-align}
-;; there's a lua version
+   ; text alignment
+   ;; :junegunn/vim-easy-align {:mod :easy-align}
+   ;; there's a lua version
 
 
-;;  :kylechui/nvim-surround {:mod :surround}
+   ;;  :kylechui/nvim-surround {:mod :surround}
 
 ;;  :tpope/vim-abolish {}
 ;;  :tpope/vim-eunuch {}
