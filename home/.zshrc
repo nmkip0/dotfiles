@@ -4,6 +4,8 @@ fpath=( "$HOME/.zfunctions" $fpath )
 ZSH="/usr/share/oh-my-zsh"
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
+eval "$(zoxide init zsh)"
+
 # Load antigen. To find the place where it's installed(yay/pacman -Ql antigen)
 source /usr/share/zsh/share/antigen.zsh
 
@@ -44,7 +46,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v
 zstyle ':completion:*' menu select 
 
-
+bindkey -s ^f "t\n"
 bindkey '^L' autosuggest-accept
 
 # Use vim keys in tab complete menu:
