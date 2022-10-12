@@ -7,4 +7,5 @@
 (require :config.plugins)
 (require :config.keymaps)
 
-(nvim.ex.colorscheme "kanagawa")
+;;(nvim.ex.colorscheme "kanagawa")
+(nvim.ex.colorscheme "nord")

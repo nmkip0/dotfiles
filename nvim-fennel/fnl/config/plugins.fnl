@@ -15,6 +15,7 @@
 
    ;; themes
    :folke/tokyonight.nvim {}
+   :shaunsingh/nord.nvim {}
    ;;:navarasu/onedark.nvim {:mod :onedark}
    :rebelot/kanagawa.nvim {}
    :NTBBloodbath/doom-one.nvim {}
