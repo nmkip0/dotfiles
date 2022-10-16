@@ -2,7 +2,7 @@
 # Path to oh-my-zsh installation
 fpath=( "$HOME/.zfunctions" $fpath )
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
-
+PATH=$PATH:~/.local/bin
 eval "$(zoxide init zsh)"
 
 # Load antigen. To find the place where it's installed(yay/pacman -Ql antigen)
