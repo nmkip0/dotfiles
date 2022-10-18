@@ -1,5 +1,9 @@
 -- Entrypoint for my Neovim configuration
 
-require "config.options"
-require "config.keymaps"
-require "config.plugins"
+require "user.options"
+require "user.keymaps"
+require "user.plugins"
+
+require "user.cmp"
+require "user.lsp" --when requiring dirs lua looks for init.lua
+
