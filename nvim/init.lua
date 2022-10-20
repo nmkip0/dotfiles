@@ -7,3 +7,4 @@ require "user.plugins"
 require "user.cmp"
 require "user.lsp" --when requiring dirs lua looks for init.lua
 
+require "user.telescope"
