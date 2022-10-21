@@ -9,3 +9,5 @@ require "user.cmp"
 require "user.lsp" --when requiring dirs lua looks for init.lua
 
 require "user.telescope"
+require "user.treesitter"
+
