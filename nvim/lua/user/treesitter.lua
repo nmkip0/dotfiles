@@ -50,5 +50,9 @@ configs.setup({
       goto_node = '<cr>',
       show_help = '?',
     },
+	context_commentstring = {
+		enable = true,
+		enable_autocmd = false
+	}
   }
 })
