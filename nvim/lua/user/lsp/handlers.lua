@@ -44,7 +44,7 @@ M.setup = function()
   })
 end
 
-local function lsp_highlight_document(client)
+local function lsp_highlight_document(client, bufnr)
     if client.server_capabilities.documentHighlightProvider then
         vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
         vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
@@ -86,7 +86,7 @@ M.on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
   end
   lsp_keymaps(bufnr)
-  lsp_highlight_document(client)
+  lsp_highlight_document(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
