@@ -114,6 +114,7 @@ local mappings = {
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
     s = { "<cmd>w!<CR>", "Save" },
+    S = { ":wa<cr>", "Save all" },
   },
   g = {
     name = "+git",
@@ -156,6 +157,11 @@ local mappings = {
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
   },
+  w = {
+    name = "+window",
+    s = { "<cmd>split<cr>", "Split horizontal" },
+    v = { "<cmd>vsplit<cr>", "Split vertical" },
+  }
 }
 
 which_key.register(mappings, opts)
