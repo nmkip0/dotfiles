@@ -89,7 +89,9 @@ local mappings = {
   b = {
     name = "+buffer",
     b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" },
-    d = { "<cmd>bd<cr>", "Delete buffer", },
+    d = { "<cmd>Bdelete<cr>", "Delete buffer", },
+    D = { "<cmd>bufdo Bdelete<cr>", "Delete all buffer", },
+    k = { "<cmd>Bwipeout<cr>", "Kill buffer (remove from jmp list)", },
   },
   c = {
     name = "+code",
