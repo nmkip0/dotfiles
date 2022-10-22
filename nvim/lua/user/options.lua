@@ -39,6 +39,11 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+local function highlight_yank()
+  vim.highlight.on_yank({higroup = "IncSearch", timeout = 150})
+end
+vim.api.nvim_create_autocmd("TextYankPost", {pattern = "*", callback = highlight_yank})
+
 -- vim.opt.shortmess:append "c"
 -- vim.cmd "set whichwrap+=<,>,[,],h,l"
 -- vim.cmd [[set iskeyword+=-]]
