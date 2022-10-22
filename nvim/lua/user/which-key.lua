@@ -132,7 +132,9 @@ local mappings = {
   },
   o = {
     name = "+open",
-    p = { "<cmd>NvimTreeToggle<cr>", "Sidebar" },
+    b = { "<cmd>Neotree buffers toggle<cr>", "Sidebar" },
+    p = { "<cmd>NeoTreeRevealToggle<cr>", "Sidebar" },
+    P = { "<cmd>NeoTreeReveal<cr>", "Focus file in sidebar" },
   },
   P = {
     name = "+packer",

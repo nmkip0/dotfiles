@@ -47,12 +47,24 @@ return packer.startup(function(use)
   use "numToStr/Comment.nvim" -- Easily comment stuff
 
   use "moll/vim-bbye" -- Bbye allows you to do delete buffers without closing your windows or messing up your layout.
+  
   -- themes
   use 'shaunsingh/nord.nvim'
   use "EdenEast/nightfox.nvim"
 
   use "kyazdani42/nvim-web-devicons"
-  use "kyazdani42/nvim-tree.lua"
+  --[[ use "kyazdani42/nvim-tree.lua" ]]
+  use {
+  "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "MunifTanjim/nui.nvim",
+    }
+  }
+  use {
+    's1n7ax/nvim-window-picker', 
+    tag = "v1.*"
+  }
   use "nvim-lualine/lualine.nvim"
   
   -- cmp plugins
