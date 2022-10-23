@@ -159,10 +159,13 @@ local mappings = {
   },
   w = {
     name = "+window",
+    d = { "<cmd>close<cr>", "Delete window" },
     s = { "<cmd>split<cr>", "Split horizontal" },
     v = { "<cmd>vsplit<cr>", "Split vertical" },
   },
 }
+
+which_key.register(mappings, leader_opts)
 
 local structural_editing_mappings = {
   s = {
@@ -173,8 +176,6 @@ local structural_editing_mappings = {
     s = {"<Plug>(sexp_capture_next_element)", "Slurp forward"},
   }
 }
-
-which_key.register(mappings, leader_opts)
 
 function llopts(bufnr)
   return {
