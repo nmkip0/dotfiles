@@ -19,6 +19,8 @@ require "user.gitsigns"
 require "user.which-key"
 require "user.impatient"
 
+require "user.autopairs"
+
 require "user.sexp"
 require "user.surround"
 require "user.conjure"

@@ -47,7 +47,8 @@ return packer.startup(function(use)
   use "numToStr/Comment.nvim" -- Easily comment stuff
   use "lewis6991/impatient.nvim"
   use "moll/vim-bbye" -- Bbye allows you to do delete buffers without closing your windows or messing up your layout.
-  
+  use "windwp/nvim-autopairs"
+
   -- themes
   use 'shaunsingh/nord.nvim'
   use "EdenEast/nightfox.nvim"
