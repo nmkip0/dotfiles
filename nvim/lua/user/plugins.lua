@@ -67,6 +67,17 @@ return packer.startup(function(use)
   }
   use "nvim-lualine/lualine.nvim"
   
+
+  use {
+    "Olical/conjure",
+    branch = "develop"
+  }
+
+  use "guns/vim-sexp"
+  use "kylechui/nvim-surround"
+  use "radenling/vim-dispatch-neovim"
+  use "tpope/vim-repeat"
+
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -75,6 +86,7 @@ return packer.startup(function(use)
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
   use "hrsh7th/cmp-nvim-lsp" -- lsp completions
   use "hrsh7th/cmp-nvim-lua" -- lua completions
+  use "PaterJason/cmp-conjure" -- lua completions
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
@@ -96,10 +108,12 @@ return packer.startup(function(use)
   }
   use "p00f/nvim-ts-rainbow"
   use "nvim-treesitter/playground"
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   -- Git
   use "lewis6991/gitsigns.nvim"
+
 
   use "folke/which-key.nvim"
   -- Automatically set up your configuration after cloning packer.nvim

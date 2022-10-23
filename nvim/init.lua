@@ -18,3 +18,7 @@ require "user.comment"
 require "user.gitsigns"
 require "user.which-key"
 require "user.impatient"
+
+require "user.sexp"
+require "user.surround"
+require "user.conjure"
