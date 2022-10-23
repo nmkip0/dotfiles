@@ -75,7 +75,7 @@ which_key.setup {
   },
 }
 
-local opts = {
+local leader_opts = {
   mode = "n", -- NORMAL mode
   prefix = "<leader>",
   buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
@@ -161,7 +161,38 @@ local mappings = {
     name = "+window",
     s = { "<cmd>split<cr>", "Split horizontal" },
     v = { "<cmd>vsplit<cr>", "Split vertical" },
+  },
+}
+
+local structural_editing_mappings = {
+  s = {
+    name = "+test",
+    b = {"<Plug>(sexp_emit_tail_element)", "Barf forward"},
+    r = {"<Plug>(sexp_raise_list)", "Raise list" },
+    R = {"<Plug>(sexp_raise_element)", "Raise element" },
+    s = {"<Plug>(sexp_capture_next_element)", "Slurp forward"},
   }
 }
 
-which_key.register(mappings, opts)
+which_key.register(mappings, leader_opts)
+
+function llopts(bufnr)
+  return {
+    mode = "n",
+    prefix = "<localleader>",
+    buffer = bufnr,
+    silent = true,
+    noremap = true
+  }
+end
+
+local group_id = vim.api.nvim_create_augroup("STRUCTURAL_EDITING_MAPPINGS", {clear = true})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "clojure", "fennel"},
+  group = group_id,
+  callback = function(ctx)
+    which_key.register(structural_editing_mappings, llopts(ctx.buf))
+  end
+})
+
+

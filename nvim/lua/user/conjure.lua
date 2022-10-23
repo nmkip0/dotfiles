@@ -81,9 +81,9 @@ local portal_mappings = {
   }
 }
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "clojure", "lua", "fennel" },
-  callback = function()
-    require("which-key").register(portal_mappings, llopts)
-  end
-})
+--[[ vim.api.nvim_create_autocmd("FileType", { ]]
+--[[   pattern = { "clojure", "lua", "fennel" }, ]]
+--[[   callback = function() ]]
+--[[     require("which-key").register(portal_mappings, llopts) ]]
+--[[   end ]]
+--[[ }) ]]
