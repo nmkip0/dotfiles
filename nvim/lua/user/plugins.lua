@@ -52,6 +52,7 @@ return packer.startup(function(use)
   -- themes
   use 'shaunsingh/nord.nvim'
   use "EdenEast/nightfox.nvim"
+  use {"catppuccin/nvim", as = "catppuccin"}
 
   use "kyazdani42/nvim-web-devicons"
   --[[ use "kyazdani42/nvim-tree.lua" ]]
