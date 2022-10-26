@@ -49,6 +49,9 @@ return packer.startup(function(use)
   use "moll/vim-bbye" -- Bbye allows you to do delete buffers without closing your windows or messing up your layout.
   use "windwp/nvim-autopairs"
 
+  -- session
+  use 'rmagatti/auto-session'
+
   -- themes
   use 'shaunsingh/nord.nvim'
   use "EdenEast/nightfox.nvim"
@@ -64,11 +67,10 @@ return packer.startup(function(use)
     }
   }
   use {
-    's1n7ax/nvim-window-picker', 
+    's1n7ax/nvim-window-picker',
     tag = "v1.*"
   }
   use "nvim-lualine/lualine.nvim"
-  
 
   use {
     "Olical/conjure",
