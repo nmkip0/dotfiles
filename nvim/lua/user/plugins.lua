@@ -114,11 +114,11 @@ return packer.startup(function(use)
   use "p00f/nvim-ts-rainbow"
   use "nvim-treesitter/playground"
   use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use 'nvim-treesitter/nvim-treesitter-context'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   -- Git
   use "lewis6991/gitsigns.nvim"
-
 
   use "folke/which-key.nvim"
   -- Automatically set up your configuration after cloning packer.nvim
