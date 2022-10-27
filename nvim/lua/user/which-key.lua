@@ -114,7 +114,7 @@ local mappings = {
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
     s = { "<cmd>w!<CR>", "Save" },
-    S = { ":wa<cr>", "Save all" },
+    S = { "<cmd>wa<cr>", "Save all" },
   },
   g = {
     name = "+git",
@@ -172,6 +172,11 @@ local mappings = {
     s = { "<cmd>split<cr>", "Split horizontal" },
     v = { "<cmd>vsplit<cr>", "Split vertical" },
   },
+  q = {
+    name = "+quit/session",
+    q = {"<cmd>qa<cr>", "Quit"},
+    Q = {"<cmd>qa!<cr>", "Quit without saving"}
+  }
 }
 
 which_key.register(mappings, leader_opts)
