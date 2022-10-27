@@ -96,8 +96,8 @@ local mappings = {
   c = {
     name = "+code",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    d = { "<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics", },
-    w = { "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics", },
+    d = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Document Diagnostics", },
+    w = { "<cmd>Telescope diagnostics<cr>", "Workspace Diagnostics", },
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
@@ -147,8 +147,9 @@ local mappings = {
   },
   s = {
     name = "+search",
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+    b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current buffer" },
+    B = { "<cmd>Telescope git_branches<cr>", "Current buffer" },
+    T = { "<cmd>Telescope colorscheme<cr>", "Themes" },
     d = { "<cmd>Telescope live_grep<cr>", "Directory" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
