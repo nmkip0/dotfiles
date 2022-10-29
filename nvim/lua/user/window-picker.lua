@@ -20,3 +20,9 @@ window_picker.setup(
     other_win_hl_color = '#e35e4f',
   }
 )
+
+vim.api.nvim_create_user_command("PickWindowOther",
+  function()
+    local picked_window_id = window_picker.pick_window() or vim.api.nvim_get_current_win()
+    vim.api.nvim_set_current_win(picked_window_id)
+  end, {})

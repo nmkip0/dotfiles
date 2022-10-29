@@ -169,8 +169,13 @@ local mappings = {
     K = { "<C-w>K","Move window up" },
     l = { "<C-w>l","Window right"},
     L = { "<C-w>L","Move window right"},
+    m = { "<C-w>_<C-w>|","Maximize"},
+    p = { "<cmd>PickWindowOther<cr>","Pick other window"},
     s = { "<cmd>split<cr>", "Split horizontal" },
     v = { "<cmd>vsplit<cr>", "Split vertical" },
+    ["="] = { "<C-w>=", "Balance" },
+    ["|"] = { "<C-w>|", "Max out width" },
+    ["_"] = { "<C-w>_", "Max out height" },
   },
   q = {
     name = "+quit/session",
