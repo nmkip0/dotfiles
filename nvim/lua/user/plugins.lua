@@ -54,6 +54,8 @@ return packer.startup(function(use)
 
   -- windows
   use 'sindrets/winshift.nvim'
+  use 'declancm/maximize.nvim'
+  use {'s1n7ax/nvim-window-picker', tag = "v1.*"}
 
   -- themes
   use 'shaunsingh/nord.nvim'
@@ -68,10 +70,6 @@ return packer.startup(function(use)
     requires = {
       "MunifTanjim/nui.nvim",
     }
-  }
-  use {
-    's1n7ax/nvim-window-picker',
-    tag = "v1.*"
   }
   use "nvim-lualine/lualine.nvim"
 

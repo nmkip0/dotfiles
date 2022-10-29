@@ -3,6 +3,10 @@ if not status_ok then
   return
 end
 
+local function maximize_status()
+  return vim.t.maximized and '   ' or ''
+end
+
 local hide_in_width = function()
   return vim.fn.winwidth(0) > 80
 end
@@ -91,7 +95,7 @@ lualine.setup({
   sections = {
     lualine_a = { mode },
     lualine_b = { branch, diagnostics },
-    lualine_c = { filename },
+    lualine_c = { filename, maximize_status },
     -- lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { location },
@@ -100,7 +104,7 @@ lualine.setup({
   inactive_sections = {
     lualine_a = {  },
     lualine_b = {branch, diagnostics},
-    lualine_c = { filename },
+    lualine_c = { filename, maximize_status },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { location },
     lualine_z = { progress },
