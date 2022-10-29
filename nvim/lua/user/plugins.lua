@@ -52,6 +52,9 @@ return packer.startup(function(use)
   -- session
   use 'rmagatti/auto-session'
 
+  -- windows
+  use 'sindrets/winshift.nvim'
+
   -- themes
   use 'shaunsingh/nord.nvim'
   use "EdenEast/nightfox.nvim"

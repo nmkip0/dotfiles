@@ -12,6 +12,7 @@ require "user.telescope"
 require "user.treesitter"
 --[[ require "user.nvim-tree" ]]
 require "user.window-picker"
+require "user.winshift"
 require "user.neo-tree"
 require "user.lualine"
 require "user.comment"
