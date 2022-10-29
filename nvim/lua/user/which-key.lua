@@ -136,6 +136,7 @@ local mappings = {
     b = { "<cmd>Neotree buffers toggle<cr>", "Sidebar" },
     p = { "<cmd>NeoTreeRevealToggle<cr>", "Sidebar" },
     P = { "<cmd>NeoTreeReveal<cr>", "Focus file in sidebar" },
+    r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Open Recent File" },
   },
   P = {
     name = "+packer",
@@ -153,7 +154,7 @@ local mappings = {
     d = { "<cmd>Telescope live_grep<cr>", "Directory" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+    r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Open Recent File" },
     R = { "<cmd>Telescope registers<cr>", "Registers" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
@@ -214,5 +215,4 @@ vim.api.nvim_create_autocmd("FileType", {
     which_key.register(structural_editing_mappings, llopts(ctx.buf))
   end
 })
-
 
