@@ -55,6 +55,7 @@ local configure_catppuccin = function()
         neotree = true,
         telescope = true,
         treesitter = true,
+        vim_sneak = true
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
 })
