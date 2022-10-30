@@ -85,6 +85,7 @@ local leader_opts = {
 }
 
 local mappings = {
+  ["`"] = { "<C-^>", "Switch to last buffer" },
   ["/"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Search dir" },
   b = {
     name = "+buffer",
@@ -131,6 +132,13 @@ local mappings = {
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff", },
   },
+  h = {
+    name = "+help",
+    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+    c = { "<cmd>Telescope commands<cr>", "Commands" },
+    h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+  },
   o = {
     name = "+open",
     b = { "<cmd>Neotree buffers toggle<cr>", "Sidebar" },
@@ -149,15 +157,11 @@ local mappings = {
   s = {
     name = "+search",
     b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current buffer" },
-    B = { "<cmd>Telescope git_branches<cr>", "Current buffer" },
+    B = { "<cmd>Telescope git_branches<cr>", "Git branches" },
     T = { "<cmd>Telescope colorscheme<cr>", "Themes" },
     d = { "<cmd>Telescope live_grep<cr>", "Directory" },
-    h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
     r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Open Recent File" },
     R = { "<cmd>Telescope registers<cr>", "Registers" },
-    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-    C = { "<cmd>Telescope commands<cr>", "Commands" },
   },
   w = {
     name = "+window",
