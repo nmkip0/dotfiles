@@ -1,8 +1,3 @@
-local status_ok, conjure = pcall(require, "conjure")
-if not status_ok then
-  return
-end
-
 vim.g["conjure#extract#tree_sitter#enabled"] = true
 vim.g["conjure#client#clojure#nrepl#connection#auto_repl#enabled"] = false
 vim.g["conjure#highlight#enabled"] = true

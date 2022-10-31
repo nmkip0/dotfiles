@@ -136,6 +136,7 @@ local mappings = {
     name = "+help",
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     c = { "<cmd>Telescope commands<cr>", "Commands" },
+    e = { "<cmd>:help events<cr>", "Events" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
   },
@@ -222,3 +223,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+local conjure_portal_ok, portal_mappings = pcall(require, "user.conjure-portal")
+if not conjure_portal_ok then
+  return
+end
+
+local portal_group_id = vim.api.nvim_create_augroup("PORTAL_MAPPINGS", {clear = true})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "clojure" },
+  group = portal_group_id,
+  callback = function(ctx)
+    -- print("HELLO", portal_mappings)
+    which_key.register(portal_mappings, llopts(ctx.buf))
+  end
+})
