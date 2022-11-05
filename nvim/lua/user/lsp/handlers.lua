@@ -1,5 +1,4 @@
 local M = {}
-
 -- TODO: backfill this to template
 M.setup = function()
   local signs = {
@@ -16,6 +15,7 @@ M.setup = function()
   local config = {
     -- disable virtual text
     virtual_text = false,
+
     -- show signs
     signs = {
       active = signs,
@@ -25,11 +25,8 @@ M.setup = function()
     severity_sort = true,
     float = {
       focusable = false,
-      style = "minimal",
       border = "rounded",
       source = "always",
-      header = "",
-      prefix = "",
     },
   }
 
