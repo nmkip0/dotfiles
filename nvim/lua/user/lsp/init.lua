@@ -1,5 +1,5 @@
-local status_ok, neodev = pcall(require, "neodev")
-if not status_ok then
+local ok_neodev, neodev = pcall(require, "neodev")
+if not ok_neodev then
   return
 end
 
@@ -24,6 +24,13 @@ neodev.setup {
   lspconfig = true,
 }
 
+local ok_format, lsp_format = pcall(require, "lsp-format")
+if not ok_format then
+    return
+end
+
+lsp_format.setup({})
+
 local status_ok, lsp = pcall(require, "lspconfig")
 if not status_ok then
     return
@@ -35,7 +42,16 @@ local lsp_config = require("user.lsp.handlers")
 lsp_config.setup()
 
 lsp.clojure_lsp.setup {
-  on_attach = lsp_config.on_attach,
+  init_options = {
+    languageFeatures = {
+      signatureHelp = true,
+      codeLens = true
+    }
+  },
+  on_attach = function (client, bufnr)
+    lsp_format.on_attach(client)
+    lsp_config.on_attach(client, bufnr)
+  end,
   flags = {debounce_text_changes = 150},
   capabilities = lsp_config.capabilities,
   commands = {
@@ -50,8 +66,8 @@ lsp.clojure_lsp.setup {
       end,
       description = "Clean Namespace"
     },
-  }
-    -- settings = {}
+  },
+  settings = {}
 }
 
 
