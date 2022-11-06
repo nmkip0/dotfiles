@@ -10,6 +10,7 @@ npairs.setup {
     javascript = { "string", "template_string" },
     java = false,
   },
+  enable_check_bracket_line = false,
   disable_filetype = { "TelescopePrompt", "spectre_panel" },
 }
 -- remove add single quote on filetype scheme or lisp
