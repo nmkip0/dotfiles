@@ -105,6 +105,7 @@ local mappings = {
     j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic", },
     k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic", },
     l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+    o = { "<cmd>OrganizeImports<cr>", "CodeLens Action" },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
@@ -251,3 +252,4 @@ vim.api.nvim_create_autocmd("FileType", {
     which_key.register(portal_mappings, llopts(ctx.buf))
   end
 })
+

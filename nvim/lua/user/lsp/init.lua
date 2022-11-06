@@ -35,8 +35,23 @@ local lsp_config = require("user.lsp.handlers")
 lsp_config.setup()
 
 lsp.clojure_lsp.setup {
-    on_attach = lsp_config.on_attach,
-    flags = {debounce_text_changes = 150},
-    capabilities = lsp_config.capabilities,
+  on_attach = lsp_config.on_attach,
+  flags = {debounce_text_changes = 150},
+  capabilities = lsp_config.capabilities,
+  commands = {
+    OrganizeImports = {
+      function ()
+        print("Clojure LSP command")
+        vim.lsp.buf.execute_command({
+          command = "clean-ns",
+          arguments = {"file://" .. vim.api.nvim_buf_get_name(0), 0, 0},
+          title = ""
+        })
+      end,
+      description = "Clean Namespace"
+    },
+  }
     -- settings = {}
 }
+
+
