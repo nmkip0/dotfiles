@@ -79,10 +79,38 @@ local portal_cmds = {
   focus_selected = invoke_portal_command "(portal.ui.commands/focus-selected portal.ui.state/state)",
   toggle_expand = invoke_portal_command "(portal.ui.commands/toggle-expand portal.ui.state/state)",
 }
+local hydra_ok, hydra = pcall(require, "hydra")
+if not hydra_ok then
+  return
+end
+
+local portal_hydra = hydra({
+   name = 'Portal',
+   mode = 'n',
+   heads = {
+      { 'e', portal_cmds.toggle_expand },
+      { 'h', portal_cmds.select_parent },
+      { 'j', portal_cmds.select_next },
+      { 'k', portal_cmds.select_prev },
+      { 'l', portal_cmds.select_child },
+      { 'r', portal_cmds.select_root },
+      { 'J', portal_cmds.next_viewer },
+      { 'K', portal_cmds.prev_viewer },
+      { '<C-h>', portal_cmds.history_back },
+      { '<C-l>', portal_cmds.history_forward },
+      { '<CR>', portal_cmds.focus_selected },
+      { '<C-k>', portal_cmds.clear },
+   }
+})
+
+local function portal_mode_display ()
+  return portal_hydra:activate()
+end
 
 local portal_mappings = {
   p = {
     name = "+portal",
+    ["."] = { portal_mode_display , "Portal mode"},
     o = { portal_cmds.open, "Portal open" },
     c = { portal_cmds.clear, "Portal clear" },
 
@@ -93,10 +121,6 @@ local portal_mappings = {
 
     R = { portal_cmds.remove_tap, "Remove tap"},
     T = { portal_cmds.add_tap, "Add tap"},
-    w = { portal_cmds.toggle_expand, "Toggle expand"},
-    x = { portal_cmds.select_root, "Select root"},
-    y = { portal_cmds.select_next, "Select next"},
-    z = { portal_cmds.select_prev, "Select prev"}
   }
 }
 
