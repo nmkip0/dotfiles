@@ -8,13 +8,18 @@ if not extract_ok then
   return
 end
 
-local function conjure_eval(form)
-  eval["eval-str"]({ code = form, origin = "custom_command" })
+local function conjure_eval(form, passive)
+  print("Passive? ", passive)
+  eval["eval-str"]({
+    code = form,
+    origin = "custom_command",
+    ["passive?"] = passive
+  })
 end
 
-local function conjure_eval_fn(form)
+local function conjure_eval_fn(form, passive)
   return function()
-    conjure_eval(form)
+    conjure_eval(form, passive or false)
   end
 end
 
@@ -34,7 +39,8 @@ local function invoke_portal_command(command)
       .. command ..
     [[
       ")
-    )]]
+    )]],
+    true
   )
 end
 
@@ -57,16 +63,56 @@ local conjure_taps = {
   last_exception = conjure_eval_fn "(tap> (Throwable->map *e))",
 }
 
+local stdout_to_clipboard = function (_, data)
+  local result = ""
+  for _, value in ipairs(data) do
+    result = result .. value .. "\n"
+  end
+  vim.call("setreg", "+", result)
+end
+
+local portal_copy = function (parse_cmd)
+  eval["eval-str"]({
+    code = "@user/portal",
+    origin = "custom_command",
+    ["passive?"] = false,
+    ["on-result"] = function (r)
+      vim.fn.jobstart(parse_cmd(r),
+        {
+          stdout_buffered = true,
+          on_stdout = stdout_to_clipboard
+        })
+    end
+  })
+end
+
+local portal_copy_json = function ()
+  local command = function (result)
+    return "echo '" .. result .. "' | jet --to json --pretty --edn-reader-opts '{:default tagged-literal}'"
+  end
+  portal_copy(command)
+end
+
+local portal_copy_edn = function ()
+  local command = function (result)
+    return "echo '" .. result .. "' | jet  --edn-reader-opts '{:default tagged-literal}'"
+  end
+  portal_copy(command)
+end
+
 local portal_cmds = {
   open = conjure_eval_fn [[
+    (in-ns 'user)
     (def portal 
       ((requiring-resolve 'portal.api/open)
-        {:theme :portal.colors/nord})) 
+        {:theme :portal.colors/nord}))
     ]],
 
   add_tap = conjure_eval_fn "(add-tap (requiring-resolve 'portal.api/submit))",
   remove_tap = conjure_eval_fn "(remove-tap (requiring-resolve 'portal.api/submit))",
   clear = conjure_eval_fn "(portal.api/clear)",
+  copy_json = portal_copy_json,
+  copy_edn = portal_copy_edn,
   next_viewer = invoke_portal_command "(portal.ui.commands/select-next-viewer portal.ui.state/state)",
   prev_viewer = invoke_portal_command "(portal.ui.commands/select-prev-viewer portal.ui.state/state)",
   select_root = invoke_portal_command "(portal.ui.commands/select-root portal.ui.state/state)",
@@ -88,7 +134,9 @@ local portal_hydra = hydra({
    name = 'Portal',
    mode = 'n',
    heads = {
-      { 'e', portal_cmds.toggle_expand },
+      { '1', portal_cmds.copy_json, { desc = 'Copy json'}},
+      { '2', portal_cmds.copy_edn , { desc = 'Copy edn'}},
+      { 'e', portal_cmds.toggle_expand, { desc = 'Toggle expand'}},
       { 'h', portal_cmds.select_parent },
       { 'j', portal_cmds.select_next },
       { 'k', portal_cmds.select_prev },
