@@ -75,7 +75,7 @@ local portal_copy = function (parse_cmd)
   eval["eval-str"]({
     code = "@user/portal",
     origin = "custom_command",
-    ["passive?"] = false,
+    ["passive?"] = true,
     ["on-result"] = function (r)
       vim.fn.jobstart(parse_cmd(r),
         {
@@ -98,6 +98,23 @@ local portal_copy_edn = function ()
     return "echo '" .. result .. "' | jet  --edn-reader-opts '{:default tagged-literal}'"
   end
   portal_copy(command)
+end
+
+
+local def_selected = function ()
+  local var_name = nil
+  vim.ui.input({prompt = "Enter var name: "}, function (input)
+      -- TODO: Check clojure syntax
+      var_name = vim.trim(input)
+    end)
+
+  if var_name then
+    eval["eval-str"]({
+      code = "(def " .. var_name .. " @user/portal)",
+      origin = "custom_command",
+      ["passive?"] = false,
+    })
+  end
 end
 
 local portal_cmds = {
@@ -124,6 +141,7 @@ local portal_cmds = {
   history_forward = invoke_portal_command "(portal.ui.commands/history-forward portal.ui.state/state)",
   focus_selected = invoke_portal_command "(portal.ui.commands/focus-selected portal.ui.state/state)",
   toggle_expand = invoke_portal_command "(portal.ui.commands/toggle-expand portal.ui.state/state)",
+  def_selected = def_selected,
 }
 local hydra_ok, hydra = pcall(require, "hydra")
 if not hydra_ok then
@@ -144,6 +162,7 @@ local portal_hydra = hydra({
       { 'r', portal_cmds.select_root },
       { 'J', portal_cmds.next_viewer },
       { 'K', portal_cmds.prev_viewer },
+      { 'V', portal_cmds.def_selected },
       { '<C-h>', portal_cmds.history_back },
       { '<C-l>', portal_cmds.history_forward },
       { '<CR>', portal_cmds.focus_selected },
@@ -169,6 +188,7 @@ local portal_mappings = {
 
     R = { portal_cmds.remove_tap, "Remove tap"},
     T = { portal_cmds.add_tap, "Add tap"},
+    V = { portal_cmds.def_selected, "def selected"}
   }
 }
 
