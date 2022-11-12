@@ -60,7 +60,9 @@ local conjure_taps = {
     conjure_eval("(tap> " .. form .. ")")
   end,
 
-  last_exception = conjure_eval_fn "(tap> (Throwable->map *e))",
+  tap_last_exception = conjure_eval_fn "(tap> (Throwable->map *e))",
+
+  tap_ns_publics = conjure_eval_fn "(tap> (ns-publics *ns*))"
 }
 
 local stdout_to_clipboard = function (_, data)
@@ -148,25 +150,39 @@ if not hydra_ok then
   return
 end
 
+local portal_mode_hint = [[
+
+_r_: select root     _e_: toggle expand       _J_: next viewer
+_j_: select next     _V_: def focused         _K_: prev viewer
+_k_: select prev     _1_: Copy json           _<C-l>_: history forward
+_h_: select parent   _2_: Copy edn            _<C-h>_: history back
+_l_: select child    _<CR>_: focus selected   _<C-k>_: clear
+^
+_q_: exit
+]]
+
 local portal_hydra = hydra({
    name = 'Portal',
    mode = 'n',
+   config = {hint = { border = 'rounded'}},
+   hint = portal_mode_hint,
    heads = {
       { '1', portal_cmds.copy_json, { desc = 'Copy json'}},
       { '2', portal_cmds.copy_edn , { desc = 'Copy edn'}},
       { 'e', portal_cmds.toggle_expand, { desc = 'Toggle expand'}},
-      { 'h', portal_cmds.select_parent },
-      { 'j', portal_cmds.select_next },
-      { 'k', portal_cmds.select_prev },
-      { 'l', portal_cmds.select_child },
-      { 'r', portal_cmds.select_root },
-      { 'J', portal_cmds.next_viewer },
-      { 'K', portal_cmds.prev_viewer },
-      { 'V', portal_cmds.def_selected },
-      { '<C-h>', portal_cmds.history_back },
-      { '<C-l>', portal_cmds.history_forward },
-      { '<CR>', portal_cmds.focus_selected },
-      { '<C-k>', portal_cmds.clear },
+      { 'h', portal_cmds.select_parent, { desc = "Select parent"}},
+      { 'j', portal_cmds.select_next, { desc = "Select next"}},
+      { 'k', portal_cmds.select_prev , { desc = "Select next"}},
+      { 'l', portal_cmds.select_child, { desc = "Select child"} },
+      { 'r', portal_cmds.select_root, { desc = "Select root"} },
+      { 'J', portal_cmds.next_viewer, { desc = "Next viewer"} },
+      { 'K', portal_cmds.prev_viewer, { desc = "Previous viewer"} },
+      { 'V', portal_cmds.def_selected, { exit = true, nowait = true }},
+      { '<C-h>', portal_cmds.history_back, { desc = "History back"} },
+      { '<C-l>', portal_cmds.history_forward, { desc = "History forward"} },
+      { '<CR>', portal_cmds.focus_selected, { desc = "Focus selected"} },
+      { '<C-k>', portal_cmds.clear, { desc = "Clear", exit = true, nowait = true } },
+      { 'q', nil, { exit = true, nowait = true, desc = 'exit' }}
    }
 })
 
@@ -181,11 +197,11 @@ local portal_mappings = {
     o = { portal_cmds.open, "Portal open" },
     c = { portal_cmds.clear, "Portal clear" },
 
-    e = { conjure_taps.last_exception, "Portal last exception" },
-    w = { conjure_taps.tap_word, "Portal tap word" },
-    f = { conjure_taps.tap_form, "Portal tap form" },
-    r = { conjure_taps.tap_root_form, "Portal tap root form" },
-
+    e = { conjure_taps.tap_last_exception, "Tap last exception" },
+    w = { conjure_taps.tap_word, "Tap word" },
+    f = { conjure_taps.tap_form, "Tap form" },
+    r = { conjure_taps.tap_root_form, "Tap root form" },
+    p = { conjure_taps.tap_ns_publics, "Tap ns publics"},
     R = { portal_cmds.remove_tap, "Remove tap"},
     T = { portal_cmds.add_tap, "Add tap"},
     V = { portal_cmds.def_selected, "def selected"}
