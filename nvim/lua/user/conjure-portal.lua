@@ -119,6 +119,23 @@ local def_selected = function ()
   end
 end
 
+local unmap_var = function ()
+  -- TODO: Remove duplication (function above)
+  local var_name = nil
+  vim.ui.input({prompt = "Enter var name: "}, function (input)
+      -- TODO: Check clojure syntax
+      var_name = vim.trim(input)
+    end)
+
+  if var_name then
+    eval["eval-str"]({
+      code = "(ns-unmap *ns* '" .. var_name ..  ")",
+      origin = "custom_command",
+      ["passive?"] = false,
+    })
+  end
+end
+
 local portal_cmds = {
   open = conjure_eval_fn [[
     (in-ns 'user)
@@ -144,6 +161,7 @@ local portal_cmds = {
   focus_selected = invoke_portal_command "(portal.ui.commands/focus-selected portal.ui.state/state)",
   toggle_expand = invoke_portal_command "(portal.ui.commands/toggle-expand portal.ui.state/state)",
   def_selected = def_selected,
+  unmap_var = unmap_var
 }
 local hydra_ok, hydra = pcall(require, "hydra")
 if not hydra_ok then
