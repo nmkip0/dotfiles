@@ -57,6 +57,7 @@ return packer.startup(function(use)
   use 'declancm/maximize.nvim'
   use {'s1n7ax/nvim-window-picker', tag = "v1.*"}
   use 'christoomey/vim-tmux-navigator'
+  use 'kwkarlwang/bufresize.nvim'
 
   -- themes
   use 'shaunsingh/nord.nvim'

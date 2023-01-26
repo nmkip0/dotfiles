@@ -15,6 +15,7 @@ require "user.window-picker"
 require "user.winshift"
 require "user.maximize"
 require "user.tmux-navigator"
+-- require "user.bufresize"
 
 require "user.neo-tree"
 require "user.lualine"
