@@ -1,6 +1,18 @@
 
 local servers = {
   clojure_lsp = {
+    commands = {
+      OrganizeImports = {
+        function ()
+          vim.lsp.buf.execute_command({
+            command = "clean-ns",
+            arguments = {"file://" .. vim.api.nvim_buf_get_name(0), 0, 0},
+            title = ""
+          })
+        end,
+        description = "Clean Namespace"
+      },
+    },
     root_dir = function()
       return vim.fn.getcwd()
     end,

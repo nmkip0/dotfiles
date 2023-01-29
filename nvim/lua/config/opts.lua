@@ -33,6 +33,7 @@ local options = {
   wrap = false,                            -- display lines as one long line
   scrolloff = 8,
   sidescrolloff = 8,
+  ssop = "sesdir,winsize,buffers,tabpages"
 }
 
 for k, v in pairs(options) do

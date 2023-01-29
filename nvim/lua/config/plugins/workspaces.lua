@@ -73,7 +73,7 @@ function M.config()
   }
 
   wk.register({
-    w = {
+    W = {
       name = 'Workspaces',
       l = { load_workspace, 'Load existing' },
       a = { add_workspace, 'Add' },

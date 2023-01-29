@@ -23,17 +23,19 @@ function M.setup(bufnr)
       t = { tb.lsp_type_definitions, 'Type definition' }
     },
     ['<leader>'] = {
-      l = {
-        r = { vim.lsp.buf.rename, 'Rename' },
-        n = { diag_next, 'Next diagnostics' },
-        N = { diag_prev, 'Prev diagnostics' },
+      c = {
+        name = "+code",
+        a = { vim.lsp.buf.code_action, "Code Actions" },
+        d = { function() tb.diagnostics { bufnr = 0 } end, 'Document diagnostics' },
+        D = { tb.diagnostics, 'Workspace diagnostics' },
+        f = { vim.lsp.buf.format, 'Format buffer' },
+        j = { diag_next, "Next Diagnostic", },
+        k = { diag_prev, "Prev Diagnostic", },
         l = { diag_float, 'Line diagnostic' },
-        a = { vim.lsp.buf.code_action, 'Code actions' },
+        o = { "<cmd>OrganizeImports<cr>", "Organize Imports" },
+        r = { vim.lsp.buf.rename, 'Rename' },
         s = { tb.lsp_document_symbols, 'Document symbols' },
         S = { tb.lsp_dynamic_workspace_symbols, 'Workspace symbols' },
-        f = { vim.lsp.buf.format, 'Format buffer' },
-        d = { function() tb.diagnostics { bufnr = bufnr } end, 'Document diagnostics' },
-        D = { tb.diagnostics, 'Workspace diagnostics' },
         w = {
           name = 'LSP Workspace',
           a = { vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder' },

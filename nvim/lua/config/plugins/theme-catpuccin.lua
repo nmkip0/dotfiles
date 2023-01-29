@@ -6,6 +6,7 @@ local M = {
 
 function M.config()
   local cp = require 'catppuccin'
+  vim.cmd('hi link user.win.title @text.note')
 
   cp.setup {
     flavour = "frappe", -- latte, frappe, macchiato, mocha
