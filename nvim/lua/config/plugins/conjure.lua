@@ -1,7 +1,7 @@
 local M = {
   'Olical/conjure',
   branch = 'develop',
-  ft = { 'clojure' }
+  ft = { 'clojure', 'lua' }
 }
 
 M.config = function()
