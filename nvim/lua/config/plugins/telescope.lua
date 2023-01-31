@@ -17,14 +17,14 @@ function M.config()
   local telescope = require('telescope')
   local actions = require('telescope.actions')
   local themes = require('telescope.themes')
-
+require('telescope.config')
   telescope.setup {
     defaults = {
 
       prompt_prefix = " ",
       selection_caret = " ",
       path_display = { "smart" },
-      file_ignore_patterns = { 'node_modules', 'target' },
+      file_ignore_patterns = { 'node_modules', 'target', 'classes', ".cpcache", ".cache", ".git" },
       mappings = {
         i = {
           ["<C-n>"] = actions.cycle_history_next,
@@ -90,15 +90,22 @@ function M.config()
       },
       vimgrep_arguments = {
         'rg',
+        '--hidden',
+        '--ignore-case',
         '--color=never',
         '--no-heading',
         '--with-filename',
         '--line-number',
         '--column',
         '--smart-case',
-        '--trim'
+        '--trim',
+        '--glob',
+        '!**/.git/*',
+        '--glob',
+        '!*.log*',
+        '--no-ignore-vcs'
       },
-    },
+   },
     extensions = {
       ['ui-select'] = { themes.get_dropdown {} },
       fzf = {
