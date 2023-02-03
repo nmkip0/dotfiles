@@ -34,6 +34,7 @@ function M.setup(bufnr)
         l = { diag_float, 'Line diagnostic' },
         o = { "<cmd>OrganizeImports<cr>", "Organize Imports" },
         r = { vim.lsp.buf.rename, 'Rename' },
+        R = { ":LspRestart<cr>", 'LSP Restart' },
         s = { tb.lsp_document_symbols, 'Document symbols' },
         S = { tb.lsp_dynamic_workspace_symbols, 'Workspace symbols' },
         w = {
