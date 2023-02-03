@@ -89,21 +89,28 @@ require('telescope.config')
         }
       },
       vimgrep_arguments = {
-        'rg',
-        '--hidden',
-        '--ignore-case',
-        '--color=never',
-        '--no-heading',
-        '--with-filename',
-        '--line-number',
-        '--column',
-        '--smart-case',
-        '--trim',
-        '--glob',
-        '!**/.git/*',
-        '--glob',
-        '!*.log*',
-        '--no-ignore-vcs'
+        "rg",
+        -- search only known types (rg --type-list)
+        "--type=all",
+        -- ignore this dirs
+        "--glob=!.git/*",
+        "--glob=!node_modules/*",
+        "--glob=!.cpcache/*",
+        "--glob=!.cache/*",
+        "--glob=!target/*",
+        "--glob=!tmp/*",
+        -- limit of sin, if line width greater than 150 - we are not interested in this file
+        "--max-columns=150",
+        "--hidden",
+        -- do not respect .gitignore
+        "--no-ignore",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "--trim",
       },
    },
     extensions = {
