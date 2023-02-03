@@ -1,6 +1,7 @@
 return {
-  { "moll/vim-bbye", lazy = false },
+  { "moll/vim-bbye", event = "VeryLazy" },
   { 'echasnovski/mini.animate', version = false },
   { 'echasnovski/mini.nvim', version = false },
-  { 'anuvyklack/hydra.nvim' }
+  { 'anuvyklack/hydra.nvim' },
+  { 'justinmk/vim-sneak', event = "VeryLazy" }
 }

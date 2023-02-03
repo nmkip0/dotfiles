@@ -1,18 +1,16 @@
 local M = {
-  'nvim-neo-tree/neo-tree.nvim',
-  cmd          = 'Neotree',
-  branch       = 'v2.x',
-  dependencies = {
-    's1n7ax/nvim-window-picker'
-  }
+  's1n7ax/nvim-window-picker'
 }
 
 function M.config()
   local wp = require('window-picker')
 
+  print("HELLO MOTO")
+
   wp.setup {
     autoselect_one = true,
     include_current = false,
+    
     filter_rules = {
       -- filter using buffer options
       bo = {
@@ -23,7 +21,8 @@ function M.config()
         buftype = { 'terminal' },
       },
     },
-    other_win_hl_color = '#e35e4f',
+    -- I think catpuccin is overriding this.
+    other_win_hl_color = '#DaF',
   }
 end
 

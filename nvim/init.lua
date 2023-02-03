@@ -1,5 +1,5 @@
 require('config.opts')
--- require('config.aucommands')
+require('config.autocmds')
 -- require('config.hl-groups')
 require('config.keymaps')
 require('config.lazy')
