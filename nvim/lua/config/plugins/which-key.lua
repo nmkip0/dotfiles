@@ -174,6 +174,11 @@ function M.config()
 			q = { "<cmd>qa<cr>", "Quit" },
 			Q = { "<cmd>qa!<cr>", "Quit without saving" },
 		},
+    L = {
+      name = "+lazy",
+      l = { "<cmd>Lazy<cr>", "Lazy" },
+      t = {"<cmd>Telescope lazy<cr>", "Telescope" }
+    }
 	}
 
 	which_key.register(mappings, leader_opts)
