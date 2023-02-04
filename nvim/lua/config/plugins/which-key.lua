@@ -142,6 +142,7 @@ function M.config()
 			B = { "<cmd>Telescope git_branches<cr>", "Git branches" },
 			d = { "<cmd>Telescope live_grep<cr>", "Directory" },
 			l = { "<cmd>Telescope resume<cr>", "Last search" },
+			k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 			r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Open Recent File" },
 			R = { "<cmd>Telescope registers<cr>", "Registers" },
 			p = { "<cmd>Telescope live_grep theme=ivy<cr>", "Search project" },
@@ -174,11 +175,11 @@ function M.config()
 			q = { "<cmd>qa<cr>", "Quit" },
 			Q = { "<cmd>qa!<cr>", "Quit without saving" },
 		},
-    L = {
-      name = "+lazy",
-      l = { "<cmd>Lazy<cr>", "Lazy" },
-      t = {"<cmd>Telescope lazy<cr>", "Telescope" }
-    }
+		L = {
+			name = "+lazy",
+			l = { "<cmd>Lazy<cr>", "Lazy" },
+			t = { "<cmd>Telescope lazy<cr>", "Telescope" },
+		},
 	}
 
 	which_key.register(mappings, leader_opts)
