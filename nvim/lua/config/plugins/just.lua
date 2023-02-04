@@ -1,4 +1,4 @@
-  return {
-    "NoahTheDuke/vim-just",
-    ft = "just"
-  }
+return {
+	"NoahTheDuke/vim-just",
+	ft = "just",
+}
