@@ -149,6 +149,10 @@ function M.config()
 			s = { "<cmd>Telescope resume<cr>", "Last search" },
 			T = { "<cmd>Telescope colorscheme<cr>", "Themes" },
 		},
+		t = {
+			name = "+toggles",
+			c = { "<cmd>TSContextToggle<cr>", "Treesitter Context" },
+		},
 		w = {
 			name = "+window",
 			["."] = { "<cmd>WinShift<cr>", "Win-Move mode" },

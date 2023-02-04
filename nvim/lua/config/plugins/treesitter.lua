@@ -6,6 +6,22 @@ local M = {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				opts = {
+					enable = false,
+					patterns = {
+						clojure = {
+							"list_lit",
+							"vec_lit",
+							"map_lit",
+							"set_lit",
+						},
+					},
+				},
+			},
+		},
 		event = "BufReadPost",
 		build = ":TSUpdate",
 		config = function()
