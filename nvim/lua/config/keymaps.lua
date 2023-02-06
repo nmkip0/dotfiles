@@ -31,3 +31,8 @@ keymap("n", "<Esc>", ":noh<CR>", opts)
 -- Move text up and down
 -- keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 -- keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+
+keymap("n", "<TAB>", ">>", { noremap = true })
+keymap("n", "<S-TAB>", "<<", { noremap = true })
+keymap("v", "<TAB>", ">gv", { noremap = true })
+keymap("v", "<S-TAB>", "<gv", { noremap = true })
