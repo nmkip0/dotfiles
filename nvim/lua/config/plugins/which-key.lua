@@ -3,6 +3,32 @@ local M = {
 	event = "VeryLazy",
 }
 
+local Util = require("lazy.core.util")
+local function toggle(option, silent, values)
+	if values then
+		if vim.opt_local[option]:get() == values[1] then
+			vim.opt_local[option] = values[2]
+		else
+			vim.opt_local[option] = values[1]
+		end
+		return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+	end
+	vim.opt_local[option] = not vim.opt_local[option]:get()
+	if not silent then
+		if vim.opt_local[option]:get() then
+			Util.info("Enabled " .. option, { title = "Option" })
+		else
+			Util.warn("Disabled " .. option, { title = "Option" })
+		end
+	end
+end
+
+local function toggle_fn(value)
+	return function()
+		toggle(value)
+	end
+end
+
 local leader_opts = {
 	mode = "n", -- NORMAL mode
 	prefix = "<leader>",
@@ -152,6 +178,8 @@ function M.config()
 		t = {
 			name = "+toggles",
 			c = { "<cmd>TSContextToggle<cr>", "Treesitter Context" },
+			r = { toggle_fn("relativenumber"), "Relative Number" },
+			w = { toggle_fn("wrap"), "Wrap" },
 		},
 		w = {
 			name = "+window",
