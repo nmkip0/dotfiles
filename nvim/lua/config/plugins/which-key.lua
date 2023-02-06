@@ -212,6 +212,10 @@ function M.config()
 			l = { "<cmd>Lazy<cr>", "Lazy" },
 			t = { "<cmd>Telescope lazy<cr>", "Telescope" },
 		},
+		M = {
+			name = "+mason",
+			m = { "<cmd>Mason<cr>", "Mason" }
+		},
 	}
 
 	which_key.register(mappings, leader_opts)
