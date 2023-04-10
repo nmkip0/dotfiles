@@ -125,7 +125,7 @@ function M.config()
 		f = {
 			name = "+file",
 			f = {
-				"<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--no-ignore-vcs<cr>",
+        "<cmd>Telescope find_files<cr>",
 				"Find File",
 			},
 			r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Open Recent File" },
@@ -214,7 +214,7 @@ function M.config()
 		},
 		M = {
 			name = "+mason",
-			m = { "<cmd>Mason<cr>", "Mason" }
+			m = { "<cmd>Mason<cr>", "Mason" },
 		},
 	}
 
