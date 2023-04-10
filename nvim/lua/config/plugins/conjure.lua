@@ -36,12 +36,14 @@ M.config = function()
 		vim.api.nvim_feedkeys(":ConjureConnect localhost:", "n", false)
 	end
 
-	local wk = require("which-key")
-	wk.register({
+	local clojure_mappings = require("config.plugins.conjure.clojure").config()
+	local mappings = vim.tbl_deep_extend("force", {
 		c = {
 			c = { connect_cmd, "Connect to specific port" },
 		},
-	}, { prefix = "<localleader>" })
+	}, clojure_mappings)
+	local wk = require("which-key")
+	wk.register(mappings, { prefix = "<localleader>" })
 end
 
 return M
