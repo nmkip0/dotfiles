@@ -20,7 +20,7 @@ function M.config()
 			},
 		},
 		-- I think catpuccin is overriding this.
-		other_win_hl_color = "#DaF",
+		other_win_hl_color = "#4a86cf",
 	})
 end
 
