@@ -49,13 +49,29 @@ function M.config()
 
   local tap_ns_publics = conjure_eval_fn("(tap> (ns-publics *ns*))")
 
+  local function scope_capture_defsc()
+    local id = nil
+    vim.ui.input({ prompt = "Enter id: " }, function(input)
+      id = vim.trim(input)
+    end)
+
+    if id then
+      eval["eval-str"]({
+        code = "(sc.api/defsc " .. id .. ")",
+        origin = "custom_command",
+        ["passive?"] = false,
+      })
+    end
+  end
+
   return {
     eval = conjure_eval_fn,
-    tap_word = eval_tap_word,
-    tap_form = eval_tap_form,
-    tap_root_form = eval_tap_root_form,
-    tap_last_exception = eval_tap_root_form,
-    tap_ns_publics = eval_tap_root_form,
+    eval_tap_word = eval_tap_word,
+    eval_tap_form = eval_tap_form,
+    eval_tap_root_form = eval_tap_root_form,
+    eval_tap_last_exception = eval_tap_root_form,
+    eval_tap_ns_publics = eval_tap_root_form,
+    scope_capture_defsc = scope_capture_defsc,
 
     mappings = {
       p = {
@@ -64,6 +80,7 @@ function M.config()
         f = { eval_tap_form, "Tap form" },
         r = { eval_tap_root_form, "Tap root form" },
 
+        C = { scope_capture_defsc, "Capture scope" },
         E = { tap_last_exception, "Tap last exception" },
         N = { tap_ns_publics, "Tap ns publics" },
       },
