@@ -234,13 +234,7 @@ local lisp_mappings = {
   l = { name = "+conjure log" },
   r = { name = "+refresh" },
   s = {
-    name = "+session",
-    -- remap conjure stuff to `S` +session
-    -- `s` structural editing
-    b = { "<Plug>(sexp_emit_tail_element)", "Barf forward" },
-    r = { "<Plug>(sexp_raise_list)", "Raise list" },
-    R = { "<Plug>(sexp_raise_element)", "Raise element" },
-    s = { "<Plug>(sexp_capture_next_element)", "Slurp forward" },
+    name = "+sexp",
   },
   t = { name = "+test" },
   v = { name = "+view" },
@@ -256,16 +250,16 @@ local function llopts(bufnr)
   }
 end
 
--- local group_id = vim.api.nvim_create_augroup("LISP_MAPPINGS", {clear = true})
--- vim.api.nvim_create_autocmd("FileType", {
---                               pattern = { "clojure", "fennel"},
---                               group = group_id,
---                               callback = function(ctx)
---                                 local which_key = require('which-key')
---                                 which_key.register({},llopts(0))
---                                 which_key.register(lisp_mappings, llopts(ctx.buf))
---                               end
--- })
+ local group_id = vim.api.nvim_create_augroup("LISP_MAPPINGS", {clear = true})
+ vim.api.nvim_create_autocmd("FileType", {
+                               pattern = { "clojure", "fennel"},
+                               group = group_id,
+                               callback = function(ctx)
+                                 local which_key = require('which-key')
+                                 which_key.register({},llopts(0))
+                                 which_key.register(lisp_mappings, llopts(ctx.buf))
+                               end
+ })
 
 -- local conjure_portal_ok, portal_mappings = pcall(require, "user.conjure-portal")
 -- if not conjure_portal_ok then
