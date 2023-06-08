@@ -45,6 +45,8 @@ function M.config()
     conjure_eval_tap(form)
   end
 
+  local function eval_tap_motion() end
+
   local tap_last_exception = conjure_eval_fn("(tap> (Throwable->map *e))")
 
   local tap_ns_publics = conjure_eval_fn("(tap> (ns-publics *ns*))")
@@ -74,15 +76,27 @@ function M.config()
     scope_capture_defsc = scope_capture_defsc,
 
     mappings = {
-      p = {
-        name = "+conjure",
-        w = { eval_tap_word, "Tap word" },
-        f = { eval_tap_form, "Tap form" },
-        r = { eval_tap_root_form, "Tap root form" },
+      e = {
+        name = "+eval",
+        w = { eval_tap_word, "Eval word" },
+        f = { eval_tap_form, "Eval form" },
+        r = { eval_tap_root_form, "Eval root form" },
 
-        C = { scope_capture_defsc, "Capture scope" },
-        E = { tap_last_exception, "Tap last exception" },
-        N = { tap_ns_publics, "Tap ns publics" },
+        E = { tap_last_exception, "Eval last exception" },
+        N = { tap_ns_publics, "Eval ns publics" },
+      },
+      --       p = {
+      --         name = "+eval",
+      --         w = { eval_tap_word, "Eval word" },
+      --         f = { eval_tap_form, "Eval form" },
+      --         r = { eval_tap_root_form, "Eval root form" },
+      --
+      --         E = { tap_last_exception, "Eval last exception" },
+      --         N = { tap_ns_publics, "Eval ns publics" },
+      --       },
+      R = {
+        name = "+repl",
+        C = { scope_capture_defsc, "api.sc/defsc" },
       },
     },
   }
