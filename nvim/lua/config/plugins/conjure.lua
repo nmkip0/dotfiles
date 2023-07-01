@@ -68,10 +68,14 @@ M.config = function()
 
   local conjure_mappings = require("config.plugins.conjure.extension").config().mappings
   local portal_mappings = require("config.plugins.conjure.portal")
+  local repl = require("config.tools.nrepl-finder")
 
   local mappings = vim.tbl_deep_extend("force", {
-    c = {
+    R = {
+      f = { repl.find_repls, "Find REPL" },
       c = { connect_cmd, "Connect to specific port" },
+      d = {"", "Disconnect from current REPL"},
+      s = { repl.switch_active_repl, "Switch active REPL" },
     },
   }, conjure_mappings)
   mappings = vim.tbl_deep_extend("force", mappings, portal_mappings)
