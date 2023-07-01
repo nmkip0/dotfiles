@@ -115,6 +115,7 @@ function M.config()
   local mappings = {
     ["`"] = { "<C-^>", "Switch to last buffer" },
     ["/"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Search dir" },
+    [" "] = { "<cmd>Telescope resume<cr>", "Telescope resume" },
     b = {
       name = "+buffer",
       b = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" },
