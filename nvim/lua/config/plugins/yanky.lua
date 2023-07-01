@@ -25,7 +25,7 @@ return {
     end,
     keys = {
       -- stylua: ignore
-      { "<leader>iy", function() require("telescope").extensions.yank_history.yank_history({}) end,
+      { "<leader>y", function() require("telescope").extensions.yank_history.yank_history({}) end,
         desc = "Open Yank History" },
       { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
       { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
