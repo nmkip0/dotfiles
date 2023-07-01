@@ -26,13 +26,8 @@ function M.setup(bufnr)
 			c = {
 				name = "+code",
 				a = { vim.lsp.buf.code_action, "Code Actions" },
-				d = {
-					function()
-						tb.diagnostics({ bufnr = 0 })
-					end,
-					"Document diagnostics",
-				},
-				D = { tb.diagnostics, "Workspace diagnostics" },
+				d = {"<cmd>TroubleToggle document_diagnostics<cr>" , "Document diagnostics" },
+				D = { "<cmd>TroubleToggle workspace_diagnostics<cr>" , "Workspace diagnostics" },
 				f = { vim.lsp.buf.format, "Format buffer" },
 				j = { diag_next, "Next Diagnostic" },
 				k = { diag_prev, "Prev Diagnostic" },
