@@ -72,18 +72,6 @@ local function vim_sexp_mappings()
   nmap("<M-l>", "<Plug>(sexp_swap_element_forward)", { desc = "Sexp swap element forward" })
   xmap("<M-l>", "<Plug>(sexp_swap_element_forward)", { desc = "Sexp swap element forward" })
 
-  nmap("<M-S-j>", "<Plug>(sexp_emit_head_element)", { desc = "Sexp emit head element" })
-  xmap("<M-S-j>", "<Plug>(sexp_emit_head_element)", { desc = "Sexp emit head element" })
-
-  nmap("<M-S-k>", "<Plug>(sexp_emit_tail_element)", { desc = "Sexp emit tail element" })
-  xmap("<M-S-k>", "<Plug>(sexp_emit_tail_element)", { desc = "Sexp emit tail element" })
-
-  nmap("<M-S-h>", "<Plug>(sexp_capture_prev_element)", { desc = "Sexp capture prev element" })
-  xmap("<M-S-h>", "<Plug>(sexp_capture_prev_element)", { desc = "Sexp capture prev element" })
-
-  nmap("<M-S-l>", "<Plug>(sexp_capture_next_element)", { desc = "Sexp capture next element" })
-  xmap("<M-S-l>", "<Plug>(sexp_capture_next_element)", { desc = "Sexp capture next element" })
-
   imap("<BS>", "<Plug>(sexp_insert_backspace)", { desc = "Sexp insert backspace" })
   imap('"', "<Plug>(sexp_insert_double_quote)", { desc = "Sexp insert double quote" })
   imap("(", "<Plug>(sexp_insert_opening_round)", { desc = "Sexp insert opening round" })
@@ -116,10 +104,6 @@ local function vim_sexp_mappings()
   nmap("<LocalLeader>sA", "<Plug>(sexp_insert_at_list_tail)", { desc = "Insert at tail" })
 
   nmap("<LocalLeader>s@", "<Plug>(sexp_splice_list)", { desc = "Sexp splice list" })
-  nmap("<LocalLeader>sR", "<Plug>(sexp_raise_list)", { desc = "Sexp raise list" })
-  xmap("<LocalLeader>sR", "<Plug>(sexp_raise_list)", { desc = "Sexp raise list" })
-  nmap("<LocalLeader>sr", "<Plug>(sexp_raise_element)", { desc = "Sexp raise element" })
-  xmap("<LocalLeader>sr", "<Plug>(sexp_raise_element)", { desc = "Sexp raise element" })
 end
 
 vim.api.nvim_create_autocmd("FileType", {
