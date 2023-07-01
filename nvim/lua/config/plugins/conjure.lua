@@ -34,14 +34,15 @@ M.config = function()
   vim.g["conjure#mapping#log_vsplit"] = false
   vim.g["conjure#mapping#log_toggle"] = false
   vim.g["conjure#mapping#eval_current_form"] = false
-  -- vim.g["conjure#mapping#eval_comment_current_form"] = true
   vim.g["conjure#mapping#eval_root_form"] = false
-  -- vim.g["conjure#mapping#eval_comment_root_form"] = true
   vim.g["conjure#mapping#eval_word"] = false
-  -- vim.g["conjure#mapping#eval_motion"] = true
+  vim.g["conjure#mapping#eval_motion"] = false
+  vim.g["conjure#mapping#eval_file"] = false
+
+  -- vim.g["conjure#mapping#eval_comment_current_form"] = true
+  -- vim.g["conjure#mapping#eval_comment_root_form"] = true
   -- vim.g["conjure#mapping#eval_buf"] = true
   -- vim.g["conjure#mapping#eval_visual"] = true
-  -- vim.g["conjure#mapping#eval_file"] = true
   -- vim.g["conjure#mapping#eval_replace_form"] = true
   -- vim.g["conjure#mapping#eval_comment_word"] = true
 
@@ -66,16 +67,69 @@ M.config = function()
     vim.api.nvim_feedkeys(":ConjureConnect localhost:", "n", false)
   end
 
+  local function conjure_log_open(is_vertical)
+    local log = require("conjure.log")
+    log["close-visible"]()
+    local cur_log
+    if is_vertical then
+      log.vsplit()
+      cur_log = "vsplit"
+    else
+      log.split()
+      local win = vim.api.nvim_get_current_win()
+      vim.api.nvim_win_set_height(win, 10)
+      cur_log = "split"
+    end
+    log["last-open-cmd"] = cur_log
+  end
+
+  local function is_log_win_open()
+    local l = require("conjure.log")
+    local wins = l["aniseed/locals"]["find-windows"]()
+    for _, _ in pairs(wins) do
+      return true
+    end
+    return false
+  end
+
+  local function conjure_log_toggle()
+    local log = require("conjure.log")
+    log.toggle()
+    if is_log_win_open() and log["last-open-cmd"] == "split" then
+      local win = vim.api.nvim_get_current_win()
+      vim.api.nvim_win_set_height(win, 10)
+    end
+  end
+
   local conjure_mappings = require("config.plugins.conjure.extension").config().mappings
   local portal_mappings = require("config.plugins.conjure.portal")
   local repl = require("config.tools.nrepl-finder")
 
   local mappings = vim.tbl_deep_extend("force", {
-    R = {
+    c = {
       f = { repl.find_repls, "Find REPL" },
-      c = { connect_cmd, "Connect to specific port" },
-      d = {"", "Disconnect from current REPL"},
-      s = { repl.switch_active_repl, "Switch active REPL" },
+      C = { connect_cmd, "Connect to specific port" },
+    },
+    l = {
+      name = "Conjure Log",
+      g = {
+        function()
+          conjure_log_toggle()
+        end,
+        "Toggle",
+      },
+      v = {
+        function()
+          conjure_log_open(true)
+        end,
+        "Open VSplit",
+      },
+      s = {
+        function()
+          conjure_log_open(false)
+        end,
+        "Open Split",
+      },
     },
   }, conjure_mappings)
   mappings = vim.tbl_deep_extend("force", mappings, portal_mappings)

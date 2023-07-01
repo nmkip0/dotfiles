@@ -14,12 +14,16 @@ function M.config()
 
   local function conjure_eval_fn(form, passive)
     return function()
-      conjure_eval(form, passive or false)
+      if form then
+        conjure_eval(form, passive or false)
+      end
     end
   end
 
   local function conjure_eval_tap(form)
-    conjure_eval("(doto " .. form .. " tap>)")
+    if form then
+      conjure_eval("(doto " .. form .. " tap>)")
+    end
   end
 
   local function conjure_word()
@@ -27,7 +31,8 @@ function M.config()
   end
 
   local function conjure_form(is_root)
-    return extract.form({ ["root?"] = is_root }).content
+    local form = extract.form({ ["root?"] = is_root })
+    return form and form.content
   end
 
   local function eval_tap_word()
@@ -44,8 +49,6 @@ function M.config()
     local form = conjure_form(true)
     conjure_eval_tap(form)
   end
-
-  local function eval_tap_motion() end
 
   local tap_last_exception = conjure_eval_fn("(tap> (Throwable->map *e))")
 
@@ -85,15 +88,6 @@ function M.config()
         E = { tap_last_exception, "Eval last exception" },
         N = { tap_ns_publics, "Eval ns publics" },
       },
-      --       p = {
-      --         name = "+eval",
-      --         w = { eval_tap_word, "Eval word" },
-      --         f = { eval_tap_form, "Eval form" },
-      --         r = { eval_tap_root_form, "Eval root form" },
-      --
-      --         E = { tap_last_exception, "Eval last exception" },
-      --         N = { tap_ns_publics, "Eval ns publics" },
-      --       },
       R = {
         name = "+repl",
         C = { scope_capture_defsc, "api.sc/defsc" },
