@@ -118,7 +118,6 @@ local M = {
         ensure_installed = vim.tbl_keys(servers),
       },
     },
-    { "j-hui/fidget.nvim", config = true, enabled = true },
   },
 }
 
@@ -130,6 +129,9 @@ function M.config()
   --require "config.plugins.lsp.diagnostics".setup()
 
   local options = {
+    before_init = function(params)
+      params.workDoneToken = "1"
+    end,
     handlers = settings.handlers,
     on_attach = settings.on_attach,
     capabilities = settings.capabilities,
