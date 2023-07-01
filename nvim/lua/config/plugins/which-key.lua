@@ -170,6 +170,7 @@ function M.config()
       d = { "<cmd>Telescope live_grep<cr>", "Directory" },
       l = { "<cmd>Telescope resume<cr>", "Last search" },
       k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+      n = { "<cmd>Noice telescope<cr>", "Noice" },
       r = { "<cmd>Telescope oldfiles cwd_only=true<cr>", "Open Recent File" },
       R = { "<cmd>Telescope registers<cr>", "Registers" },
       p = { "<cmd>Telescope live_grep theme=ivy<cr>", "Search project" },
@@ -180,7 +181,7 @@ function M.config()
       name = "+toggles",
       c = { "<cmd>TSContextToggle<cr>", "Treesitter Context" },
       r = { toggle_fn("relativenumber"), "Relative Number" },
-      w = { toggle_fn("wrap"), "Wrap" },
+      w = { toggle_fn("wrap"), "Wrap lines" },
     },
     w = {
       name = "+window",
@@ -250,16 +251,16 @@ local function llopts(bufnr)
   }
 end
 
- local group_id = vim.api.nvim_create_augroup("LISP_MAPPINGS", {clear = true})
- vim.api.nvim_create_autocmd("FileType", {
-                               pattern = { "clojure", "fennel"},
-                               group = group_id,
-                               callback = function(ctx)
-                                 local which_key = require('which-key')
-                                 which_key.register({},llopts(0))
-                                 which_key.register(lisp_mappings, llopts(ctx.buf))
-                               end
- })
+local group_id = vim.api.nvim_create_augroup("LISP_MAPPINGS", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "clojure", "fennel" },
+  group = group_id,
+  callback = function(ctx)
+    local which_key = require("which-key")
+    which_key.register({}, llopts(0))
+    which_key.register(lisp_mappings, llopts(ctx.buf))
+  end,
+})
 
 -- local conjure_portal_ok, portal_mappings = pcall(require, "user.conjure-portal")
 -- if not conjure_portal_ok then
