@@ -1,0 +1,1 @@
+require("nmkip.core.lazy")
