@@ -109,6 +109,36 @@ return {
       })
     end,
   },
+  {
+    "gbprod/yanky.nvim",
+    dependencies = { { "kkharji/sqlite.lua", enabled = not jit.os:find("Windows") } },
+    opts = {
+        highlight = {
+          on_put = false,
+          on_yank = true,
+          timer = 100
+        },
+        preserve_cursor_position = {
+          enabled = true,
+        },
+        ring = {
+          storage = "sqlite",
+          update_register_on_cycle = true,
+        },
+    },
+    keys = {
+        -- stylua: ignore
+      { "<leader>y", function() require("telescope").extensions.yank_history.yank_history({ }) end, desc = "Open Yank History" },
+      { "<leader>sy", function() require("telescope").extensions.yank_history.yank_history({ }) end, desc = "Open Yank History" },
+      { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
+      { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
+      { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
+      { "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after selection" },
+      { "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before selection" },
+      { "[p", "<Plug>(YankyCycleForward)", desc = "Cycle forward through yank history" },
+      { "]p", "<Plug>(YankyCycleBackward)", desc = "Cycle backward through yank history" },
+    },
+  },
   -- Fuzzy finder.
   -- The default key bindings to find files will use Telescope's
   -- `find_files` or `git_files` depending on whether the
