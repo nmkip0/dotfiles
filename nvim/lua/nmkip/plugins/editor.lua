@@ -18,6 +18,8 @@ return {
         ["<leader>gh"] = { name = "+hunks" },
         ["<leader>q"] = { name = "+quit/session" },
         ["<leader>s"] = { name = "+search" },
+        ["<leader>t"] = { name = "+toggles" },
+        ["<leader>tc"] = { "<cmd>TSContextToggle<cr>" , "Treesitter Context" },
         ["<leader>u"] = { name = "+ui" },
         ["<leader>w"] = { name = "+windows" },
         ["<leader>x"] = { name = "+diagnostics/quickfix" },
@@ -63,6 +65,13 @@ return {
         end,
         desc = "Toggle UndoTree",
       },
+      {
+        "<leader>tu",
+        function()
+          vim.cmd.UndotreeToggle()
+        end,
+        desc = "UndoTree",
+      }
     },
     init = function()
       vim.g["undotree_WindowLayout"] = 3
