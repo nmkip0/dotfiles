@@ -1,5 +1,5 @@
 return {
- {
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
@@ -29,5 +29,76 @@ return {
       wk.setup(opts)
       wk.register(opts.defaults)
     end,
-  }
+  },
+  { "echasnovski/mini.bufremove", event = "BufReadPost" },
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+    keys = {
+      { "<localleader>D", "<cmd>Trouble<cr>", desc = "Open Trouble Diagnostics" },
+    },
+    opts = {
+      use_diagnostic_signs = true,
+      mode = "document_diagnostics",
+    },
+  },
+  {
+    "kylechui/nvim-surround",
+    event = "BufReadPost",
+    opts = {
+      keymaps = {
+        visual = "gS",
+        visual_line = "gS",
+      },
+    },
+  },
+  {
+    "mbbill/undotree",
+    cmd = "UndotreeToggle",
+    keys = {
+      {
+        "<leader>u",
+        function()
+          vim.cmd.UndotreeToggle()
+        end,
+        desc = "Toggle UndoTree",
+      },
+    },
+    init = function()
+      vim.g["undotree_WindowLayout"] = 3
+      vim.g["undotree_SplitWidth"] = 60
+      vim.g["undotree_SetFocusWhenToggle"] = 1
+    end,
+  },
+  -- search/replace in multiple files
+  {
+    "nvim-pack/nvim-spectre",
+    build = false,
+    cmd = "Spectre",
+    opts = { open_cmd = "noswapfile vnew" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+    },
+  },
+  {
+    "numToStr/Comment.nvim",
+    event = "BufReadPost",
+    config = function()
+      require("Comment").setup({})
+    end,
+  },
+  {
+    "echasnovski/mini.pairs",
+    version = "0.9.0",
+    config = function()
+      require("mini.pairs").setup({
+        mappings = {
+          ["<"] = { action = "open", pair = "<>", neigh_pattern = "[^\\]." },
+          [">"] = { action = "close", pair = "<>", neigh_pattern = "[^\\]." },
+        },
+      })
+    end,
+  },
+
 }
