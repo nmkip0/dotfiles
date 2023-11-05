@@ -65,12 +65,14 @@ local function read_nrepl_ports(dirs)
 end
 
 local function find_nrepl_processes()
+
+  -- xargs -I % sh -c 'timeout 1s lsof -p % | grep cwd | awk "{print \$9}"' | \
   local cmd = [[
     ps aux | \
     grep java | \
     grep nrepl | \
     awk '{print $2}' | \
-    xargs -I % sh -c 'timeout 1s lsof -p % | grep cwd | awk "{print \$9}"' | \
+    xargs -I % sh -c 'lsof -n -p % | grep cwd | awk "{print \$9}"' | \
     uniq
   ]]
 
