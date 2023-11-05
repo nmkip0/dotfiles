@@ -70,7 +70,8 @@ local function find_nrepl_processes()
     grep java | \
     grep nrepl | \
     awk '{print $2}' | \
-    xargs -I % sh -c 'lsof -p % | grep cwd | awk "{print \$9}"'
+    xargs -I % sh -c 'timeout 1s lsof -p % | grep cwd | awk "{print \$9}"' | \
+    uniq
   ]]
 
   local res = vim.fn.system(cmd)
