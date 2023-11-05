@@ -1,5 +1,5 @@
-vim.cmd.colorscheme("gruvbox-material")
--- vim.cmd.colorscheme("catppuccin")
+-- vim.cmd.colorscheme("gruvbox-material")
+vim.cmd.colorscheme("catppuccin")
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","

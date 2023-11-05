@@ -365,5 +365,8 @@ return {
       "nvim-telescope/telescope-fzy-native.nvim",
     },
   },
-
+  {
+    "NoahTheDuke/vim-just",
+    ft = "just",
+  },
 }
