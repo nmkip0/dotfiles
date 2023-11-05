@@ -105,7 +105,7 @@ return {
           mappings = {
             ["<space>"] = "none",
 
-            ["<Right>"] = function(state)
+            ["l"] = function(state)
               local node = state.tree:get_node()
               if require("neo-tree.utils").is_expandable(node) then
                 state.commands["toggle_node"](state)
@@ -115,12 +115,14 @@ return {
               end
             end,
 
-            ["<Left>"] = function(state)
+            ["h"] = function(state)
               local node = state.tree:get_node()
               if require("neo-tree.utils").is_expandable(node) then
                 state.commands["toggle_node"](state)
               end
             end,
+            ["s"] = "split_with_window_picker",
+            ["v"] = "vsplit_with_window_picker",
           },
         },
 
