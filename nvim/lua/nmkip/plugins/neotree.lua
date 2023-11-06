@@ -42,6 +42,13 @@ local function reveal_file_in_neotree()
   vim.cmd.Neotree("reveal")
 end
 
+local function toggle_node(state)
+  local node = state.tree:get_node()
+  if require("neo-tree.utils").is_expandable(node) then
+    state.commands["toggle_node"](state)
+  end
+end
+
 local function register_keymaps()
   require("which-key").register({
     ["<leader>"] = {
@@ -115,12 +122,8 @@ return {
               end
             end,
 
-            ["h"] = function(state)
-              local node = state.tree:get_node()
-              if require("neo-tree.utils").is_expandable(node) then
-                state.commands["toggle_node"](state)
-              end
-            end,
+            ["<TAB>"] = toggle_node,
+            ["h"] = toggle_node,
             ["s"] = "split_with_window_picker",
             ["v"] = "vsplit_with_window_picker",
           },
