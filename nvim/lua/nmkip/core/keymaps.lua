@@ -13,12 +13,6 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", "Escape and clear hlsearch")
 
 map("n", "<leader>`", "<C-^>", "Toggle previous buffer")
 
----- Move to window using <ctrl>-hjkl
-map("n", "<C-h>", "<C-w>h", "Go to left window")
-map("n", "<C-j>", "<C-w>j", "Go to lower window")
-map("n", "<C-k>", "<C-w>k", "Go to upper window")
-map("n", "<C-l>", "<C-w>l", "Go to right window")
-
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tabnext<cr>", "Next Tab")
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", "Close Tab")
