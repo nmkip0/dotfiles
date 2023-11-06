@@ -151,7 +151,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    version = false, -- telescope did only one release, so use HEAD for now
+    -- version = false, -- telescope did only one release, so use HEAD for now
     keys = {
       {
         "<leader>,",
@@ -208,6 +208,14 @@ return {
       local open_selected_with_trouble = function(...)
         return require("trouble.providers.telescope").open_selected_with_trouble(...)
       end
+
+      vim.api.nvim_create_autocmd("WinLeave", {
+        callback = function()
+          if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+          end
+        end,
+      })
 
       return {
         pickers = {
