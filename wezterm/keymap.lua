@@ -21,6 +21,8 @@ function M.setup(config)
     { key = "p", mods = "LEADER",       action = act.PaneSelect },
     { key = "z", mods = "LEADER",       action = act.TogglePaneZoomState },
 
+    { key = "Q", mods = "CTRL|SHIFT",   action = act.QuitApplication },
+
     -- { key = "p", mods = "LEADER",       action = act.ActivateKeyTable { name = "move_pane", one_shot = false } },
     { key = "o", mods = "LEADER",       action = act.ActivateKeyTable { name = "rotate_pane", one_shot = false } },
     { key = "r", mods = "LEADER",       action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
@@ -65,7 +67,7 @@ function M.setup(config)
   for i = 1, 9 do
     table.insert(config.keys, {
       key = tostring(i),
-      mods = "LEADER",
+      mods = "CTRL",
       action = act.ActivateTab(i - 1)
     })
   end
