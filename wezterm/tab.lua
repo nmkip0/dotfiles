@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local colors = require("theme").get_colors()
 
-local Tab = {}
+local M = {}
 
 local basename = function(s)
   return string.gsub(s, "(.*[/\\])(.*)", "%2")
@@ -103,7 +103,7 @@ local function get_current_working_folder_name(tab)
   return string.format(" %s", string.match(cwd, ".*/([^/]+)/$"))
 end
 
-function Tab.setup(config)
+function M.setup(config)
   config.hide_tab_bar_if_only_one_tab = false
   config.use_fancy_tab_bar = false
   config.tab_bar_at_bottom = true
@@ -121,7 +121,7 @@ function Tab.setup(config)
 
     -- Current command (nvim, etc)
     local foreground_process = basename(pane:get_foreground_process_name())
-
+    
     -- Let's add color to one of the components
     window:set_right_status(wezterm.format({
       -- Wezterm has a built-in nerd fonts
@@ -136,6 +136,8 @@ function Tab.setup(config)
   end)
 
   wezterm.on("format-tab-title", function(tab)
+    local is_zoomed = tab.active_pane.is_zoomed
+
     return wezterm.format({
       { Text = " " },
       { Attribute = { Intensity = "Half" } },
@@ -143,6 +145,7 @@ function Tab.setup(config)
       { Text = string.format("%s", tab.tab_index + 1) },
       "ResetAttributes",
       { Text = get_current_working_folder_name(tab) },
+      { Text = is_zoomed and " Z" or ""},
       { Foreground = { Color = colors.base } },
       { Text = " " },
     })
@@ -150,4 +153,4 @@ function Tab.setup(config)
 
 end
 
-return Tab
+return M
