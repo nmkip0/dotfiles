@@ -17,6 +17,7 @@ map("n", "<leader>`", "<C-^>", "Toggle previous buffer")
 map("n", "<leader><tab>l", "<cmd>tabnext<cr>", "Next Tab")
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", "Close Tab")
 map("n", "<leader><tab>h", "<cmd>tabprevious<cr>", "Previous Tab")
+map("n", "<leader><tab>n", "<cmd>tabnew<cr>", "New Tab")
 
 vim.api.nvim_set_keymap("n", "<S-Down>", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<S-Up>", "<Nop>", { noremap = true, silent = true })
