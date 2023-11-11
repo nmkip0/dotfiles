@@ -13,19 +13,20 @@ function M.eval(ns, code, opts)
     "clojure",
     fn,
     vim.tbl_extend("force", {
-                     origin = "nmkip.lang.clojure.eval",
-                     context = ns,
-                     code = code,
-                            }, opts)
-                         )
+      origin = "nmkip.lang.clojure.eval",
+      context = ns,
+      code = code,
+    }, opts)
+  )
 end
 
-local function conjure_eval(form, passive)
+local function conjure_eval(form, opts)
   return eval["eval-str"]({
-      code = form,
-      origin = "custom_command",
-      ["passive?"] = passive,
-                         })
+    code = form,
+    origin = "custom_command",
+    ["passive?"] = opts.passive or false,
+    range = opts.range
+  })
 end
 
 local function conjure_eval_fn(form, passive)
@@ -38,17 +39,16 @@ end
 
 local function conjure_eval_tap(form)
   if form then
-    conjure_eval("(doto " .. form .. " tap>)")
+    conjure_eval("(doto " .. form.content .. " tap>)", {original_form = form})
   end
 end
 
 local function conjure_word()
-  return extract.word().content
+  return extract.word()
 end
 
 local function conjure_form(is_root)
-  local form = extract.form({ ["root?"] = is_root })
-  return form and form.content
+  return extract.form({ ["root?"] = is_root })
 end
 
 function M.eval_tap_word()

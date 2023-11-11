@@ -33,7 +33,7 @@ return {
       k = { diag_prev, "Prev Diagnostic" },
       l = { diag_float, "Line diagnostic" },
       o = { "<cmd>OrganizeImports<cr>", "Organize Imports" },
-      r = { vim.lsp.buf.rename, "Code actions"},
+      r = { vim.lsp.buf.rename, "Rename"},
       s = { tb.lsp_document_symbols, "Document symbols" },
       I = { ":LspInfo<cr>", "Lsp Info" },
       R = { ":LspRestart<cr>", "Lsp Restart" },

@@ -26,7 +26,7 @@ return {
     init = function()
       vim.g["conjure#highlight#enabled"] = true
       vim.g["conjure#highlight#group"] = "CurrentWord"
-      vim.g["conjure#highlight#timeout"] = 200
+      vim.g["conjure#highlight#timeout"] = 150
       vim.g["conjure#eval#inline#highlight"] = "CurrentWord"
 
       vim.g["conjure#extract#tree_sitter#enabled"] = true

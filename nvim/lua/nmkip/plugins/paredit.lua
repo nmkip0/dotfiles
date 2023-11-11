@@ -5,6 +5,22 @@ return {
     ft = { "clojure" },
     config = function()
       local paredit = require("nvim-paredit")
+      local langs = require("nvim-paredit.lang")
+      local wrap = require("nvim-paredit.api.wrap")
+
+      local function wrap_nearest_form(prefix, suffix)
+        local buf = vim.api.nvim_get_current_buf()
+        local lang = langs.get_language_api()
+        local current_element = wrap.find_element_under_cursor(lang)
+
+        if not current_element then
+          return
+        end
+
+        local form = wrap.find_form(current_element, lang)
+
+        return wrap.wrap_element(buf, form, prefix, suffix)
+      end
       paredit.setup({
         indent = {
           enabled = true,
@@ -40,14 +56,15 @@ return {
 
           ["<localleader>ws"] = {
             function()
-              paredit.wrap.wrap_enclosing_form_under_cursor("(sc.api/spy ", ")")
+              wrap_nearest_form("(sc.api/spy ", ")")
             end,
             "Wrap with sc.api/spy",
           },
 
           ["<localleader>wt"] = {
             function()
-              paredit.wrap.wrap_enclosing_form_under_cursor("(doto ", " tap>)")
+              -- paredit.wrap.wrap_element_under_cursor("(doto ", " tap>)")
+              wrap_nearest_form("(doto ", " tap>)")
             end,
             "Wrap with doto tap>",
           },

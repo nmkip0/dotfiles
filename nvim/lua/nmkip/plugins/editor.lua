@@ -421,5 +421,7 @@ return {
           include_current = false,
       })
     end,
-  }
+  },
+  {"kevinhwang91/nvim-bqf",
+    ft = "qf"}
 }
