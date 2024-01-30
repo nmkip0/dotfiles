@@ -39,16 +39,6 @@ return {
       R = { ":LspRestart<cr>", "Lsp Restart" },
       S = { tb.lsp_dynamic_workspace_symbols, "Workspace symbols" },
     },
-    w = {
-      name = "+window",
-      d = { "<cmd>close<cr>", "Delete window" },
-      h = { "<C-w>h", "Window left" },
-      j = { "<C-w>j", "Window down" },
-      k = { "<C-w>k", "Window up" },
-      l = { "<C-w>l", "Window right" },
-      s = { "<cmd>split<cr>", "Split horizontal" },
-      v = { "<cmd>vsplit<cr>", "Split vertical" },
-    }
   },
   K = { vim.lsp.buf.hover, "Hover doc" },
 }

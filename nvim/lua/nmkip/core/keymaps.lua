@@ -2,12 +2,20 @@ local map = require("nmkip.helpers.keys").map
 local saving = require("nmkip.behaviours.auto-save")
 
 map("n", "<leader>qq", function()
-  saving.write_all_buffers()
-  vim.api.nvim_command("qa")
+	saving.write_all_buffers()
+	vim.api.nvim_command("qa")
 end, "Save and quit")
 
 map("n", "<leader>fs", "<Cmd>w<Cr>", "Save buffer")
 map("n", "<leader>fS", saving.write_all_buffers, "Save all buffers")
+
+map("n", "<leader>wd", "<cmd>close<cr>", "Delete window")
+map("n", "<leader>wh", "<C-w>h", "Window left")
+map("n", "<leader>wj", "<C-w>j", "Window down")
+map("n", "<leader>wk", "<C-w>k", "Window up")
+map("n", "<leader>wl", "<C-w>l", "Window right")
+map("n", "<leader>ws", "<cmd>split<cr>", "Split horizontal")
+map("n", "<leader>wv", "<cmd>vsplit<cr>", "Split vertical")
 
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", "Escape and clear hlsearch")
 

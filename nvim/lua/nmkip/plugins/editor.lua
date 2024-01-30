@@ -21,7 +21,7 @@ return {
         ["<leader>t"] = { name = "+toggles" },
         ["<leader>tc"] = { "<cmd>TSContextToggle<cr>" , "Treesitter Context" },
         ["<leader>u"] = { name = "+ui" },
-        ["<leader>w"] = { name = "+windows" },
+        ["<leader>w"] = { name = "+window" },
         ["<leader>x"] = { name = "+diagnostics/quickfix" },
         ["<leader>L"] = { name = "+lazy"}
       },

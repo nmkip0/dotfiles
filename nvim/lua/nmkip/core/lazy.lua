@@ -37,21 +37,6 @@ lazy.setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   checker = { enabled = true }, -- automatically check for plugin updates
-  performance = {
-    rtp = {
-      -- disable some rtp plugins
-      disabled_plugins = {
-        "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
-    },
-  },
 })
 
 require("nmkip.helpers.keys").map("n", "<leader>LL", lazy.show, "Show Lazy")
