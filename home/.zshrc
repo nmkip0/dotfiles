@@ -18,6 +18,8 @@ then
     ZSH="$HOME/.oh-my-zsh"
     source /opt/homebrew/share/antigen/antigen.zsh
     alias brew-intel="arch -x86_64 /usr/local/homebrew/bin/brew"
+    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+    export TERM=wezterm
 else
 #  To find the place where it's installed(yay/pacman -Ql antigen)
     ZSH="/usr/share/oh-my-zsh"
@@ -32,7 +34,9 @@ antigen apply
 # ZSH config
 
 # Oh my zsh config
-
+export EDITOR=nvim
+export JJ_CONFIG=$HOME/.config/jj/config.toml
+export CLJ_CONFIG=$HOME/.config/clojure
 # Set name of the theme to load. If set to "random" it will load a random theme
 # each time that oh-my-zsh is loaded.
 ZSH_THEME="lambda"
@@ -45,13 +49,37 @@ VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 VI_MODE_INDICATOR="%F{yellow}+%f"
 
-# Aliases
+# ----- AUTO-COMPLETION ----- #
+
+# initialise completions with ZSH's compinit
+autoload -U compinit
+compinit
+source <(jj util completion --zsh)
+
+source <(kubectl completion zsh)
+source <(stern --completion=zsh)
+
+k() {
+  kubectl "${@}"
+}
+
+ka () {
+  kafkactl "${@}"
+}
+
+ls () {
+  lsd "$@"
+}
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias portal='bb ~/scripts/portal-server'
+
+alias k="kubectl"
+alias ka="kafkactl"
+alias ls="lsd"
 
 # Confirm before overwritting something
 alias rm="rm -i"
@@ -81,6 +109,4 @@ if [ -f '/home/nmkip/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+eval "$(mise activate zsh)"
