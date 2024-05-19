@@ -45,6 +45,7 @@ zinit cdreplay -q
 export EDITOR=nvim
 export JJ_CONFIG=$HOME/.config/jj/config.toml
 export CLJ_CONFIG=$HOME/.config/clojure
+export PATH=$PATH:$HOME/.local/bin
 
 # vi mode
 export KEYTIMEOUT=1
